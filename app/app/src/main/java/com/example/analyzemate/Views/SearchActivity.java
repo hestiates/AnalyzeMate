@@ -1,4 +1,4 @@
-package com.example.analyzemate;
+package com.example.analyzemate.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,22 +6,22 @@ import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.analyzemate.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class NotificationActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_notification);
-
+        setContentView(R.layout.activity_search);
         /*
          * Настройка навигационной панели
          * Задание начального экрана, добавление путей перехода
          */
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.bottom_notification);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_search);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int item_id = item.getItemId();
@@ -31,9 +31,6 @@ public class NotificationActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (item_id == R.id.bottom_search){
-                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
-                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
-                finish();
                 return true;
             } else if (item_id == R.id.bottom_stock){
                 startActivity(new Intent(getApplicationContext(), StockActivity.class));
@@ -41,6 +38,9 @@ public class NotificationActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (item_id == R.id.bottom_notification){
+                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
+                finish();
                 return true;
             } else if (item_id == R.id.bottom_account){
                 startActivity(new Intent(getApplicationContext(), AccountActivity.class));

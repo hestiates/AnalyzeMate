@@ -1,4 +1,4 @@
-package com.example.analyzemate;
+package com.example.analyzemate.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,21 +6,22 @@ import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.analyzemate.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class SearchActivity extends AppCompatActivity {
+public class AccountActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_account);
         /*
          * Настройка навигационной панели
          * Задание начального экрана, добавление путей перехода
          */
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.bottom_search);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_account);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int item_id = item.getItemId();
@@ -30,6 +31,9 @@ public class SearchActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (item_id == R.id.bottom_search){
+                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
+                finish();
                 return true;
             } else if (item_id == R.id.bottom_stock){
                 startActivity(new Intent(getApplicationContext(), StockActivity.class));
@@ -42,9 +46,6 @@ public class SearchActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (item_id == R.id.bottom_account){
-                startActivity(new Intent(getApplicationContext(), AccountActivity.class));
-                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
-                finish();
                 return true;
             }
             return false;

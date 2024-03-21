@@ -1,4 +1,4 @@
-package com.example.analyzemate;
+package com.example.analyzemate.Views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,10 +7,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 
-import com.example.analyzemate.Candle.Candle;
-import com.example.analyzemate.Candle.IntervalDayXAxisValueFormatter;
-import com.example.analyzemate.Candle.ParseJsonToStockCandleData;
-import com.example.analyzemate.Candle.StockCandleData;
+import com.example.analyzemate.Models.Candle;
+import com.example.analyzemate.Controllers.Candle.IntervalDayXAxisValueFormatter;
+import com.example.analyzemate.Controllers.Candle.ParseJsonToStockCandleData;
+import com.example.analyzemate.Models.StockCandleData;
+import com.example.analyzemate.R;
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;

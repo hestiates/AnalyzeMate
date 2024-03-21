@@ -1,6 +1,4 @@
-package com.example.analyzemate.Candle;
-
-import java.util.Date;
+package com.example.analyzemate.Models;
 
 /**
  * Класс свеча

@@ -1,8 +1,8 @@
-package com.example.analyzemate.Candle;
+package com.example.analyzemate.Controllers.Candle;
 
+import com.example.analyzemate.Models.StockCandleData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
 import java.io.IOException;
 
 /**

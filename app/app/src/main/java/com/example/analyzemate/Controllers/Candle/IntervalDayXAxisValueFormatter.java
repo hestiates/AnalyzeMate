@@ -1,5 +1,7 @@
-package com.example.analyzemate.Candle;
+package com.example.analyzemate.Controllers.Candle;
 
+import com.example.analyzemate.Models.Candle;
+import com.example.analyzemate.Models.StockCandleData;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.text.SimpleDateFormat;

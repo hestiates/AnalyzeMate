@@ -13,25 +13,25 @@
         android:theme="@style/Theme.AnalyzeMate"
         tools:targetApi="31">
         <activity
-            android:name=".AccountActivity"
+            android:name=".Views.AccountActivity"
             android:exported="false" />
         <activity
-            android:name=".NotificationActivity"
+            android:name=".Views.NotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".StockActivity"
+            android:name=".Views.StockActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".Views.SearchActivity"
             android:exported="false" />
         <activity
             android:name=".GraphActivity2"
             android:exported="false" />
         <activity
-            android:name=".GraphActivity"
+            android:name=".Views.GraphActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Views.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

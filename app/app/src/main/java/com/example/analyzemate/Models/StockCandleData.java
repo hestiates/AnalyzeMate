@@ -1,4 +1,5 @@
-package com.example.analyzemate.Candle;
+package com.example.analyzemate.Models;
+import com.example.analyzemate.Models.Candle;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
