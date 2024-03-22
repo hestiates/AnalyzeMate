@@ -1,5 +1,4 @@
 package com.example.analyzemate.Models;
-import com.example.analyzemate.Models.Candle;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.List;
 /**
  * Данные о бумаге
  */
-public class StockCandleData {
+public class StockPaper {
     @JsonProperty("figi")
     private String figi;
 
@@ -24,10 +23,10 @@ public class StockCandleData {
 
     private List<Candle> candles;
 
-    public StockCandleData() {
+    public StockPaper() {
     }
 
-    public StockCandleData(String figi, String ticker, String timeframe, List<List<Object>> history) {
+    public StockPaper(String figi, String ticker, String timeframe, List<List<Object>> history) {
         this.figi = figi;
         this.ticker = ticker;
         this.timeframe = timeframe;

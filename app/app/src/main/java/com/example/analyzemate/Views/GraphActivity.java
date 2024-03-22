@@ -6,11 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 
-import com.example.analyzemate.Models.Candle;
-import com.example.analyzemate.Controllers.Candle.IntervalDayXAxisValueFormatter;
-import com.example.analyzemate.Controllers.Candle.ParseJsonToStockCandleData;
-import com.example.analyzemate.Models.StockCandleData;
+import com.example.analyzemate.Controllers.StockPaper.IntervalDayXAxisValueFormatter;
+import com.example.analyzemate.Controllers.StockPaper.GraphController;
+import com.example.analyzemate.Models.EnumTimeframe;
+import com.example.analyzemate.Models.StockPaper;
 import com.example.analyzemate.R;
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -19,33 +24,54 @@ import com.github.mikephil.charting.data.CandleData;
 import com.github.mikephil.charting.data.CandleDataSet;
 import com.github.mikephil.charting.data.CandleEntry;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GraphActivity extends AppCompatActivity {
+
+    private final String[] timeframes = { "М30", "Ч1", "Ч4", "1Д"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
-
         // Инициализация граф
         CandleStickChart candleStickChart = findViewById(R.id.candleStick);
+
+        // Обработка spinner таймфрейма
+        Spinner spinner = findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_item, timeframes);
+
+        // Получение таймфрейма и от спиннера
+
+        EnumTimeframe timeframe = GraphController.SetAndListenSpinnerTimeframe(adapter, spinner,
+                candleStickChart);
+
+
+        ///////// РАБОТА С ГРАФОМ
+        // Инициализация граф
+        SetGraph(timeframe, candleStickChart);
+    }
+
+    /**
+     * Создание и обоновление графа
+     * @param timeframe
+     */
+    public static void SetGraph(EnumTimeframe timeframe, CandleStickChart candleStickChart ) {
         // Описание какое-то внизу справа
         candleStickChart.getDescription().setText("GFG");
 
         // Парсинг json
-        StockCandleData stockCandleData = getStockCandleData("path");
+        StockPaper stockPaper = GraphController.getStockPaper(timeframe);
 
         // Задание свеч для графика
-        List<CandleEntry> entries = getCandleEntries(stockCandleData);
+        List<CandleEntry> entries = GraphController.getCandleEntries(stockPaper);
 
         // Ось X, задание значений времени
-        SetAxis(candleStickChart, stockCandleData);
+        SetAxis(candleStickChart, stockPaper);
 
         // Создание датасета из массива свечей entries
-        CandleData data = getCandleData(entries, stockCandleData.getTicker());
+        CandleData data = getCandleData(entries, stockPaper.getTicker());
 
         // Задание данных и отрисовка графика
         candleStickChart.setData(data);
@@ -79,11 +105,14 @@ public class GraphActivity extends AppCompatActivity {
      * @param candleStickChart - график свечей
      * @param stockCandleData - данные о бумаге
      */
-    private static void SetAxis(CandleStickChart candleStickChart, StockCandleData stockCandleData) {
+    private static void SetAxis(CandleStickChart candleStickChart, StockPaper stockCandleData) {
         XAxis xAxis = candleStickChart.getXAxis();
 
         // Форматирование оси X
-        xAxis.setValueFormatter(new IntervalDayXAxisValueFormatter(stockCandleData));
+        IntervalDayXAxisValueFormatter formatter = new IntervalDayXAxisValueFormatter(stockCandleData);
+
+        // Установка форматтера
+        xAxis.setValueFormatter(formatter);
 
 //        xAxis.setCenterAxisLabels(true);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -91,52 +120,5 @@ public class GraphActivity extends AppCompatActivity {
 
         YAxis yAxisLeft = candleStickChart.getAxisLeft();
         yAxisLeft.setEnabled(false);
-    }
-
-    /**
-     * Получение массива свечей для построения графика
-     * @param stockCandleData - объект данных о бумаге
-     * @return List<CandleEntry> - массив свечей для построения графика
-     */
-    @NonNull
-    private static List<CandleEntry> getCandleEntries(StockCandleData stockCandleData) {
-        List<CandleEntry> entries = new ArrayList<>();
-        List<Candle> candles = stockCandleData.getCandles();
-
-        for (int index = 0; index < stockCandleData.getCandles().size(); index++) {
-            Candle candle = candles.get(index);
-
-            // Если открытие и закрытие равно, то свеча по идее белая, но пока сделаем зеленой
-            if (candle.getOpen() == candle.getClose()){
-                candle = new Candle(candle.getTime(), candle.getOpen(),
-                        candle.getClose() + candle.getClose() / 10000,
-                        candle.getHigh(), candle.getLow(), candle.getVolume());
-            }
-            entries.add(new CandleEntry(
-                    index,
-                    candle.getHigh(),
-                    candle.getLow(),
-                    candle.getOpen(),
-                    candle.getClose()));
-        }
-        return entries;
-    }
-
-    /**
-     * Получение данных о бумаге из json по пути path
-     * @param path - путь к файлу
-     * @return StockCandleData - объект бумаги с данными свеч
-     */
-    @NonNull
-    private static StockCandleData getStockCandleData(String path) {
-        StockCandleData stockCandleData;
-        // Передаем json в формате String и получаем информацию о бумаге
-        try {
-            // Получаем информацию о бумаге
-            stockCandleData = ParseJsonToStockCandleData.JsonToCandleData(path);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return stockCandleData;
     }
 }
