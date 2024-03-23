@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="5dp"
+        app:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/paper_image"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/baseline_account_balance_24"
+                android:background="@android:color/transparent"
+                android:layout_weight="5" />
+
+            <TextView
+                android:id="@+id/paper_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/cool"
+                android:textSize="25sp"
+                android:gravity="center_vertical"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/paper_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/sample"
+                    android:textSize="15sp"
+                    android:layout_marginEnd="15dp"/>
+
+                <TextView
+                    android:id="@+id/paper_change"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="5%"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:textSize="15sp"
+                    android:layout_marginEnd="15dp"
+                    app:drawableStartCompat="@drawable/trending_up"
+                    android:drawablePadding="5dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

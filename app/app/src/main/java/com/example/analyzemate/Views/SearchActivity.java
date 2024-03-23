@@ -5,9 +5,11 @@ import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.analyzemate.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -51,5 +53,12 @@ public class SearchActivity extends AppCompatActivity {
             return false;
         });
         // -----------------------
+        /*
+            ДОБАВИТЬ ФУНКЦИОНАЛЬНОСТЬ СПИСКУ
+         */
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        // recyclerView.setAdapter(customAdapter);
+
     }
 }
+
