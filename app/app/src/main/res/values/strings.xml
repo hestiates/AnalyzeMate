@@ -3,4 +3,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sample">sample</string>
+    <string name="account">account button</string>
+    <string name="find">find button</string>
+    <string name="history">Смотреть все</string>
+    <string name="greetings">Добро пожаловать!</string>
+    <string name="invest">Мои инвестиции</string>
 </resources>

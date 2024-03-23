@@ -8,13 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".Views.SearchActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:textColor="@color/black"
-        android:layout_centerInParent="true"
-        android:textSize="36sp" />
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
