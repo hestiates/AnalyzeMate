@@ -8,13 +8,19 @@
     android:layout_height="match_parent"
     tools:context=".Views.AccountActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/bt_to_graph"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Account"
-        android:textColor="@color/black"
+        android:onClick="goToGraphActivity"
         android:layout_centerInParent="true"
-        android:textSize="36sp" />
+        android:text="To Graph test"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.89" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
