@@ -40,7 +40,7 @@
                     android:id="@+id/search_button"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/baseline_search_24"
+                    android:src="@drawable/outline_assignment_24"
                     android:background="@android:color/transparent"
                     android:layout_weight="1" />
             </LinearLayout>
