@@ -4,6 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sample">sample</string>
     <string name="paper">Ценная бумага</string>
+    <string name="notification_text">Новая рекомендация по ценным бумагам</string>
     <string name="stock_name">Ценные бумаги</string>
     <string name="account">account button</string>
     <string name="find">find button</string>
@@ -11,4 +12,6 @@
     <string name="greetings">Добро пожаловать!</string>
     <string name="invest">Мои инвестиции</string>
     <string name="recommend">Рекомендуемые ценные бумаги</string>
+    <string name="notification_name">Уведомления</string>
+    <string name="see_paper">Смотреть подробнее</string>
 </resources>
