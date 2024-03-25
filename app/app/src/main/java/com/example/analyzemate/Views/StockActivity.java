@@ -54,9 +54,4 @@ public class StockActivity extends AppCompatActivity {
         });
         // -----------------------
     }
-
-    public void goToGraphActivity(View view) {
-        Intent intent = new Intent(this, GraphActivity.class);
-        startActivity(intent);
-    }
 }
