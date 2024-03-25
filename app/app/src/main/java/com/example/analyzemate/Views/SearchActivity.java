@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.analyzemate.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -29,7 +28,7 @@ public class SearchActivity extends AppCompatActivity {
             int item_id = item.getItemId();
             if (item_id == R.id.bottom_home){
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
+                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_to_right);
                 finish();
                 return true;
             } else if (item_id == R.id.bottom_search){
@@ -56,7 +55,7 @@ public class SearchActivity extends AppCompatActivity {
         /*
             ДОБАВИТЬ ФУНКЦИОНАЛЬНОСТЬ СПИСКУ
          */
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        // RecyclerView recyclerView = findViewById(R.id.recycler_view);
         // recyclerView.setAdapter(customAdapter);
 
     }

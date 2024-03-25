@@ -28,22 +28,22 @@ public class AccountActivity extends AppCompatActivity {
             int item_id = item.getItemId();
             if (item_id == R.id.bottom_home){
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
+                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_to_right);
                 finish();
                 return true;
             } else if (item_id == R.id.bottom_search){
                 startActivity(new Intent(getApplicationContext(), SearchActivity.class));
-                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
+                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_to_right);
                 finish();
                 return true;
             } else if (item_id == R.id.bottom_stock){
                 startActivity(new Intent(getApplicationContext(), StockActivity.class));
-                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
+                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_to_right);
                 finish();
                 return true;
             } else if (item_id == R.id.bottom_notification){
                 startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
-                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
+                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_to_right);
                 finish();
                 return true;
             } else if (item_id == R.id.bottom_account){
