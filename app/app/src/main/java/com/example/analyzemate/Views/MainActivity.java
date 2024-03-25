@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        // Проверка авторизации
+//        startActivity(new Intent(getApplicationContext(),GraphActivity.class));
         /*
         * Настройка навигационной панели
         * Задание начального экрана, добавление путей перехода

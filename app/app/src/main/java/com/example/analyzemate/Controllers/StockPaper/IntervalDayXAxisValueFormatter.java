@@ -16,7 +16,7 @@ import java.util.Locale;
  */
 public class IntervalDayXAxisValueFormatter extends ValueFormatter {
     private SimpleDateFormat dateFormat;
-    private List<Candle> candles;
+    private final List<Candle> candles;
     private EnumTimeframe timeframe;
 
 
@@ -32,12 +32,12 @@ public class IntervalDayXAxisValueFormatter extends ValueFormatter {
 
     /**
      * Задани timeframe и dateformat
-     * @param stockCandleData
+     * @param stockPaper данные о бумаге
      */
-    public void SetTimeframeAndDateFormat(StockPaper stockCandleData) {
+    public void SetTimeframeAndDateFormat(StockPaper stockPaper) {
         // Получение timeframe. В случае ошибки return
         try {
-            timeframe = EnumTimeframe.valueOf(stockCandleData.getTimeframe());
+            timeframe = EnumTimeframe.valueOf(stockPaper.getTimeframe());
         }
         catch (Exception e) {
             return;
