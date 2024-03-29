@@ -14,4 +14,5 @@
     <string name="recommend">Рекомендуемые ценные бумаги</string>
     <string name="notification_name">Уведомления</string>
     <string name="see_paper">Смотреть подробнее</string>
+    <string name="register_name">Регистрация</string>
 </resources>

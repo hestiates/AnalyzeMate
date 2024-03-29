@@ -1,8 +1,9 @@
 package com.example.analyzemate.Views;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +12,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.analyzemate.R;
+import com.example.analyzemate.Views.Autorization.RegisterActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -21,8 +25,17 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // Проверка авторизации
-//        startActivity(new Intent(getApplicationContext(),GraphActivity.class));
+        ////
+        Bundle extras = getIntent().getExtras();
+        SharedPreferences mPreferences = getSharedPreferences("user", MODE_PRIVATE);
+
+        if (extras != null) { // Если Активити передало параметры
+             RememberUser(extras, mPreferences);
+        }
+
+        // Проверка авторизации пользователя
+        CheckAuthorization(mPreferences);
+
         /*
         * Настройка навигационной панели
         * Задание начального экрана, добавление путей перехода
@@ -62,5 +75,40 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             return insets;
         });
+    }
+
+    /**
+     * Запоминаем пользователя в памяти телефона.
+     Сохраняет в памяти телефона флаг remember.
+     * @param extras переменные, переданные из другого активити
+     * @param mPreferences переменная с переменными из памяти телефона
+     */
+    private void RememberUser(Bundle extras, SharedPreferences mPreferences) {
+        String value = extras.getString("key"); // Полученный параметр
+
+        // Если перенапревлены из LoginActivity
+        if (Objects.equals(value, "authorization")) {
+            SharedPreferences.Editor editor = mPreferences.edit();
+            editor.putString("remember", "true");
+            editor.apply();
+            Toast.makeText(MainActivity.this, "Remember", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Проверка авторизации пользователя
+     * Запускает RegisterActivity, если пользователь не авторизован
+     * @param mPreferences переменная с переменными из памяти телефона
+     */
+    private void CheckAuthorization(SharedPreferences mPreferences) {
+        if (mPreferences.contains("remember")) {
+            // TODO затычка, удаляет пользователя из памяти телефона
+            SharedPreferences.Editor editor = mPreferences.edit();
+            editor.clear();
+            editor.apply();
+        } else {
+            startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+
+        }
     }
 }
