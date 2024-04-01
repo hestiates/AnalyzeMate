@@ -15,4 +15,12 @@
     <string name="notification_name">Уведомления</string>
     <string name="see_paper">Смотреть подробнее</string>
     <string name="register_name">Регистрация</string>
+    <string name="paper_tab_overview">Общее</string>
+    <string name="paper_tab_graph">График</string>
+    <string name="paper_tab_tracking">Отслеживание</string>
+    <string name="home_menu_text">home</string>
+    <string name="search_menu_text">search</string>
+    <string name="stock_menu_text">stock</string>
+    <string name="notify_menu_text">notification</string>
+    <string name="account_menu_text">account</string>
 </resources>

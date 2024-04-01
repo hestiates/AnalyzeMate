@@ -1,0 +1,28 @@
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">AnalyzeMate</string>\r\n    <!-- TODO: Remove or change this placeholder text -->\r\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\r\n    <string name=\"sample\">sample</string>\r\n    <string name=\"paper\">Ценная бумага</string>\r\n    <string name=\"notification_text\">Новая рекомендация по ценным бумагам</string>\r\n    <string name=\"stock_name\">Отслеживаемые бумаги</string>\r\n    <string name=\"account\">account button</string>\r\n    <string name=\"find\">find button</string>\r\n    <string name=\"history\">Смотреть все</string>\r\n    <string name=\"greetings\">Добро пожаловать!</string>\r\n    <string name=\"invest\">Мои инвестиции</string>\r\n    <string name=\"recommend\">Рекомендуемые ценные бумаги</string>\r\n    <string name=\"notification_name\">Уведомления</string>\r\n    <string name=\"see_paper\">Смотреть подробнее</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	
++++ b/app/src/main/res/values/strings.xml	
+@@ -14,4 +14,16 @@
+     <string name="recommend">Рекомендуемые ценные бумаги</string>
+     <string name="notification_name">Уведомления</string>
+     <string name="see_paper">Смотреть подробнее</string>
++    <string name="home_menu_text">home</string>
++    <string name="search_menu_text">search</string>
++    <string name="stock_menu_text">stock</string>
++    <string name="notify_menu_text">notify</string>
++    <string name="account_menu_text">account</string>
++    <string name="paper_tab_overview">Обзор</string>
++    <string name="paper_tab_graph">График</string>
++    <string name="paper_tab_tracking">Отслеживание</string>
++    <string name="title_activity_main2">MainActivity2</string>
++    <string name="title_home">Home</string>
++    <string name="title_dashboard">Dashboard</string>
++    <string name="title_notifications">Notifications</string>
+ </resources>
+\ No newline at end of file

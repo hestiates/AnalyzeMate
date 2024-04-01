@@ -21,7 +21,7 @@
             android:id="@+id/layout_info_main"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:background="@drawable/round_layout" >
+            android:background="@drawable/layout_home_menu" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -64,7 +64,7 @@
                         android:layout_height="50dp"
                         android:layout_marginTop="15dp"
                         android:layout_weight="1"
-                        android:background="@drawable/roundcorner"
+                        android:background="@drawable/layout_card"
                         android:contentDescription="@string/find"
                         android:scaleType="center"
                         android:src="@drawable/baseline_search_60"

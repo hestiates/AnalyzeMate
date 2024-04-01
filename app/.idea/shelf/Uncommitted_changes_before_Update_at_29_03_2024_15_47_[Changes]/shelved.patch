@@ -1,0 +1,339 @@
+Index: app/src/main/res/anim/slide_right.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<set xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n    <translate\r\n        android:duration=\"200\"\r\n        android:fromXDelta=\"100%p\"\r\n        android:toXDelta=\"0\" />\r\n</set>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/anim/slide_right.xml b/app/src/main/res/anim/slide_right.xml
+--- a/app/src/main/res/anim/slide_right.xml	(revision 8d6217dd24aa0b390752d27096b49ea76557e50b)
++++ b/app/src/main/res/anim/slide_right.xml	(date 1711445858250)
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <set xmlns:android="http://schemas.android.com/apk/res/android">
+     <translate
+-        android:duration="200"
++        android:duration="@integer/material_motion_duration_medium_1"
+         android:fromXDelta="100%p"
+         android:toXDelta="0" />
+ </set>
+\ No newline at end of file
+Index: app/src/main/res/anim/slide_left.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<set xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n    <translate\r\n        android:duration=\"200\"\r\n        android:fromXDelta=\"0\"\r\n        android:toXDelta=\"-100%p\" />\r\n</set>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/anim/slide_left.xml b/app/src/main/res/anim/slide_left.xml
+--- a/app/src/main/res/anim/slide_left.xml	(revision 8d6217dd24aa0b390752d27096b49ea76557e50b)
++++ b/app/src/main/res/anim/slide_left.xml	(date 1711445858260)
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <set xmlns:android="http://schemas.android.com/apk/res/android">
+     <translate
+-        android:duration="200"
++        android:duration="@integer/material_motion_duration_medium_1"
+         android:fromXDelta="0"
+         android:toXDelta="-100%p" />
+ </set>
+\ No newline at end of file
+Index: app/src/main/res/anim/slide_to_left.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<set xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n    <translate\r\n        android:duration=\"200\"\r\n        android:fromXDelta=\"-100%p\"\r\n        android:toXDelta=\"0%p\" />\r\n</set>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/anim/slide_to_left.xml b/app/src/main/res/anim/slide_to_left.xml
+--- a/app/src/main/res/anim/slide_to_left.xml	(revision 8d6217dd24aa0b390752d27096b49ea76557e50b)
++++ b/app/src/main/res/anim/slide_to_left.xml	(date 1711445678507)
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <set xmlns:android="http://schemas.android.com/apk/res/android">
+     <translate
+-        android:duration="200"
++        android:duration="@integer/material_motion_duration_medium_1"
+         android:fromXDelta="-100%p"
+         android:toXDelta="0%p" />
+ </set>
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.AnalyzeMate\"\r\n        tools:targetApi=\"31\">\r\n        <activity\r\n            android:name=\".Views.AccountActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Views.NotificationActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Views.StockActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Views.SearchActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".GraphActivity2\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Views.GraphActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Views.MainActivity\"\r\n            android:exported=\"true\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision 8d6217dd24aa0b390752d27096b49ea76557e50b)
++++ b/app/src/main/AndroidManifest.xml	(date 1711715679623)
+@@ -13,6 +13,16 @@
+         android:theme="@style/Theme.AnalyzeMate"
+         tools:targetApi="31">
+         <activity
++            android:name=".Views.Paper2Activity"
++            android:exported="false" />
++        <activity
++            android:name=".Views.MainActivity2"
++            android:exported="false"
++            android:label="@string/title_activity_main2" />
++        <activity
++            android:name=".Views.PaperActivity"
++            android:exported="false" />
++        <activity
+             android:name=".Views.AccountActivity"
+             android:exported="false" />
+         <activity
+Index: app/src/main/java/com/example/analyzemate/Controllers/StockPaper/GraphController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.analyzemate.Controllers.StockPaper;\r\n\r\nimport android.view.View;\r\nimport android.widget.AdapterView;\r\nimport android.widget.ArrayAdapter;\r\nimport android.widget.Button;\r\nimport android.widget.Spinner;\r\n\r\nimport androidx.annotation.NonNull;\r\n\r\nimport com.example.analyzemate.Models.Candle;\r\nimport com.example.analyzemate.Models.EnumTimeframe;\r\nimport com.example.analyzemate.Models.StockPaper;\r\nimport com.example.analyzemate.R;\r\nimport com.example.analyzemate.Views.GraphActivity;\r\nimport com.github.mikephil.charting.charts.CandleStickChart;\r\nimport com.github.mikephil.charting.data.CandleEntry;\r\n\r\nimport java.io.IOException;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport java.util.Objects;\r\n\r\n\r\npublic class GraphController {\r\n\r\n    private static EnumTimeframe timeframe = EnumTimeframe.CANDLE_INTERVAL_DAY;\r\n\r\n    /**\r\n     * Получение массива свечей для построения графика\r\n     * @param stockPaper - объект данных о бумаге\r\n     * @return List<CandleEntry> - массив свечей для построения графика\r\n     */\r\n    @NonNull\r\n    public static List<CandleEntry> getCandleEntries(StockPaper stockPaper) {\r\n        List<CandleEntry> entries = new ArrayList<>();\r\n        List<Candle> candles = stockPaper.getCandles();\r\n\r\n        for (int index = 0; index < stockPaper.getCandles().size(); index++) {\r\n            Candle candle = candles.get(index);\r\n\r\n            // Если открытие и закрытие равно, то свеча по идее белая, но пока сделаем зеленой\r\n            if (candle.getOpen() == candle.getClose()){\r\n                candle = new Candle(candle.getTime(), candle.getOpen(),\r\n                        candle.getClose() + candle.getClose() / 10000,\r\n                        candle.getHigh(), candle.getLow(), candle.getVolume());\r\n            }\r\n            entries.add(new CandleEntry(\r\n                    index,\r\n                    candle.getHigh(),\r\n                    candle.getLow(),\r\n                    candle.getOpen(),\r\n                    candle.getClose()));\r\n        }\r\n        return entries;\r\n    }\r\n\r\n    /**\r\n     * Получение данных о бумаге из json по пути path\r\n     * @param timeframe - таймфрейм, выбранный пользователем\r\n     * @return StockCandleData - объект бумаги с данными свеч\r\n     */\r\n    @NonNull\r\n    public static StockPaper getStockPaper(EnumTimeframe timeframe) {\r\n        StockPaper stockPaper;\r\n        // Передаем json в формате String и получаем информацию о бумаге\r\n        try {\r\n            // Получаем информацию о бумаге\r\n            stockPaper = ParseJsonToStockPaper.GetStockPaperFromServer(timeframe);\r\n        } catch (IOException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n        return stockPaper;\r\n    }\r\n\r\n    /**\r\n     * Обработка и задание спинера с таймфреймами\r\n     * @param adapter\r\n     * @param spinner\r\n     * @return\r\n     */\r\n    public static EnumTimeframe SetAndListenSpinnerTimeframe(ArrayAdapter<String> adapter,\r\n                                                             Spinner spinner,\r\n                                                             CandleStickChart candleStickChart) {\r\n        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемента spinner\r\n        // Определяем разметку для использования при выборе элемента\r\n        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);\r\n        // Применяем адаптер к элементу spinner\r\n        spinner.setAdapter(adapter);\r\n\r\n\r\n        // Обработка его значений\r\n        AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {\r\n            @Override\r\n            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {\r\n\r\n                // Получаем выбранный объект\r\n                String item = (String)parent.getItemAtPosition(position);\r\n\r\n                // Передаем timeframe\r\n                if (Objects.equals(item, \"М30\")) {\r\n                    timeframe = EnumTimeframe.CANDLE_INTERVAL_30_MIN;\r\n                    // CANDLE_INTERVAL_30_MIN\r\n                }\r\n                else if (Objects.equals(item, \"Ч1\")) {\r\n                    timeframe = EnumTimeframe.CANDLE_INTERVAL_HOUR;\r\n                    // CANDLE_INTERVAL_HOUR\r\n                }\r\n                else if (Objects.equals(item, \"Ч4\")) {\r\n                    timeframe = EnumTimeframe.CANDLE_INTERVAL_4_HOUR;\r\n                    // CANDLE_INTERVAL_4_HOUR\r\n                }\r\n                else if (Objects.equals(item, \"Д1\")) {\r\n                    timeframe = EnumTimeframe.CANDLE_INTERVAL_DAY;\r\n                    // CANDLE_INTERVAL_DAY\r\n                }\r\n                else {\r\n                    timeframe = EnumTimeframe.CANDLE_INTERVAL_DAY;\r\n                }\r\n\r\n                // UpdateGraph\r\n                GraphActivity.SetGraph(timeframe, candleStickChart);\r\n            }\r\n\r\n            @Override\r\n            public void onNothingSelected(AdapterView<?> parent) {\r\n            }\r\n        };\r\n        spinner.setOnItemSelectedListener(itemSelectedListener);\r\n\r\n        return timeframe;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/analyzemate/Controllers/StockPaper/GraphController.java b/app/src/main/java/com/example/analyzemate/Controllers/StockPaper/GraphController.java
+--- a/app/src/main/java/com/example/analyzemate/Controllers/StockPaper/GraphController.java	(revision 8d6217dd24aa0b390752d27096b49ea76557e50b)
++++ b/app/src/main/java/com/example/analyzemate/Controllers/StockPaper/GraphController.java	(date 1711716434940)
+@@ -13,8 +13,6 @@
+ import com.example.analyzemate.Models.StockPaper;
+ import com.example.analyzemate.R;
+ import com.example.analyzemate.Views.GraphActivity;
+-import com.github.mikephil.charting.charts.CandleStickChart;
+-import com.github.mikephil.charting.data.CandleEntry;
+ 
+ import java.io.IOException;
+ import java.util.ArrayList;
+Index: gradle/libs.versions.toml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[versions]\r\nagp = \"8.3.0\"\r\njunit = \"4.13.2\"\r\njunitVersion = \"1.1.5\"\r\nespressoCore = \"3.5.1\"\r\nappcompat = \"1.6.1\"\r\nmaterial = \"1.11.0\"\r\nactivity = \"1.8.0\"\r\nconstraintlayout = \"2.1.4\"\r\n\r\n[libraries]\r\njunit = { group = \"junit\", name = \"junit\", version.ref = \"junit\" }\r\next-junit = { group = \"androidx.test.ext\", name = \"junit\", version.ref = \"junitVersion\" }\r\nespresso-core = { group = \"androidx.test.espresso\", name = \"espresso-core\", version.ref = \"espressoCore\" }\r\nappcompat = { group = \"androidx.appcompat\", name = \"appcompat\", version.ref = \"appcompat\" }\r\nmaterial = { group = \"com.google.android.material\", name = \"material\", version.ref = \"material\" }\r\nactivity = { group = \"androidx.activity\", name = \"activity\", version.ref = \"activity\" }\r\nconstraintlayout = { group = \"androidx.constraintlayout\", name = \"constraintlayout\", version.ref = \"constraintlayout\" }\r\n\r\n[plugins]\r\nandroidApplication = { id = \"com.android.application\", version.ref = \"agp\" }\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/gradle/libs.versions.toml b/gradle/libs.versions.toml
+--- a/gradle/libs.versions.toml	(revision 8d6217dd24aa0b390752d27096b49ea76557e50b)
++++ b/gradle/libs.versions.toml	(date 1711716292996)
+@@ -7,6 +7,13 @@
+ material = "1.11.0"
+ activity = "1.8.0"
+ constraintlayout = "2.1.4"
++lifecycleLivedataKtx = "2.7.0"
++lifecycleViewmodelKtx = "2.7.0"
++navigationFragment = "2.6.0"
++navigationUi = "2.6.0"
++kotlin = "1.9.0"
++navigationFragmentKtx = "2.7.7"
++navigationUiKtx = "2.7.7"
+ 
+ [libraries]
+ junit = { group = "junit", name = "junit", version.ref = "junit" }
+@@ -16,7 +23,14 @@
+ material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+ activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
++lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
++lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
++navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
++navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
++navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
++navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+ 
+ [plugins]
+ androidApplication = { id = "com.android.application", version.ref = "agp" }
++jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ 
+Index: app/src/main/res/menu/bottom_menu.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<menu xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n\r\n    <item\r\n        android:id=\"@+id/bottom_home\"\r\n        android:icon=\"@drawable/baseline_home_24\"\r\n        android:title=\"\" />\r\n\r\n    <item\r\n        android:id=\"@+id/bottom_search\"\r\n        android:icon=\"@drawable/baseline_search_24\"\r\n        android:title=\"\" />\r\n\r\n    <item\r\n        android:id=\"@+id/bottom_stock\"\r\n        android:icon=\"@drawable/outline_assignment_24\"\r\n        android:title=\"\" />\r\n\r\n    <item\r\n        android:id=\"@+id/bottom_notification\"\r\n        android:icon=\"@drawable/baseline_notifications_none_24\"\r\n        android:title=\"\" />\r\n\r\n    <item\r\n        android:id=\"@+id/bottom_account\"\r\n        android:icon=\"@drawable/outline_account_circle_24\"\r\n        android:title=\"\" />\r\n\r\n</menu>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/menu/bottom_menu.xml b/app/src/main/res/menu/bottom_menu.xml
+--- a/app/src/main/res/menu/bottom_menu.xml	(revision 8d6217dd24aa0b390752d27096b49ea76557e50b)
++++ b/app/src/main/res/menu/bottom_menu.xml	(date 1711445111160)
+@@ -4,26 +4,26 @@
+     <item
+         android:id="@+id/bottom_home"
+         android:icon="@drawable/baseline_home_24"
+-        android:title="" />
++        android:title="@string/home_menu_text" />
+ 
+     <item
+         android:id="@+id/bottom_search"
+         android:icon="@drawable/baseline_search_24"
+-        android:title="" />
++        android:title="@string/search_menu_text" />
+ 
+     <item
+         android:id="@+id/bottom_stock"
+         android:icon="@drawable/outline_assignment_24"
+-        android:title="" />
++        android:title="@string/stock_menu_text" />
+ 
+     <item
+         android:id="@+id/bottom_notification"
+         android:icon="@drawable/baseline_notifications_none_24"
+-        android:title="" />
++        android:title="@string/notify_menu_text" />
+ 
+     <item
+         android:id="@+id/bottom_account"
+         android:icon="@drawable/outline_account_circle_24"
+-        android:title="" />
++        android:title="@string/account_menu_text" />
+ 
+ </menu>
+\ No newline at end of file
+Index: app/build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    alias(libs.plugins.androidApplication)\r\n}\r\n\r\nandroid {\r\n    namespace = \"com.example.analyzemate\"\r\n    compileSdk = 34\r\n\r\n    defaultConfig {\r\n        applicationId = \"com.example.analyzemate\"\r\n        minSdk = 30\r\n        targetSdk = 34\r\n        versionCode = 1\r\n        versionName = \"1.0\"\r\n\r\n        testInstrumentationRunner = \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            isMinifyEnabled = false\r\n            proguardFiles(\r\n                getDefaultProguardFile(\"proguard-android-optimize.txt\"),\r\n                \"proguard-rules.pro\"\r\n            )\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility = JavaVersion.VERSION_1_8\r\n        targetCompatibility = JavaVersion.VERSION_1_8\r\n    }\r\n\r\n    buildFeatures {\r\n        viewBinding = true\r\n    }\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation(libs.appcompat)\r\n    implementation(libs.material)\r\n    implementation(libs.activity)\r\n    implementation(libs.constraintlayout)\r\n    testImplementation(libs.junit)\r\n    androidTestImplementation(libs.ext.junit)\r\n    androidTestImplementation(libs.espresso.core)\r\n}\r\n\r\ndependencies {\r\n    implementation(\"com.github.PhilJay:MPAndroidChart:v3.1.0\")\r\n    implementation(\"com.fasterxml.jackson.core:jackson-databind:2.13.0\")\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+--- a/app/build.gradle.kts	(revision 8d6217dd24aa0b390752d27096b49ea76557e50b)
++++ b/app/build.gradle.kts	(date 1711716293028)
+@@ -1,5 +1,6 @@
+ plugins {
+     alias(libs.plugins.androidApplication)
++    alias(libs.plugins.jetbrainsKotlinAndroid)
+ }
+ 
+ android {
+@@ -41,13 +42,10 @@
+     implementation(libs.material)
+     implementation(libs.activity)
+     implementation(libs.constraintlayout)
++    implementation(libs.navigation.fragment.ktx)
++    implementation(libs.navigation.ui.ktx)
+     testImplementation(libs.junit)
+     androidTestImplementation(libs.ext.junit)
+     androidTestImplementation(libs.espresso.core)
+ }
+ 
+-dependencies {
+-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+-    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.0")
+-}
+-
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<RelativeLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/main\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".Views.MainActivity\">\r\n\r\n    <ScrollView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\">\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:orientation=\"vertical\" >\r\n\r\n        <RelativeLayout\r\n            android:id=\"@+id/layout_info_main\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"250dp\"\r\n            android:background=\"@drawable/round_layout\" >\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"match_parent\"\r\n                android:orientation=\"vertical\" >\r\n\r\n                <LinearLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"111dp\"\r\n                    android:padding=\"10dp\"\r\n                    android:layout_marginTop=\"20dp\">\r\n\r\n                    <ImageButton\r\n                        android:id=\"@+id/acc_button_img\"\r\n                        android:layout_width=\"60dp\"\r\n                        android:layout_height=\"60dp\"\r\n                        android:layout_marginTop=\"10dp\"\r\n                        android:layout_weight=\"1\"\r\n                        android:background=\"@android:color/transparent\"\r\n                        android:contentDescription=\"@string/account\"\r\n                        android:scaleType=\"center\"\r\n                        android:src=\"@drawable/baseline_account_circle_24\"\r\n                        app:tint=\"@color/white\" />\r\n\r\n                    <TextView\r\n                        android:layout_width=\"wrap_content\"\r\n                        android:layout_height=\"wrap_content\"\r\n                        android:layout_marginTop=\"25dp\"\r\n                        android:layout_weight=\"1\"\r\n                        android:gravity=\"center\"\r\n                        android:paddingStart=\"10dp\"\r\n                        android:paddingEnd=\"10dp\"\r\n                        android:text=\"@string/greetings\"\r\n                        android:textColor=\"@color/white\"\r\n                        android:textSize=\"25sp\" />\r\n\r\n                    <ImageButton\r\n                        android:id=\"@+id/find_button_img\"\r\n                        android:layout_width=\"50dp\"\r\n                        android:layout_height=\"50dp\"\r\n                        android:layout_marginTop=\"15dp\"\r\n                        android:layout_weight=\"1\"\r\n                        android:background=\"@drawable/roundcorner\"\r\n                        android:contentDescription=\"@string/find\"\r\n                        android:scaleType=\"center\"\r\n                        android:src=\"@drawable/baseline_search_60\"\r\n                        app:tint=\"@color/blue\" />\r\n                </LinearLayout>\r\n\r\n                <LinearLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"97dp\"\r\n                    android:layout_marginTop=\"10dp\"\r\n                    android:orientation=\"vertical\">\r\n\r\n                    <TextView\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"46dp\"\r\n                        android:layout_weight=\"1\"\r\n                        android:paddingBottom=\"5dp\"\r\n                        android:text=\"@string/invest\"\r\n                        android:textAlignment=\"center\"\r\n                        android:textColor=\"@color/white\"\r\n                        android:textSize=\"20sp\" />\r\n\r\n                    <TextView\r\n                        android:layout_width=\"match_parent\"\r\n                        android:layout_height=\"61dp\"\r\n                        android:layout_weight=\"1\"\r\n                        android:paddingTop=\"5dp\"\r\n                        android:text=\"RUB 10,000\"\r\n                        android:textAlignment=\"center\"\r\n                        android:textColor=\"@color/white\"\r\n                        android:textSize=\"25sp\" />\r\n                </LinearLayout>\r\n\r\n            </LinearLayout>\r\n        </RelativeLayout>\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginTop=\"10dp\"\r\n            android:layout_marginBottom=\"10dp\">\r\n\r\n            <TextView\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Портфель 1\"\r\n                android:textColor=\"@color/black\"\r\n                android:textSize=\"22sp\"\r\n                android:layout_weight=\"1\"\r\n                android:layout_marginStart=\"20dp\"/>\r\n\r\n            <Button\r\n                android:id=\"@+id/history_button_img\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"@android:color/transparent\"\r\n                android:text=\"@string/history\"\r\n                android:textColor=\"@color/black\"\r\n                android:textSize=\"15sp\"\r\n                android:drawableEnd=\"@drawable/baseline_history_24\"/>\r\n        </LinearLayout>\r\n\r\n            <androidx.recyclerview.widget.RecyclerView\r\n                android:id=\"@+id/recycler_view_home\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginBottom=\"10dp\"\r\n                tools:listitem=\"@layout/paper_view_item\"\r\n                app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n                />\r\n        </LinearLayout>\r\n    </ScrollView>\r\n\r\n    <com.google.android.material.bottomnavigation.BottomNavigationView\r\n        android:id=\"@+id/bottomNavigationView\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_alignParentBottom=\"true\"\r\n        android:layout_marginTop=\"30dp\"\r\n        android:background=\"@android:color/transparent\"\r\n        android:elevation=\"2dp\"\r\n        app:itemIconSize=\"30dp\"\r\n        app:labelVisibilityMode=\"unlabeled\"\r\n        app:menu=\"@menu/bottom_menu\" />\r\n\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_main.xml b/app/src/main/res/layout/activity_main.xml
+--- a/app/src/main/res/layout/activity_main.xml	(revision 8d6217dd24aa0b390752d27096b49ea76557e50b)
++++ b/app/src/main/res/layout/activity_main.xml	(date 1711709841503)
+@@ -21,7 +21,7 @@
+             android:id="@+id/layout_info_main"
+             android:layout_width="match_parent"
+             android:layout_height="250dp"
+-            android:background="@drawable/round_layout" >
++            android:background="@drawable/layout_home_menu" >
+ 
+             <LinearLayout
+                 android:layout_width="match_parent"
+@@ -64,7 +64,7 @@
+                         android:layout_height="50dp"
+                         android:layout_marginTop="15dp"
+                         android:layout_weight="1"
+-                        android:background="@drawable/roundcorner"
++                        android:background="@drawable/layout_card"
+                         android:contentDescription="@string/find"
+                         android:scaleType="center"
+                         android:src="@drawable/baseline_search_60"
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">AnalyzeMate</string>\r\n    <!-- TODO: Remove or change this placeholder text -->\r\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\r\n    <string name=\"sample\">sample</string>\r\n    <string name=\"paper\">Ценная бумага</string>\r\n    <string name=\"notification_text\">Новая рекомендация по ценным бумагам</string>\r\n    <string name=\"stock_name\">Отслеживаемые бумаги</string>\r\n    <string name=\"account\">account button</string>\r\n    <string name=\"find\">find button</string>\r\n    <string name=\"history\">Смотреть все</string>\r\n    <string name=\"greetings\">Добро пожаловать!</string>\r\n    <string name=\"invest\">Мои инвестиции</string>\r\n    <string name=\"recommend\">Рекомендуемые ценные бумаги</string>\r\n    <string name=\"notification_name\">Уведомления</string>\r\n    <string name=\"see_paper\">Смотреть подробнее</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	(revision 8d6217dd24aa0b390752d27096b49ea76557e50b)
++++ b/app/src/main/res/values/strings.xml	(date 1711715679277)
+@@ -14,4 +14,16 @@
+     <string name="recommend">Рекомендуемые ценные бумаги</string>
+     <string name="notification_name">Уведомления</string>
+     <string name="see_paper">Смотреть подробнее</string>
++    <string name="home_menu_text">home</string>
++    <string name="search_menu_text">search</string>
++    <string name="stock_menu_text">stock</string>
++    <string name="notify_menu_text">notify</string>
++    <string name="account_menu_text">account</string>
++    <string name="paper_tab_overview">Обзор</string>
++    <string name="paper_tab_graph">График</string>
++    <string name="paper_tab_tracking">Отслеживание</string>
++    <string name="title_activity_main2">MainActivity2</string>
++    <string name="title_home">Home</string>
++    <string name="title_dashboard">Dashboard</string>
++    <string name="title_notifications">Notifications</string>
+ </resources>
+\ No newline at end of file
+Index: build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nplugins {\r\n    alias(libs.plugins.androidApplication) apply false\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle.kts b/build.gradle.kts
+--- a/build.gradle.kts	(revision 8d6217dd24aa0b390752d27096b49ea76557e50b)
++++ b/build.gradle.kts	(date 1711715679512)
+@@ -1,4 +1,5 @@
+ // Top-level build file where you can add configuration options common to all sub-projects/modules.
+ plugins {
+     alias(libs.plugins.androidApplication) apply false
++    alias(libs.plugins.jetbrainsKotlinAndroid) apply false
+ }
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_search.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<RelativeLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/main\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".Views.SearchActivity\">\r\n\r\n    <ScrollView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\">\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:orientation=\"vertical\" >\r\n\r\n            <SearchView\r\n                android:id=\"@+id/search_view\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:background=\"@drawable/search_layout\"\r\n                android:layout_marginTop=\"45dp\"\r\n                android:layout_marginBottom=\"15dp\"\r\n                android:layout_marginStart=\"20dp\"\r\n                android:layout_marginEnd=\"20dp\"\r\n                />\r\n\r\n            <TextView\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginStart=\"20dp\"\r\n                android:layout_marginEnd=\"20dp\"\r\n                android:layout_marginTop=\"10dp\"\r\n                android:layout_marginBottom=\"20dp\"\r\n                android:text=\"@string/recommend\"\r\n                android:textSize=\"15sp\" />\r\n\r\n            <androidx.recyclerview.widget.RecyclerView\r\n                android:id=\"@+id/recycler_view_search\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginBottom=\"10dp\"\r\n                tools:listitem=\"@layout/paper_view_item\"\r\n                app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n                />\r\n        </LinearLayout>\r\n    </ScrollView>\r\n\r\n    <com.google.android.material.bottomnavigation.BottomNavigationView\r\n        android:id=\"@+id/bottomNavigationView\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_alignParentBottom=\"true\"\r\n        android:layout_marginTop=\"30dp\"\r\n        android:background=\"@android:color/white\"\r\n        android:elevation=\"2dp\"\r\n        app:itemIconSize=\"30dp\"\r\n        app:labelVisibilityMode=\"unlabeled\"\r\n        app:menu=\"@menu/bottom_menu\" />\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_search.xml b/app/src/main/res/layout/activity_search.xml
+--- a/app/src/main/res/layout/activity_search.xml	(revision 8d6217dd24aa0b390752d27096b49ea76557e50b)
++++ b/app/src/main/res/layout/activity_search.xml	(date 1711445678531)
+@@ -55,7 +55,7 @@
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:layout_marginTop="30dp"
+-        android:background="@android:color/white"
++        android:background="@android:color/transparent"
+         android:elevation="2dp"
+         app:itemIconSize="30dp"
+         app:labelVisibilityMode="unlabeled"
+Index: app/src/main/res/anim/slide_to_right.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<set xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n    <translate\r\n        android:duration=\"200\"\r\n        android:fromXDelta=\"0\"\r\n        android:toXDelta=\"100%p\" />\r\n</set>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/anim/slide_to_right.xml b/app/src/main/res/anim/slide_to_right.xml
+--- a/app/src/main/res/anim/slide_to_right.xml	(revision 8d6217dd24aa0b390752d27096b49ea76557e50b)
++++ b/app/src/main/res/anim/slide_to_right.xml	(date 1711445678540)
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <set xmlns:android="http://schemas.android.com/apk/res/android">
+     <translate
+-        android:duration="200"
++        android:duration="@integer/material_motion_duration_medium_1"
+         android:fromXDelta="0"
+         android:toXDelta="100%p" />
+ </set>
+\ No newline at end of file
+diff --git a/app/src/main/res/drawable/round_layout.xml b/app/src/main/res/drawable/layout_home_menu.xml
+rename from app/src/main/res/drawable/round_layout.xml
+rename to app/src/main/res/drawable/layout_home_menu.xml
+diff --git a/app/src/main/res/drawable/roundcorner.xml b/app/src/main/res/drawable/layout_card.xml
+rename from app/src/main/res/drawable/roundcorner.xml
+rename to app/src/main/res/drawable/layout_card.xml

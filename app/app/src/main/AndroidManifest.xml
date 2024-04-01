@@ -23,6 +23,9 @@
             android:name=".Views.Autorization.RegisterActivity"
             android:exported="false" />
         <activity
+            android:name=".Views.PaperActivity"
+            android:exported="false" />
+        <activity
             android:name=".Views.AccountActivity"
             android:exported="false" />
         <activity

@@ -18,7 +18,7 @@
             android:orientation="vertical" >
 
             <SearchView
-                android:id="@+id/search_view"
+                android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/search_layout"
@@ -39,7 +39,7 @@
                 android:textSize="15sp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_search"
+                android:id="@+id/recyclerViewSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="30dp"
-        android:background="@android:color/white"
+        android:background="@android:color/transparent"
         android:elevation="2dp"
         app:itemIconSize="30dp"
         app:labelVisibilityMode="unlabeled"
