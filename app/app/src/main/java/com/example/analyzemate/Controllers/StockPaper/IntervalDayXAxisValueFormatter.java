@@ -1,8 +1,8 @@
 package com.example.analyzemate.Controllers.StockPaper;
 
 import com.example.analyzemate.Models.Candle;
-import com.example.analyzemate.Models.StockPaper;
 import com.example.analyzemate.Models.EnumTimeframe;
+import com.example.analyzemate.Models.StockPaper;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.text.SimpleDateFormat;

@@ -8,14 +8,11 @@
     android:layout_height="match_parent"
     tools:context=".Views.SearchActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="65dp" >
 
             <SearchView
                 android:id="@+id/searchView"
@@ -41,13 +38,12 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewSearch"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_height="match_parent"
                 tools:listitem="@layout/paper_view_item"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                />
+                android:clipToPadding="false"
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </LinearLayout>
-    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -55,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="30dp"
-        android:background="@android:color/transparent"
+        android:background="@android:color/white"
         android:elevation="2dp"
         app:itemIconSize="30dp"
         app:labelVisibilityMode="unlabeled"

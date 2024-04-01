@@ -58,7 +58,7 @@ public class SearchActivity extends AppCompatActivity {
         });
         // -----------------------
         /*
-            Настройка списка
+            Настройка списка RecyclerView
          */
         setInitialData();
         RecyclerView recyclerView = findViewById(R.id.recyclerViewSearch);
@@ -70,9 +70,9 @@ public class SearchActivity extends AppCompatActivity {
      * Загглушка. Создает список бумаг и иконок
      */
     private void setInitialData() {
-        states.add(new State("Gasprompt", R.drawable.baseline_gas_meter_24));
-        states.add(new State("HeheLAND", R.drawable.baseline_home_24));
-        states.add(new State("Gasprompt", R.drawable.baseline_gas_meter_24));
+        states.add(new State("Gasprompt", R.drawable.baseline_gas_meter_24, "112.1", "8"));
+        states.add(new State("HeheLAND", R.drawable.baseline_home_24, "112.1", "18"));
+        states.add(new State("Gasproympt", R.drawable.baseline_gas_meter_24, "100412.0", "0.3"));
     }
 }
 

@@ -1,11 +1,9 @@
 package com.example.analyzemate.Controllers.Interfaces;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.ViewGroup;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +22,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private final LayoutInflater inflater;
     private final List<State> states;
 
+    /**
+     * Создание нового объекта типа RecyclerViewAdapter
+     * @param context - контекст
+     * @param states - состояния(предметы списка)
+     */
     public RecyclerViewAdapter(Context context, List<State> states) {
         this.states = states;
         this.inflater = LayoutInflater.from(context);
@@ -41,6 +44,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         State state = states.get(position);
         holder.bankView.setImageResource(state.getBankResource());
         holder.nameView.setText(state.getName());
+        holder.costView.setText(state.getCost());
+        holder.trendView.setText(state.getTrend());
     }
 
     /**
@@ -54,11 +59,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final ImageView bankView;
-        final TextView nameView;
+        final TextView nameView, costView, trendView;
+
         ViewHolder(View view) {
             super(view);
             bankView = view.findViewById(R.id.paperImageView);
             nameView = view.findViewById(R.id.paperNameView);
+            costView = view.findViewById(R.id.paperCost);
+            trendView = view.findViewById(R.id.paperChange);
         }
     }
 }

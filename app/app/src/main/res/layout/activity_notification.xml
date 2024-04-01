@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="30dp"
-        android:background="@android:color/transparent"
+        android:background="@android:color/white"
         android:elevation="2dp"
         app:itemIconSize="30dp"
         app:labelVisibilityMode="unlabeled"

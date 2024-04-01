@@ -10,15 +10,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.analyzemate.Controllers.Interfaces.RecyclerViewAdapter;
+import com.example.analyzemate.Models.State;
 import com.example.analyzemate.R;
 import com.example.analyzemate.Views.Autorization.RegisterActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
+    ArrayList<State> states = new ArrayList<State>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +80,15 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             return insets;
         });
+
+        // -----------------------
+        /*
+            Настройка списка
+         */
+        setInitialData();
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewHome);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, states);
+        recyclerView.setAdapter(adapter);
     }
 
     /**
@@ -110,5 +124,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
 
         }
+    }
+
+    /**
+     * Загглушка. Создает список бумаг и иконок
+     */
+    private void setInitialData() {
+        states.add(new State("Gasprompt", R.drawable.baseline_gas_meter_24, "112.1", "8"));
+        states.add(new State("RosCosmostars", R.drawable.baseline_home_24, "5.2", "131"));
     }
 }
