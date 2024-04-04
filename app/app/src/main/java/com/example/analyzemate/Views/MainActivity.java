@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
      * @param mPreferences переменная с переменными из памяти телефона
      */
     private void CheckAuthorization(SharedPreferences mPreferences) {
-        if (mPreferences.contains("remember")) {
+        if (mPreferences.contains("token")) {
             // TODO затычка, удаляет пользователя из памяти телефона
             SharedPreferences.Editor editor = mPreferences.edit();
             editor.clear();
