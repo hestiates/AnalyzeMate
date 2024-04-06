@@ -7,12 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Views.PaperActivity">
+    tools:context=".Views.PaperActivity"
+    android:background="@color/blue"
+    android:weightSum="100">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="5"
         android:layout_marginTop="25dp">
 
         <ImageButton
@@ -20,7 +22,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_arrow_back_24"
             android:backgroundTint="@android:color/transparent"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/back" />
 
 
     </LinearLayout>
@@ -28,42 +30,50 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="14"
+        android:layout_weight="95"
         app:cardCornerRadius="25dp"
         android:background="@color/white"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="15dp">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabMaxWidth="0dp"
-        app:tabGravity="fill"
-        app:tabMode="fixed"
-        android:background="@color/white"
-        app:tabIndicatorColor="@color/blue" >
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabMaxWidth="0dp"
+                app:tabGravity="fill"
+                app:tabMode="fixed"
+                android:background="@color/white"
+                app:tabIndicatorColor="@color/blue" >
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/paper_tab_overview" />
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="@string/paper_tab_overview" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/paper_tab_graph"/>
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="@string/paper_tab_graph"/>
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/paper_tab_tracking"/>
-    </com.google.android.material.tabs.TabLayout>
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="@string/paper_tab_tracking"/>
+            </com.google.android.material.tabs.TabLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
@@ -72,30 +82,30 @@
         android:orientation="horizontal"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="15dp">
+        android:layout_marginBottom="15dp"
+        android:weightSum="100">
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/layout_button"
+            android:layout_weight="50"
+            android:backgroundTint="@color/white"
             android:layout_marginEnd="10dp"
             style="@style/Widget.Design.TabLayout"
-            android:text="Купить"
+            android:text="@string/buying_text"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/layout_button"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:backgroundTint="@color/white"
             android:layout_marginStart="10dp"
-            style="@style/Widget.Design.TabLayout"
-            android:text="Продать"
+            android:text="@string/selling_text"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/black"/>
     </LinearLayout>
 </LinearLayout>

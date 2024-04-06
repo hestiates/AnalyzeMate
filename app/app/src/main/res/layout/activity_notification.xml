@@ -30,7 +30,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:text="@string/notification_name"
-                    android:textSize="25sp"
+                    android:textSize="30sp"
                     android:textColor="@color/black"
                     android:gravity="center_vertical"
                     android:textStyle="bold"

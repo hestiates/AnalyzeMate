@@ -7,9 +7,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.analyzemate.Controllers.Interfaces.RecyclerViewAdapter;
@@ -30,16 +27,19 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        // TODO Тест
+        startActivity(new Intent(getApplicationContext(), PaperActivity.class));
+
         ////
         Bundle extras = getIntent().getExtras();
         SharedPreferences mPreferences = getSharedPreferences("user", MODE_PRIVATE);
-
+        /*
         if (extras != null) { // Если Активити передало параметры
              RememberUser(extras, mPreferences);
-        }
+        }*/
 
         // Проверка авторизации пользователя
-        CheckAuthorization(mPreferences);
+        // CheckAuthorization(mPreferences);
 
         /*
         * Настройка навигационной панели
@@ -75,12 +75,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
-        // -----------------------
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            return insets;
-        });
-
         // -----------------------
         /*
             Настройка списка

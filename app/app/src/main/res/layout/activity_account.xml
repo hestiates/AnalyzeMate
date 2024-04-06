@@ -8,19 +8,165 @@
     android:layout_height="match_parent"
     tools:context=".Views.AccountActivity">
 
-    <Button
-        android:id="@+id/bt_to_graph"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="goToGraphActivity"
-        android:layout_centerInParent="true"
-        android:text="To Graph test"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.081"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="45dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="25dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/account"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:layout_weight="7"/>
+
+            <ImageView
+                android:id="@+id/search_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/baseline_person_24"
+                android:background="@android:color/transparent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/surname_str"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginBottom="5dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sample"
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:background="@drawable/layout_search" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name_str"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginBottom="5dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sample"
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:background="@drawable/layout_search" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/patronymic_str"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginBottom="5dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sample"
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:background="@drawable/layout_search" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/bithdate_str"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginBottom="5dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sample"
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:background="@drawable/layout_search" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="@string/exit_str"s
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="20dp"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="2dp"/>
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

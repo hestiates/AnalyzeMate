@@ -1,4 +1,4 @@
-package com.example.analyzemate.Views;
+package com.example.analyzemate.Views.PaperFragments;
 
 import android.os.Bundle;
 

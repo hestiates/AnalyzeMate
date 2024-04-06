@@ -2,7 +2,6 @@ package com.example.analyzemate.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,10 +51,5 @@ public class AccountActivity extends AppCompatActivity {
             return false;
         });
         // -----------------------
-    }
-
-    public void goToGraphActivity(View view) {
-        Intent intent = new Intent(this, GraphActivity.class);
-        startActivity(intent);
     }
 }

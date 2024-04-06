@@ -41,7 +41,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
-                        android:contentDescription="@string/account"
+                        android:contentDescription="@string/account_button"
                         android:scaleType="center"
                         android:src="@drawable/baseline_account_circle_24"
                         app:tint="@color/white" />
