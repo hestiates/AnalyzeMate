@@ -106,6 +106,7 @@
             android:text="@string/selling_text"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            style="?android:attr/buttonBarButtonStyle" />
     </LinearLayout>
 </LinearLayout>

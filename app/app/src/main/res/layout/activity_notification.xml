@@ -42,7 +42,8 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/outline_notifications_24"
                     android:background="@android:color/transparent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:contentDescription="@string/sample" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
