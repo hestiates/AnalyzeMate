@@ -3,28 +3,35 @@ package com.example.analyzemate.Views.Autorization;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.analyzemate.Controllers.Interfaces.AutorizationHandler;
 import com.example.analyzemate.Models.User;
 import com.example.analyzemate.R;
-import com.example.analyzemate.Controllers.Interfaces.AutorizationHandler;
-import com.example.analyzemate.Views.MainActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RegisterActivity extends AppCompatActivity {
+
+    TextView tvLogin;
+    EditText ed_email, ed_surname, ed_name, ed_patronymic, ed_Date, ed_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,14 @@ public class RegisterActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // Получение полей формы
+        tvLogin = findViewById(R.id.str_login);
+        ed_email = findViewById(R.id.edit_email);
+        ed_surname = findViewById(R.id.et_surname);
+        ed_name = findViewById(R.id.et_name);
+        ed_patronymic = findViewById(R.id.et_patronymic);
+        ed_Date = findViewById(R.id.editTextDate);
+        ed_password = findViewById(R.id.et_password);
 
         // Листенер для кнопки
         Button bt_register = findViewById(R.id.bt_register);
@@ -46,6 +61,21 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        // Создание текста с ссылкой на логин
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View view) {
+                finish();
+            }
+        };
+        SpannableString register = new SpannableString("Войти");
+        register.setSpan(clickableSpan, 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Задание текста
+        tvLogin.setText(register);
+        tvLogin.setMovementMethod(LinkMovementMethod.getInstance());
+
+        /*
         // Задание обработчика клина на "Уже есть аккаунт"
         TextView textViewAlreadyHaveAccount = findViewById(R.id.text_already_have_account);
         Intent intentLogin = new Intent(this, LoginActivity.class);
@@ -58,6 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(intentLogin);
             }
         });
+         */
     }
     // textWatcher is for watching any changes in editText
     TextWatcher textWatcher = new TextWatcher() {
@@ -84,15 +115,12 @@ public class RegisterActivity extends AppCompatActivity {
         }
     };
 
-
-
     /**
      * После нажатия кнопки создает пользователя из введенных данных.
      * Проверяет корректность введенных данных.
      * Отправляет запрос к серверу на регистрацию пользователя.
      * Перенаправляет на RegisterActivity
      */
-
     public void goToSuccessRegisterActivity() {
         User user = GetUserFromEditData();
 
@@ -103,13 +131,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private User GetUserFromEditData() {
         // Получения данные введенных
-        EditText ed_email = findViewById(R.id.edit_email);
-        EditText ed_surname = findViewById(R.id.et_surname);
-        EditText ed_name = findViewById(R.id.et_name);
-        EditText ed_patronymic = findViewById(R.id.et_patronymic);
-        EditText ed_Date = findViewById(R.id.editTextDate);
-        EditText ed_password = findViewById(R.id.et_password);
-
         String email =  ed_email.getText().toString();
         String surname =  ed_surname.getText().toString();
         String name =  ed_name.getText().toString();
@@ -153,4 +174,24 @@ public class RegisterActivity extends AppCompatActivity {
 
         return  user;
     }
+
+    // TODO Изменить после настройки страницы
+    /*
+    private boolean CheckFields() {
+        String email =  etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+        boolean isEmpty = true;
+
+        if (email.isEmpty()) {
+            etEmail.setError("Поле должно быть заполнено");
+            isEmpty = false;
+        }
+
+        if (password.isEmpty()) {
+            etPassword.setError("Поле должно быть заполнено");
+            isEmpty = false;
+        }
+
+        return isEmpty;
+    }*/
 }

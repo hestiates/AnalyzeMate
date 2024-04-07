@@ -1,5 +1,6 @@
 package com.example.analyzemate.Views;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,24 +22,29 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<State> states = new ArrayList<State>();
+    public static final String APP_PREFERENCES = "log";
+    SharedPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        Bundle extras = getIntent().getExtras();
+        preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
+
         // Тест страницы ценной бумаги
         // startActivity(new Intent(getApplicationContext(), PaperActivity.class));
 
-        Bundle extras = getIntent().getExtras();
-        SharedPreferences mPreferences = getSharedPreferences("user", MODE_PRIVATE);
-
+        // TODO Я изменил начальный экран, поэтому стоит удалить проверку
         if (extras != null) { // Если Активити передало параметры
-            RememberUser(extras, mPreferences);
+            RememberUser(extras, preferences);
         }
 
         // Проверка авторизации пользователя
-        CheckAuthorization(mPreferences);
+        CheckAuthorization(preferences);
 
         /*
         * Настройка навигационной панели
@@ -86,14 +92,14 @@ public class MainActivity extends AppCompatActivity {
      * Запоминаем пользователя в памяти телефона.
      Сохраняет в памяти телефона флаг remember.
      * @param extras переменные, переданные из другого активити
-     * @param mPreferences переменная с переменными из памяти телефона
+     * @param preferences переменная с переменными из памяти телефона
      */
-    private void RememberUser(Bundle extras, SharedPreferences mPreferences) {
+    private void RememberUser(Bundle extras, SharedPreferences preferences) {
         String value = extras.getString("key"); // Полученный параметр
 
         // Если перенапревлены из LoginActivity
         if (Objects.equals(value, "authorization")) {
-            SharedPreferences.Editor editor = mPreferences.edit();
+            SharedPreferences.Editor editor = preferences.edit();
             editor.putString("token", "true");
             editor.apply();
             // TODO Заглушка. Заменить на временное хранение
@@ -104,14 +110,15 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Проверка авторизации пользователя
      * Запускает LoginActivity, если пользователь не авторизован
-     * @param mPreferences переменная с переменными из памяти телефона
+     * @param preferences переменная с переменными из памяти телефона
      */
-    private void CheckAuthorization(SharedPreferences mPreferences) {
-        if (mPreferences.contains("token")) {
+    private void CheckAuthorization(SharedPreferences preferences) {
+        if (preferences.contains("token")) {
             // TODO затычка, удаляет пользователя из памяти телефона
-            SharedPreferences.Editor editor = mPreferences.edit();
-            editor.clear();
-            editor.apply();
+            // SharedPreferences.Editor editor = preferences.edit();
+            // editor.clear();
+            // editor.apply();
+            // Toast.makeText(MainActivity.this, "check", Toast.LENGTH_SHORT).show();
         } else {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }

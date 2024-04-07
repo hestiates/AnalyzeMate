@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        // Получение предметов формы
+        // Получение полей формы
         etEmail = findViewById(R.id.edit_email);
         etPassword = findViewById(R.id.edit_password);
         tvRegister = findViewById(R.id.str_register);
@@ -58,18 +58,13 @@ public class LoginActivity extends AppCompatActivity {
         tvRegister.setMovementMethod(LinkMovementMethod.getInstance());
 
         // Обработка кнопки входа
-        bEnter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToMainActivity(view);
-            }
-        });
+        bEnter.setOnClickListener(this::goToMainActivity);
     }
 
     // TODO Изменить способ проверки пользователя
     private void goToMainActivity(View view) {
         // User user = GetUserFromEditData();
-        if (CheckFields()) {
+        if (ValidateFields()) {
             // TODO Запрос к серверу
             // AutorizationHandler.AuthenticationUser(user, this);
             Intent intent = new Intent(this, MainActivity.class);
@@ -89,7 +84,12 @@ public class LoginActivity extends AppCompatActivity {
     }
      */
 
-    private boolean CheckFields() {
+    /**
+     * Метод валидации полей входа.
+     * Метод проверяет пустоту полей.
+     * @return true, если валидация пройдена, в ином случае false
+     */
+    private boolean ValidateFields() {
         String email =  etEmail.getText().toString();
         String password = etPassword.getText().toString();
         boolean isEmpty = true;

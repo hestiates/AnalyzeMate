@@ -122,12 +122,11 @@
         app:layout_constraintVertical_bias="0.458" />
 
     <TextView
-        android:id="@+id/text_already_have_account"
+        android:id="@+id/str_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:clickable="true"
-        android:text="Уже есть аккаунт"
+        android:text="@string/sample"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
