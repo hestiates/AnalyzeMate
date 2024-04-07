@@ -30,7 +30,7 @@
                     android:textColor="@color/black"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
-                    android:layout_weight="7"/>
+                    android:layout_weight="7" />
 
                 <ImageView
                     android:id="@+id/search_button"

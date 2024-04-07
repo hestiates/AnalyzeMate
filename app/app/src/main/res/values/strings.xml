@@ -24,7 +24,6 @@
     <string name="stock_menu_text">stock</string>
     <string name="notify_menu_text">notification</string>
     <string name="account_menu_text">account</string>
-    <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
@@ -73,4 +72,10 @@
     <string name="patronymic_str">Отчество</string>
     <string name="bithdate_str">Дата рождения</string>
     <string name="exit_str">Выйти</string>
+    <string name="login_str">Вход</string>
+    <string name="e_mail_hint">E-mail</string>
+    <string name="password_hint">Пароль</string>
+    <string name="enter_button">Войти</string>
+    <string name="register_str_hint">Если у вас нет учетнй записи, вы можете
+        зарегистрироваться</string>
 </resources>

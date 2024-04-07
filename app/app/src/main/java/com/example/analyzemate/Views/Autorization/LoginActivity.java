@@ -2,25 +2,30 @@ package com.example.analyzemate.Views.Autorization;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.analyzemate.Controllers.Interfaces.AutorizationHandler;
-import com.example.analyzemate.Models.User;
 import com.example.analyzemate.R;
 import com.example.analyzemate.Views.MainActivity;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class LoginActivity extends AppCompatActivity {
+
+    Button bEnter;
+    EditText etEmail, etPassword;
+    TextView tvRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,33 +37,74 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // Получение предметов формы
+        etEmail = findViewById(R.id.edit_email);
+        etPassword = findViewById(R.id.edit_password);
+        tvRegister = findViewById(R.id.str_register);
+        bEnter = findViewById(R.id.bt_register);
+
+        // Создание текста с ссылкой на регистрацию
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View view) {
+                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+            }
+        };
+        SpannableString register = new SpannableString("Зарегистрироваться");
+        register.setSpan(clickableSpan, 0, 18, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Задание текста
+        tvRegister.setText(register);
+        tvRegister.setMovementMethod(LinkMovementMethod.getInstance());
+
+        // Обработка кнопки входа
+        bEnter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToMainActivity(view);
+            }
+        });
     }
 
-    public void goToMainActivity(View view) {
-        User user = GetUserFromEditData();
-
-        // TODO Запрос к серверу
-        AutorizationHandler.AuthenticationUser(user, this);
+    // TODO Изменить способ проверки пользователя
+    private void goToMainActivity(View view) {
+        // User user = GetUserFromEditData();
+        if (CheckFields()) {
+            // TODO Запрос к серверу
+            // AutorizationHandler.AuthenticationUser(user, this);
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("key", "authorization");
+            startActivity(intent);
+        }
 
         // TODO Проверка данных ответа сервера
-
-        // Если успешно
-//        Intent intent = new Intent(this, MainActivity.class);
-//        intent.putExtra("key", "authorization");
-//        startActivity(intent);
     }
 
+    /*
     private User GetUserFromEditData() {
-        // Получения данные введенных
-        EditText ed_email = findViewById(R.id.edit_email);
-        EditText ed_password = findViewById(R.id.et_password);
-
-        String email =  ed_email.getText().toString();
-        String password = ed_password.getText().toString();
-
         // Создание пользователя
         User user = new User(email, "", "", "", new Date(), password);
 
         return  user;
     }
+     */
+
+    private boolean CheckFields() {
+        String email =  etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+        boolean isEmpty = true;
+
+        if (email.isEmpty()) {
+            etEmail.setError("Поле должно быть заполнено");
+            isEmpty = false;
+        }
+
+        if (password.isEmpty()) {
+            etPassword.setError("Поле должно быть заполнено");
+            isEmpty = false;
+        }
+
+        return isEmpty;
+    }
+
 }

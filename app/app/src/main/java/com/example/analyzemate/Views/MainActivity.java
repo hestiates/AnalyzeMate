@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.analyzemate.Controllers.Interfaces.RecyclerViewAdapter;
 import com.example.analyzemate.Models.State;
 import com.example.analyzemate.R;
-import com.example.analyzemate.Views.Autorization.RegisterActivity;
+import com.example.analyzemate.Views.Autorization.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -27,19 +27,18 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // TODO Тест
-        startActivity(new Intent(getApplicationContext(), PaperActivity.class));
+        // Тест страницы ценной бумаги
+        // startActivity(new Intent(getApplicationContext(), PaperActivity.class));
 
-        ////
         Bundle extras = getIntent().getExtras();
         SharedPreferences mPreferences = getSharedPreferences("user", MODE_PRIVATE);
-        /*
+
         if (extras != null) { // Если Активити передало параметры
-             RememberUser(extras, mPreferences);
-        }*/
+            RememberUser(extras, mPreferences);
+        }
 
         // Проверка авторизации пользователя
-        // CheckAuthorization(mPreferences);
+        CheckAuthorization(mPreferences);
 
         /*
         * Настройка навигационной панели
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         */
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.bottom_home);
-
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int item_id = item.getItemId();
             if (item_id == R.id.bottom_home){
@@ -75,9 +73,8 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
-        // -----------------------
         /*
-            Настройка списка
+         * Настройка списка, задание адаптера
          */
         setInitialData();
         RecyclerView recyclerView = findViewById(R.id.recyclerViewHome);
@@ -97,15 +94,16 @@ public class MainActivity extends AppCompatActivity {
         // Если перенапревлены из LoginActivity
         if (Objects.equals(value, "authorization")) {
             SharedPreferences.Editor editor = mPreferences.edit();
-            editor.putString("remember", "true");
+            editor.putString("token", "true");
             editor.apply();
+            // TODO Заглушка. Заменить на временное хранение
             Toast.makeText(MainActivity.this, "Remember", Toast.LENGTH_SHORT).show();
         }
     }
 
     /**
      * Проверка авторизации пользователя
-     * Запускает RegisterActivity, если пользователь не авторизован
+     * Запускает LoginActivity, если пользователь не авторизован
      * @param mPreferences переменная с переменными из памяти телефона
      */
     private void CheckAuthorization(SharedPreferences mPreferences) {
@@ -115,8 +113,7 @@ public class MainActivity extends AppCompatActivity {
             editor.clear();
             editor.apply();
         } else {
-            startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
     }
 
