@@ -23,7 +23,6 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     ArrayList<State> states = new ArrayList<State>();
     public static final String APP_PREFERENCES = "log";
-    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +31,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Bundle extras = getIntent().getExtras();
-        preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
+        SharedPreferences preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         // Тест страницы ценной бумаги
-        // startActivity(new Intent(getApplicationContext(), PaperActivity.class));
+        startActivity(new Intent(getApplicationContext(), PaperActivity.class));
 
         // TODO Я изменил начальный экран, поэтому стоит удалить проверку
         if (extras != null) { // Если Активити передало параметры
@@ -115,9 +114,9 @@ public class MainActivity extends AppCompatActivity {
     private void CheckAuthorization(SharedPreferences preferences) {
         if (preferences.contains("token")) {
             // TODO затычка, удаляет пользователя из памяти телефона
-            // SharedPreferences.Editor editor = preferences.edit();
-            // editor.clear();
-            // editor.apply();
+            SharedPreferences.Editor editor = preferences.edit();
+             editor.clear();
+             editor.apply();
             // Toast.makeText(MainActivity.this, "check", Toast.LENGTH_SHORT).show();
         } else {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));

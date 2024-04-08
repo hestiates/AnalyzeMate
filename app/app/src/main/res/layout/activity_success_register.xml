@@ -13,22 +13,11 @@
         android:layout_width="239dp"
         android:layout_height="45dp"
         android:onClick="goToLoginActivity"
-        android:text="Назад"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_success"
-        app:layout_constraintVertical_bias="0.458" />
+        android:text="Назад" />
 
     <ImageView
         android:id="@+id/img_success"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.386"
         app:srcCompat="@drawable/success_register" />
 </androidx.constraintlayout.widget.ConstraintLayout>
