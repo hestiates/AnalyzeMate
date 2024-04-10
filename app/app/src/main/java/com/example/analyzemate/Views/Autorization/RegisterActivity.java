@@ -57,7 +57,9 @@ public class RegisterActivity extends AppCompatActivity {
         bt_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToSuccessRegisterActivity();
+                // TODO Загушка.
+                startActivity(new Intent(RegisterActivity.this, SuccessRegisterActivity.class));
+                // goToSuccessRegisterActivity();
             }
         });
 

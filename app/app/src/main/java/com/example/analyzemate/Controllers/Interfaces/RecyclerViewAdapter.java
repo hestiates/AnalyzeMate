@@ -1,6 +1,7 @@
 package com.example.analyzemate.Controllers.Interfaces;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.analyzemate.Models.State;
 import com.example.analyzemate.R;
+import com.example.analyzemate.Views.PaperActivity;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ import java.util.List;
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private final LayoutInflater inflater;
-    private final List<State> states;
+    private List<State> states;
 
     /**
      * Создание нового объекта типа RecyclerViewAdapter
@@ -46,6 +48,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.nameView.setText(state.getName());
         holder.costView.setText(state.getCost());
         holder.trendView.setText(state.getTrend());
+
     }
 
     /**
@@ -57,16 +60,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return states.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    /**
+     *  Модифицированный ViewHolder для представления предмета в списке
+     */
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final ImageView bankView;
         final TextView nameView, costView, trendView;
 
         ViewHolder(View view) {
             super(view);
+            view.setOnClickListener(this);
             bankView = view.findViewById(R.id.paperImageView);
             nameView = view.findViewById(R.id.paperNameView);
             costView = view.findViewById(R.id.paperCost);
             trendView = view.findViewById(R.id.paperChange);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(view.getContext(), PaperActivity.class);
+            view.getContext().startActivity(intent);
         }
     }
 }

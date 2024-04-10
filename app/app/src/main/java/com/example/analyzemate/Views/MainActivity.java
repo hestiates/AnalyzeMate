@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         // Тест страницы ценной бумаги
-        startActivity(new Intent(getApplicationContext(), PaperActivity.class));
+        // startActivity(new Intent(getApplicationContext(), PaperActivity.class));
 
         // TODO Я изменил начальный экран, поэтому стоит удалить проверку
         if (extras != null) { // Если Активити передало параметры

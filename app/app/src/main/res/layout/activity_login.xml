@@ -78,7 +78,7 @@
         android:layout_weight="10"
         android:layout_gravity="center"
         android:text="@string/register_str_hint"
-        android:textSize="14sp"
+        android:textSize="15sp"
         android:gravity="center"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"

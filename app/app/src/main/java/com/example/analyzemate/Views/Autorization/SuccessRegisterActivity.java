@@ -1,16 +1,18 @@
 package com.example.analyzemate.Views.Autorization;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
 import com.example.analyzemate.R;
-import com.example.analyzemate.Views.GraphActivity;
 
 public class SuccessRegisterActivity extends AppCompatActivity {
 
@@ -24,10 +26,29 @@ public class SuccessRegisterActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-    }
+        ImageView imageView = findViewById(R.id.img_success);
 
-    public void goToLoginActivity(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        imageView.animate().alpha(0f).setDuration(1700).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(@NonNull Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(@NonNull Animator animator) {
+                Intent intent = new Intent(SuccessRegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onAnimationCancel(@NonNull Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(@NonNull Animator animator) {
+
+            }
+        });
     }
 }
