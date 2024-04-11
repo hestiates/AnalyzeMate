@@ -92,19 +92,19 @@ public class LoginActivity extends AppCompatActivity {
     private boolean ValidateFields() {
         String email =  etEmail.getText().toString();
         String password = etPassword.getText().toString();
-        boolean isEmpty = true;
+        boolean isEmpty = false;
 
         if (email.isEmpty()) {
             etEmail.setError("Поле должно быть заполнено");
-            isEmpty = false;
+            isEmpty = true;
         }
 
         if (password.isEmpty()) {
             etPassword.setError("Поле должно быть заполнено");
-            isEmpty = false;
+            isEmpty = true;
         }
 
-        return isEmpty;
+        return !isEmpty;
     }
 
 }

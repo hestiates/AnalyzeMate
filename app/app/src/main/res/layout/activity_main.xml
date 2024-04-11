@@ -28,70 +28,41 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical" >
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="111dp"
-                    android:padding="10dp"
-                    android:layout_marginTop="20dp">
-
-                    <ImageButton
-                        android:id="@+id/acc_button_img"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:contentDescription="@string/account_button"
-                        android:scaleType="center"
-                        android:src="@drawable/baseline_account_circle_24"
-                        app:tint="@color/white" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:text="@string/greetings"
-                        android:textColor="@color/white"
-                        android:textSize="25sp" />
-
-                    <ImageButton
-                        android:id="@+id/find_button_img"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/layout_card"
-                        android:contentDescription="@string/find"
-                        android:scaleType="center"
-                        android:src="@drawable/baseline_search_60"
-                        app:tint="@color/blue" />
-                </LinearLayout>
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/greetings"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    app:drawableStartCompat="@drawable/baseline_account_circle_24"
+                    app:drawableTint="@color/white" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="97dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp">
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="46dp"
+                        android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:paddingBottom="5dp"
                         android:text="@string/invest"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="20sp" />
+                        android:textSize="28sp" />
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="61dp"
+                        android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:paddingTop="5dp"
                         android:text="RUB 10,000"
                         android:textAlignment="center"
                         android:textColor="@color/white"

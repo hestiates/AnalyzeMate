@@ -6,14 +6,28 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
+    android:weightSum="50"
     tools:context=".Views.Autorization.SuccessRegisterActivity">
 
-    <ImageView
-        android:id="@+id/img_success"
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"/>
+
+    <TextView
+        android:id="@+id/img_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/success_register"
-        android:layout_gravity="center"
-        android:contentDescription="@string/sample" />
+        android:text="@string/success_reg_str"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_weight="10"
+        app:drawableTopCompat="@drawable/success_register" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"/>
 </LinearLayout>

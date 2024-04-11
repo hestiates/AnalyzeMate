@@ -3,7 +3,7 @@ package com.example.analyzemate.Views.Autorization;
 import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -26,13 +26,11 @@ public class SuccessRegisterActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        ImageView imageView = findViewById(R.id.img_success);
+        TextView textView = findViewById(R.id.img_text);
 
-        imageView.animate().alpha(0f).setDuration(1700).setListener(new Animator.AnimatorListener() {
+        textView.animate().alpha(0f).setDuration(1200).setListener(new Animator.AnimatorListener() {
             @Override
-            public void onAnimationStart(@NonNull Animator animator) {
-
-            }
+            public void onAnimationStart(@NonNull Animator animator) {}
 
             @Override
             public void onAnimationEnd(@NonNull Animator animator) {
@@ -41,14 +39,10 @@ public class SuccessRegisterActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onAnimationCancel(@NonNull Animator animator) {
-
-            }
+            public void onAnimationCancel(@NonNull Animator animator) {}
 
             @Override
-            public void onAnimationRepeat(@NonNull Animator animator) {
-
-            }
+            public void onAnimationRepeat(@NonNull Animator animator) {}
         });
     }
 }

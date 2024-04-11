@@ -1,5 +1,7 @@
 package com.example.analyzemate.Views.Autorization;
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +12,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,13 +29,13 @@ import com.example.analyzemate.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class RegisterActivity extends AppCompatActivity {
-
     TextView tvLogin;
-    EditText ed_email, ed_surname, ed_name, ed_patronymic, ed_Date, ed_password;
-
+    EditText ed_email, ed_surname, ed_name, ed_patronymic, ed_password;
+    TextView et_data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,18 +48,47 @@ public class RegisterActivity extends AppCompatActivity {
         });
         // Получение полей формы
         tvLogin = findViewById(R.id.str_login);
-        ed_email = findViewById(R.id.edit_email);
+        ed_email = findViewById(R.id.et_email);
         ed_surname = findViewById(R.id.et_surname);
         ed_name = findViewById(R.id.et_name);
         ed_patronymic = findViewById(R.id.et_patronymic);
-        ed_Date = findViewById(R.id.editTextDate);
+        et_data = findViewById(R.id.et_data);
         ed_password = findViewById(R.id.et_password);
+
+        // При нажатие на изменение даты, отображается диалоговое окно выбора даты
+        et_data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(RegisterActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @SuppressLint("SetTextI18n")
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                                String month_str = String.valueOf(month + 1);
+                                String day_str = String.valueOf(day);
+                                if (9 >= month) {
+                                    month_str = "0" + month_str;
+                                }
+                                if (9 >= day) {
+                                    day_str = "0" + day_str;
+                                }
+                                et_data.setText(day_str + "." + month_str + "." + year);
+                            }
+                        },
+                        year, month, day);
+                dialog.show();
+            }
+        });
 
         // Листенер для кнопки
         Button bt_register = findViewById(R.id.bt_register);
-        bt_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        bt_register.setOnClickListener(v -> {
+            if (ValidateFields()) {
                 // TODO Загушка.
                 startActivity(new Intent(RegisterActivity.this, SuccessRegisterActivity.class));
                 // goToSuccessRegisterActivity();
@@ -73,25 +105,11 @@ public class RegisterActivity extends AppCompatActivity {
         SpannableString register = new SpannableString("Войти");
         register.setSpan(clickableSpan, 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        // Задание текста
+        // Задание текста перехода на страницу входа
         tvLogin.setText(register);
         tvLogin.setMovementMethod(LinkMovementMethod.getInstance());
-
-        /*
-        // Задание обработчика клина на "Уже есть аккаунт"
-        TextView textViewAlreadyHaveAccount = findViewById(R.id.text_already_have_account);
-        Intent intentLogin = new Intent(this, LoginActivity.class);
-
-        // Установить обработчик клика на TextView
-        textViewAlreadyHaveAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Перенаправление на другую активность (например, SignUpActivity)
-                startActivity(intentLogin);
-            }
-        });
-         */
     }
+
     // textWatcher is for watching any changes in editText
     TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -109,9 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
             try {
                 Intent intent = new Intent(RegisterActivity.class.newInstance(), SuccessRegisterActivity.class);
                 startActivity(intent);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InstantiationException e) {
+            } catch (IllegalAccessException | InstantiationException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -130,14 +146,13 @@ public class RegisterActivity extends AppCompatActivity {
         AutorizationHandler.RegisterUser(user, this);
     }
 
-
     private User GetUserFromEditData() {
         // Получения данные введенных
         String email =  ed_email.getText().toString();
         String surname =  ed_surname.getText().toString();
         String name =  ed_name.getText().toString();
         String patronymic =  ed_patronymic.getText().toString();
-        String date_str = ed_Date.getText().toString(); // TODO преобразование в формат Date
+        String date_str = et_data.getText().toString(); // TODO преобразование в формат Date
         String password = ed_password.getText().toString();
 
         Date date = null;
@@ -169,31 +184,45 @@ public class RegisterActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
         // Создание пользователя
         User user = new User(email, surname, name, patronymic, date, password);
 
         return  user;
     }
 
-    // TODO Изменить после настройки страницы
-    /*
-    private boolean CheckFields() {
-        String email =  etEmail.getText().toString();
-        String password = etPassword.getText().toString();
-        boolean isEmpty = true;
+    /**
+     * Метод валидации полей входа.
+     * Метод проверяет пустоту полей.
+     * @return true, если валидация пройдена, в ином случае false
+     */
+    private boolean ValidateFields() {
+        String email =  ed_email.getText().toString();
+        String name = ed_name.getText().toString();
+        String surname =  ed_surname.getText().toString();
+        String password = ed_password.getText().toString();
+        String data = et_data.getText().toString();
+        boolean isEmpty = false;
 
         if (email.isEmpty()) {
-            etEmail.setError("Поле должно быть заполнено");
-            isEmpty = false;
+            ed_email.setError("Поле должно быть заполнено");
+            isEmpty = true;
         }
-
+        if (name.isEmpty()) {
+            ed_name.setError("Поле должно быть заполнено");
+            isEmpty = true;
+        }
+        if (surname.isEmpty()) {
+            ed_surname.setError("Поле должно быть заполнено");
+            isEmpty = true;
+        }
+        if (data.isEmpty()) {
+            et_data.setError("Поле должно быть заполнено");
+            isEmpty = true;
+        }
         if (password.isEmpty()) {
-            etPassword.setError("Поле должно быть заполнено");
-            isEmpty = false;
+            ed_password.setError("Поле должно быть заполнено");
+            isEmpty = true;
         }
-
-        return isEmpty;
-    }*/
+        return !isEmpty;
+    }
 }

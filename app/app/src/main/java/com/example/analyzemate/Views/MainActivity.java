@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
      */
     private void RememberUser(Bundle extras, SharedPreferences preferences) {
         String value = extras.getString("key"); // Полученный параметр
-
         // Если перенапревлены из LoginActivity
         if (Objects.equals(value, "authorization")) {
             SharedPreferences.Editor editor = preferences.edit();

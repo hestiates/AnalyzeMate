@@ -81,4 +81,5 @@
     <string name="to_login_str">Войти</string>
     <string name="email_str">Email</string>
     <string name="register_bt">Зарегистрироваться</string>
+    <string name="success_reg_str">Регистрация успешна</string>
 </resources>
