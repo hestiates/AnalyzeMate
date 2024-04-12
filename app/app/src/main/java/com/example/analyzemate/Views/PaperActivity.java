@@ -1,7 +1,7 @@
 package com.example.analyzemate.Views;
 
 import android.os.Bundle;
-import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
@@ -24,6 +24,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class PaperActivity extends AppCompatActivity {
     private static final int NUM_PAGES = 3;
+    ImageButton btExit;
+    Button btBuy, btSell;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,14 +36,14 @@ public class PaperActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        // Кнопка выхода
-        ImageButton btExit = findViewById(R.id.exit_button);
-        btExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+
+        // Определение кнопок
+        btExit = findViewById(R.id.exit_button);
+        btBuy = findViewById(R.id.bt_buy);
+        btSell = findViewById(R.id.bt_sell);
+
+        // Установка listener на кнопку выхода
+        btExit.setOnClickListener(view -> finish());
 
         // Установление адаптера pagerAdapter для ViewPager2
         ViewPager2 viewPager2 = findViewById(R.id.viewPager);
@@ -51,16 +53,13 @@ public class PaperActivity extends AppCompatActivity {
         // Связывание TabLayout и ViewPager2 для синхронизации переходов
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         new TabLayoutMediator(tabLayout, viewPager2,
-                new TabLayoutMediator.TabConfigurationStrategy() {
-                    @Override
-                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int i) {
-                        if (i == 0)
-                            tab.setText("Общее");
-                        else if (i == 1)
-                            tab.setText("График");
-                        else if (i == 2)
-                            tab.setText("Отслеживание");
-                    }
+                (tab, i) -> {
+                    if (i == 0)
+                        tab.setText("Обзор");
+                    else if (i == 1)
+                        tab.setText("График");
+                    else if (i == 2)
+                        tab.setText("Отслеживание");
                 }).attach();
     }
 
@@ -71,7 +70,6 @@ public class PaperActivity extends AppCompatActivity {
         public ScreenSlidePagerAdapter(FragmentActivity fragAct) {
             super(fragAct);
         }
-
         @NonNull
         @Override
         public Fragment createFragment(int position) {
@@ -82,7 +80,6 @@ public class PaperActivity extends AppCompatActivity {
             else
                 return new TrackingFragment();
         }
-
         @Override
         public int getItemCount() {
             return NUM_PAGES;

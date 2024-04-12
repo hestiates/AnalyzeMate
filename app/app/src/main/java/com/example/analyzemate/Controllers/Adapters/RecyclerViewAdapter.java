@@ -1,4 +1,4 @@
-package com.example.analyzemate.Controllers.Interfaces;
+package com.example.analyzemate.Controllers.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +18,7 @@ import com.example.analyzemate.Views.PaperActivity;
 import java.util.List;
 
 /**
- * Кастомный адаптер RecyclerView
+ * Кастомный адаптер RecyclerView. Позовляет создавать и отоброжать новые объекты в списке.
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private final LayoutInflater inflater;

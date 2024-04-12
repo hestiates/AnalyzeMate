@@ -10,7 +10,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.analyzemate.Controllers.Interfaces.RecyclerViewAdapter;
+import com.example.analyzemate.Controllers.Adapters.RecyclerViewAdapter;
 import com.example.analyzemate.Models.State;
 import com.example.analyzemate.R;
 import com.example.analyzemate.Views.Autorization.LoginActivity;

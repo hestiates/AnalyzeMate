@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="3"
         android:layout_marginTop="25dp">
 
         <ImageButton
@@ -31,7 +31,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="95"
+        android:layout_weight="97"
         app:cardCornerRadius="25dp"
         android:background="@color/white"
         android:layout_marginTop="10dp"
@@ -87,6 +87,7 @@
         android:weightSum="100">
 
         <Button
+            android:id="@+id/bt_buy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="50"
@@ -99,6 +100,7 @@
             android:textColor="@color/black" />
 
         <Button
+            android:id="@+id/bt_sell"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="50"
