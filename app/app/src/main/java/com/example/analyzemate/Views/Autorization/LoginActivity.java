@@ -18,9 +18,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.analyzemate.Controllers.Interfaces.AutorizationHandler;
 import com.example.analyzemate.Models.User;
 import com.example.analyzemate.R;
+import com.example.analyzemate.Views.MainActivity;
 
 import java.util.Date;
 
@@ -69,10 +69,10 @@ public class LoginActivity extends AppCompatActivity {
         User user = GetUserFromEditData();
         if (ValidateFields()) {
             // TODO Запрос к серверу
-            AutorizationHandler.AuthenticationUser(user, this);
-            //Intent intent = new Intent(this, MainActivity.class);
-            //intent.putExtra("key", "authorization");
-            //startActivity(intent);
+            //AutorizationHandler.AuthenticationUser(user, this);
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("key", "authorization");
+            startActivity(intent);
         }
 
         // TODO Проверка данных ответа сервера
