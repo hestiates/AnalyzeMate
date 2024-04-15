@@ -32,7 +32,7 @@ import okhttp3.ResponseBody;
 
 public class AutorizationHandler {
 
-    static String serverUrl = "http://192.168.3.234:8000/";
+    static String serverUrl = "http://192.168.74.5:8000/";
 
     public static void CheckStartup() {
 

@@ -90,8 +90,8 @@ public class RegisterActivity extends AppCompatActivity {
         bt_register.setOnClickListener(v -> {
             if (ValidateFields()) {
                 // TODO Загушка.
-                startActivity(new Intent(RegisterActivity.this, SuccessRegisterActivity.class));
-                // goToSuccessRegisterActivity();
+//                startActivity(new Intent(RegisterActivity.this, SuccessRegisterActivity.class));
+                goToSuccessRegisterActivity();
             }
         });
 
@@ -146,6 +146,10 @@ public class RegisterActivity extends AppCompatActivity {
         AutorizationHandler.RegisterUser(user, this);
     }
 
+    /**
+     * Получение User из введенных данных
+     * @return User
+     */
     private User GetUserFromEditData() {
         // Получения данные введенных
         String email =  ed_email.getText().toString();
