@@ -89,8 +89,6 @@ public class RegisterActivity extends AppCompatActivity {
         Button bt_register = findViewById(R.id.bt_register);
         bt_register.setOnClickListener(v -> {
             if (ValidateFields()) {
-                // TODO Загушка.
-//                startActivity(new Intent(RegisterActivity.this, SuccessRegisterActivity.class));
                 goToSuccessRegisterActivity();
             }
         });
@@ -135,7 +133,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     /**
      * После нажатия кнопки создает пользователя из введенных данных.
-     * Проверяет корректность введенных данных.
      * Отправляет запрос к серверу на регистрацию пользователя.
      * Перенаправляет на RegisterActivity
      */
@@ -147,7 +144,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     /**
-     * Получение User из введенных данных
+     * Получение и создание User из введенных данных
      * @return User
      */
     private User GetUserFromEditData() {

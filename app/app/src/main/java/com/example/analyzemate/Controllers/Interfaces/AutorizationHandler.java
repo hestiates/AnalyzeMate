@@ -5,11 +5,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.Toast;
 
+import com.example.analyzemate.Models.Constants;
 import com.example.analyzemate.Models.User;
-import com.example.analyzemate.Views.Autorization.LoginActivity;
 import com.example.analyzemate.Views.Autorization.SuccessRegisterActivity;
 import com.example.analyzemate.Views.MainActivity;
 
@@ -22,7 +21,6 @@ import java.text.SimpleDateFormat;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
-import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -32,52 +30,14 @@ import okhttp3.ResponseBody;
 
 public class AutorizationHandler {
 
-    static String serverUrl = "http://192.168.74.5:8000/";
+    static String serverUrl = Constants.SERVER_URL;
 
-    public static void CheckStartup() {
-
-        OkHttpClient client = new OkHttpClient();
-
-        // HTTP-запрос (request)
-        Request request = new Request.Builder() // TODO не работает
-                .url(serverUrl + "check_startup/")
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                // Получение HTTP-ответа (response)
-                try (ResponseBody responseBody = response.body()) {
-                    if (!response.isSuccessful()) {
-                        throw new IOException("Запрос к серверу не был успешен: " +
-                                response.code() + " " + response.message());
-                    }
-
-                    // пример получения всех заголовков ответа
-                    Headers responseHeaders = response.headers();
-                    for (int i = 0, size = responseHeaders.size(); i < size; i++) {
-                        // вывод заголовков
-                        System.out.println(responseHeaders.name(i) + ": "
-                                + responseHeaders.value(i));
-                    }
-                    // вывод тела ответа
-                    System.out.println(responseBody.string());
-
-                    // TODO проверка
-
-                }
-            }
-        });
-    }
 
     /**
      * Регистрация пользователя, запрос к серверу
+     * Запускает SuccessRegisterActivity
      * @param user - данные о пользователя
+     * @param context - контекст RegisterActivity
      */
     public static void RegisterUser(User user, Context context) {
         MediaType JSON = MediaType.get("application/json; charset=utf-8");
@@ -176,9 +136,11 @@ public class AutorizationHandler {
 
 
     /**
-     * Аутентификация пользователя, запрос к серверу
-     *
+     * Аутентификация пользователя, запрос к серверу.
+     * Записывает в SharedPreferences "user" в поле "token" Bearer token
+     * Запускает MainActivity
      * @param user - данные пользователя, необходимы user.login и user.password
+     * @param context - контекст LoginActivity
      */
     public static void AuthenticationUser(User user, Context context) {
         OkHttpClient client = new OkHttpClient();

@@ -61,24 +61,28 @@ public class LoginActivity extends AppCompatActivity {
         tvRegister.setText(register);
         tvRegister.setMovementMethod(LinkMovementMethod.getInstance());
 
-        // Обработка кнопки входа
+        // Обработка кнопки Войти
         bEnter.setOnClickListener(this::goToMainActivity);
     }
 
-    // TODO Изменить способ проверки пользователя
+
+    /**
+     * Метод, вызываемый при нажатии кнопки Войти
+     * Создается User, вызывается запрос к серверу на авторизацию.
+     * @param view
+     */
     private void goToMainActivity(View view) {
         User user = GetUserFromEditData();
         if (ValidateFields()) {
-            // TODO Запрос к серверу
             AutorizationHandler.AuthenticationUser(user, this);
-//            Intent intent = new Intent(this, MainActivity.class);
-//            intent.putExtra("key", "authorization");
-//            startActivity(intent);
         }
-
-        // TODO Проверка данных ответа сервера
     }
 
+
+    /**
+     * Получение и создание User из введенных данных
+     * @return User
+     */
     private User GetUserFromEditData() {
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
@@ -87,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         User user = new User(email, "", "", "", new Date(), password);
         return  user;
     }
+
 
     /**
      * Метод валидации полей входа.
