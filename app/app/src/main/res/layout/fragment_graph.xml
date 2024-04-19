@@ -11,11 +11,12 @@
         android:orientation="vertical"
         android:weightSum="100">
 
-        <com.github.mikephil.charting.charts.CandleStickChart
+        <com.github.mikephil.charting.charts.CombinedChart
             android:id="@+id/candleStick"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="90"/>
+            android:layout_weight="90">
+        </com.github.mikephil.charting.charts.CombinedChart>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,19 +25,19 @@
             android:layout_marginBottom="10dp">
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/timeframeSpinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="10dp"/>
 
-            <Button
-                android:id="@+id/bt_timeframe"
+
+            <Spinner
+                android:id="@+id/indicatorSpinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="10dp"
-                android:text="1D" />
+                android:layout_weight="1" />
+
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

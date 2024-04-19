@@ -71,6 +71,7 @@ public class StockPaper {
                 candles.add(new Candle(time, open, close, high, low, volume));
             }
         }
+
         return candles;
     }
 

@@ -12,38 +12,52 @@ import androidx.fragment.app.Fragment;
 
 import com.example.analyzemate.Controllers.StockPaper.GraphController;
 import com.example.analyzemate.Controllers.StockPaper.IntervalDayXAxisValueFormatter;
+import com.example.analyzemate.Models.EnumIndicator;
 import com.example.analyzemate.Models.EnumTimeframe;
 import com.example.analyzemate.Models.Graph;
 import com.example.analyzemate.R;
-import com.example.analyzemate.Views.GraphActivity;
-import com.github.mikephil.charting.charts.CandleStickChart;
+import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.CandleData;
 import com.github.mikephil.charting.data.CandleEntry;
+import com.github.mikephil.charting.data.CombinedData;
+import com.github.mikephil.charting.data.Entry;
 
 import java.util.List;
 import java.util.Objects;
 
 public class GraphFragment extends Fragment {
 
-    private final String[] timeframes = { "М30", "Ч1", "Ч4", "1Д"};
+    private final String[] timeframes = { "М30", "Ч1", "Ч4", "1Д" };
+    private final String[] indicators = { "f(x)", "EMA" };
+    private static EnumTimeframe timeframe;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_graph, container, false);
-        // Инициализация граф
-        CandleStickChart candleStickChart = v.findViewById(R.id.candleStick);
+
+        // Инициализация граф свечной
+        CombinedChart combinedChart = v.findViewById(R.id.candleStick);
 
         // Обработка spinner таймфрейма
-        Spinner spinner = (Spinner) v.findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(),
+        Spinner timeframeSpinner = (Spinner) v.findViewById(R.id.timeframeSpinner);
+        ArrayAdapter<String> timeframeAdapter = new ArrayAdapter<String>(this.getActivity(),
                 android.R.layout.simple_spinner_item, timeframes);
 
         // Получение таймфрейма и от спиннера
-        SetAndListenSpinnerTimeframe(adapter, spinner,
-                candleStickChart);
+        SetAndListenSpinnerTimeframe(timeframeAdapter, timeframeSpinner,
+                combinedChart);
+
+
+        // Обработка spinner индикатора
+        Spinner indicatorSpinner = (Spinner) v.findViewById(R.id.indicatorSpinner);
+        ArrayAdapter<String> indicatorAdapter = new ArrayAdapter<String>(this.getActivity(),
+                android.R.layout.simple_spinner_item, indicators);
+
+        // Получение индикатора от спиннера
+        SetAndListenSpinnerIndicator(indicatorAdapter, indicatorSpinner,
+                combinedChart);
 
         // Inflate the layout for this fragment
         return v;
@@ -55,31 +69,38 @@ public class GraphFragment extends Fragment {
      */
     public static void SetGraph(Graph graph) {
         // Описание какое-то внизу справа
-        graph.candleStickChart.getDescription().setText("GFG");
+        graph.combinedChart.getDescription().setText("GFG");
 
         // Задание свеч для графика
-        List<CandleEntry> entries = GraphController.getCandleEntries(graph.stockPaper);
+        List<CandleEntry> candleEntries = GraphController.getCandleEntries(graph.stockPaper);
+
+        // Задание точек EMA для линейного графика
+        List<Entry> lineEntries = null;
+        if (graph.indicator != null) {
+            lineEntries = GraphController.getLineEntries(graph.stockPaper);
+        }
 
         // Ось X, задание значений времени
         SetAxis(graph);
 
         // Создание датасета из массива свечей entries
-        CandleData data = GraphController.getCandleData(entries, graph.stockPaper.getTicker());
+        CombinedData data = GraphController.getCombinedData(candleEntries, lineEntries,
+                graph.stockPaper.getTicker());
 
         // Задание данных и отрисовка графика
-        graph.candleStickChart.setData(data);
-        graph.candleStickChart.invalidate();
+        graph.combinedChart.setData(data);
+        graph.combinedChart.invalidate();
     }
 
     /**
      * Обработка и задание спинера с таймфреймами
      * @param adapter - адаптер для слушания спиннера
      * @param spinner - спиннер с таймфремами
-     * @param candleStickChart - график для рисования свечного графика
+     * @param combinedChart - график для рисования графика
      */
     private static void SetAndListenSpinnerTimeframe(ArrayAdapter<String> adapter,
                                                      Spinner spinner,
-                                                     CandleStickChart candleStickChart) {
+                                                     CombinedChart combinedChart) {
         // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемента spinner
         // Определяем разметку для использования при выборе элемента
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -95,7 +116,7 @@ public class GraphFragment extends Fragment {
                 // Получаем выбранный объект
                 String item = (String)parent.getItemAtPosition(position);
 
-                EnumTimeframe timeframe;
+//                EnumTimeframe timeframe;
 
                 // Передаем timeframe
                 if (Objects.equals(item, "М30")) {
@@ -117,13 +138,57 @@ public class GraphFragment extends Fragment {
 
                 // TODO Сделать передачу между активити тикера бумаги
                 String ticker = "SBER";
-                Graph graph = new Graph(candleStickChart, timeframe, ticker);
+                Graph graph = new Graph(combinedChart, timeframe, null, ticker);
 
-                // Обновление графа (динамически)
-                // UpdateGraph
 
                 // Создание графа
-                GraphActivity.SetGraph(graph);
+                SetGraph(graph);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        };
+        spinner.setOnItemSelectedListener(itemSelectedListener);
+    }
+
+
+    /**
+     * Обработка и задание спинера с индикаторами
+     * @param adapter - адаптер для слушания спиннера
+     * @param spinner - спиннер с индикаторами
+     * @param combinedChart - график для рисования графика
+     */
+    private static void SetAndListenSpinnerIndicator(ArrayAdapter<String> adapter,
+                                                     Spinner spinner,
+                                                     CombinedChart combinedChart) {
+        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемента spinner
+        // Определяем разметку для использования при выборе элемента
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Применяем адаптер к элементу spinner
+        spinner.setAdapter(adapter);
+
+
+        // Обработка его значений
+        AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                // Получаем выбранный объект
+                String item = (String)parent.getItemAtPosition(position);
+
+                EnumIndicator indicator = null;
+
+                if (Objects.equals(item, "EMA")) {
+                    indicator = EnumIndicator.EMA;
+                }
+
+                // TODO Сделать передачу между активити тикера бумаги
+                String ticker = "SBER";
+                Graph graph = new Graph(combinedChart, timeframe, indicator, ticker);
+
+                // Создание графа
+                SetGraph(graph);
             }
 
             @Override
@@ -138,7 +203,7 @@ public class GraphFragment extends Fragment {
      * @param graph - объект графа
      */
     private static void SetAxis(Graph graph) {
-        XAxis xAxis = graph.candleStickChart.getXAxis();
+        XAxis xAxis = graph.combinedChart.getXAxis();
 
         // Форматирование оси X
         IntervalDayXAxisValueFormatter formatter = new IntervalDayXAxisValueFormatter(graph.stockPaper);
@@ -150,7 +215,7 @@ public class GraphFragment extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 //        xAxis.setDrawGridLines(false);
 
-        YAxis yAxisLeft = graph.candleStickChart.getAxisLeft();
+        YAxis yAxisLeft = graph.combinedChart.getAxisLeft();
         yAxisLeft.setEnabled(false);
     }
 }
