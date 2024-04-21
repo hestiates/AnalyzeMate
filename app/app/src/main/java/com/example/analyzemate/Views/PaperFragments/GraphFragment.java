@@ -138,7 +138,7 @@ public class GraphFragment extends Fragment {
 
                 // TODO Сделать передачу между активити тикера бумаги
                 String ticker = "SBER";
-                Graph graph = new Graph(combinedChart, timeframe, null, ticker);
+                Graph graph = new Graph(view.getContext(), combinedChart, timeframe, null, ticker);
 
 
                 // Создание графа
@@ -185,7 +185,7 @@ public class GraphFragment extends Fragment {
 
                 // TODO Сделать передачу между активити тикера бумаги
                 String ticker = "SBER";
-                Graph graph = new Graph(combinedChart, timeframe, indicator, ticker);
+                Graph graph = new Graph(view.getContext(), combinedChart, timeframe, indicator, ticker);
 
                 // Создание графа
                 SetGraph(graph);

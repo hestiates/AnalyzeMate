@@ -1,5 +1,7 @@
 package com.example.analyzemate.Controllers.StockPaper;
 
+import android.content.Context;
+
 import com.example.analyzemate.Controllers.Interfaces.StockPaperHandler;
 import com.example.analyzemate.Models.EnumTimeframe;
 import com.example.analyzemate.Models.StockPaper;
@@ -33,9 +35,9 @@ public class ParseJsonToStockPaper {
      * @return StockPaper - данные о бумаге
      * @throws IOException ошибка чтения
      */
-    public static StockPaper GetStockPaperFromServer(String ticker, EnumTimeframe timeframe) throws IOException {
+    public static StockPaper GetStockPaperFromServer(Context context, String ticker, EnumTimeframe timeframe) throws IOException {
         // Запрос к серверу по таймфрейму и тикеру
-        String json = StockPaperHandler.GetJSONStockPaperFromServer(ticker, timeframe);
+        String json = StockPaperHandler.GetJSONStockPaperFromServer(context, ticker, timeframe);
 
         // Создаем объект класса StockPaper - данные о бумаге
         StockPaper stockPaper = JsonToStockPaper(json);

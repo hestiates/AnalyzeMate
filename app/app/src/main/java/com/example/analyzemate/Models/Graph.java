@@ -1,5 +1,7 @@
 package com.example.analyzemate.Models;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import com.example.analyzemate.Controllers.StockPaper.ParseJsonToStockPaper;
@@ -18,7 +20,7 @@ public class Graph {
     public EnumIndicator indicator = null;
 
 
-    public Graph(CombinedChart combinedChart, EnumTimeframe timeframe, EnumIndicator indicator, String ticker) {
+    public Graph(Context context, CombinedChart combinedChart, EnumTimeframe timeframe, EnumIndicator indicator, String ticker) {
         this.combinedChart = combinedChart;
         this.timeframe = timeframe;
         this.ticker = ticker;
@@ -28,7 +30,7 @@ public class Graph {
         }
 
         // Парсинг json и получение данных о бумаге
-        stockPaper = getStockPaper();
+        stockPaper = getStockPaper(context);
     }
 
     /**
@@ -36,12 +38,12 @@ public class Graph {
      * @return stockPaper данные о бумаге
      */
     @NonNull
-    private StockPaper getStockPaper() {
+    private StockPaper getStockPaper(Context context) {
         StockPaper stockPaper;
 
         try {
             // Получаем информацию о бумаге
-            stockPaper = ParseJsonToStockPaper.GetStockPaperFromServer(ticker, timeframe);
+            stockPaper = ParseJsonToStockPaper.GetStockPaperFromServer(context, ticker, timeframe);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
