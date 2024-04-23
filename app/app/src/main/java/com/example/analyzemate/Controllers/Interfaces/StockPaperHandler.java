@@ -4,7 +4,6 @@ import com.example.analyzemate.Models.Constants;
 import com.example.analyzemate.Models.EnumTimeframe;
 
 import java.io.IOException;
-import java.io.InvalidClassException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -17,20 +16,11 @@ import okhttp3.ResponseBody;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
 
 import android.content.SharedPreferences;
-
-
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-
-import org.json.JSONObject;
 
 
 public class StockPaperHandler {
