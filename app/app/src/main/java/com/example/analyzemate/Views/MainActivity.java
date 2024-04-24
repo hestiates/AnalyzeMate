@@ -1,10 +1,12 @@
 package com.example.analyzemate.Views;
+import com.example.analyzemate.Controllers.Interfaces.OnBalanceUpdateListener;
+import com.example.analyzemate.Controllers.Interfaces.UserInfoHandler;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,10 +19,15 @@ import com.example.analyzemate.Views.Autorization.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
+public class MainActivity extends AppCompatActivity implements OnBalanceUpdateListener {
+    TextView textView_balance;
+    @Override
+    public void onBalanceUpdated(double balance) {
+        // Обновляем UI с полученным балансом
+        textView_balance.setText(String.valueOf(balance));
+    }
 
-public class MainActivity extends AppCompatActivity {
     ArrayList<State> states = new ArrayList<State>();
     public static final String APP_PREFERENCES = "user";
 
@@ -30,12 +37,17 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        textView_balance = findViewById(R.id.textView_balance);
+
+        // Устанавливаем себя в качестве слушателя обновления баланса
+        UserInfoHandler.setBalanceUpdateListener(this);
+        // Получаем баланс с сервера
+        UserInfoHandler.getBalanceFromServer(MainActivity.this);
 
         SharedPreferences preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         // Проверка токена авторизации
         CheckAuthorizationToken(preferences);
-
 
         /*
         * Настройка навигационной панели
