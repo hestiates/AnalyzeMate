@@ -135,7 +135,6 @@ public class GraphFragment extends Fragment {
                     timeframe = EnumTimeframe.CANDLE_INTERVAL_DAY;
                 }
 
-
                 // TODO Сделать передачу между активити тикера бумаги
                 String ticker = "SBER";
                 Graph graph = new Graph(view.getContext(), combinedChart, timeframe, null, ticker);

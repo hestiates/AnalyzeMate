@@ -18,7 +18,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.analyzemate.Controllers.Interfaces.AutorizationHandler;
 import com.example.analyzemate.Models.User;
 import com.example.analyzemate.R;
 import com.example.analyzemate.Views.MainActivity;
@@ -26,7 +25,6 @@ import com.example.analyzemate.Views.MainActivity;
 import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity {
-
     Button bEnter;
     EditText etEmail, etPassword;
     TextView tvRegister;
@@ -41,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         // Получение полей формы
         etEmail = findViewById(R.id.edit_email);
         etPassword = findViewById(R.id.edit_password);
@@ -65,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
         bEnter.setOnClickListener(this::goToMainActivity);
     }
 
-
     /**
      * Метод, вызываемый при нажатии кнопки Войти
      * Создается User, вызывается запрос к серверу на авторизацию.
@@ -73,11 +71,13 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void goToMainActivity(View view) {
         User user = GetUserFromEditData();
-        if (ValidateFields()) {
+        // Todo убрать после работы серва
+        Intent intent = new Intent(view.getContext(), MainActivity.class);
+        view.getContext().startActivity(intent);
+        /*if (ValidateFields()) {
             AutorizationHandler.AuthenticationUser(user, this);
-        }
+        }*/
     }
-
 
     /**
      * Получение и создание User из введенных данных
@@ -91,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
         User user = new User(email, "", "", "", new Date(), password);
         return  user;
     }
-
 
     /**
      * Метод валидации полей входа.

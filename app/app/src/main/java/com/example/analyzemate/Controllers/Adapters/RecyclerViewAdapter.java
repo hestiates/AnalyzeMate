@@ -48,7 +48,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.nameView.setText(state.getName());
         holder.costView.setText(state.getCost());
         holder.trendView.setText(state.getTrend());
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), PaperActivity.class);
+                intent.putExtra("uid", state.getUID());
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -60,26 +67,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return states.size();
     }
 
+
     /**
      *  Модифицированный ViewHolder для представления предмета в списке
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         final ImageView bankView;
         final TextView nameView, costView, trendView;
 
         ViewHolder(View view) {
             super(view);
-            view.setOnClickListener(this);
             bankView = view.findViewById(R.id.paperImageView);
             nameView = view.findViewById(R.id.paperNameView);
             costView = view.findViewById(R.id.paperCost);
             trendView = view.findViewById(R.id.paperChange);
-        }
-
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(view.getContext(), PaperActivity.class);
-            view.getContext().startActivity(intent);
         }
     }
 }

@@ -65,4 +65,5 @@
     <string name="sell_str">Закрыть</string>
     <string name="some_info_str">Описание</string>
     <string name="strategy_str">Стратегия</string>
+    <string name="briefcase">Портфель</string>
 </resources>

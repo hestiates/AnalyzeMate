@@ -1,16 +1,26 @@
 package com.example.analyzemate.Models;
 
 public class State {
-    private int bankResource;
+    private  String uid;
+    private Integer bankResource;
     private String name;
     private String cost;
     private String trend;
 
-    public State(String name, int bank, String cost, String trend) {
+    public State(String uid, String name, Integer bank, String cost, String trend) {
+        this.uid = uid;
         this.name = name;
         this.bankResource = bank;
         this.cost = cost;
         this.trend = trend;
+    }
+
+    public String getUID() {
+        return this.uid;
+    }
+
+    public void setUID(String uid) {
+        this.uid = uid;
     }
 
     public String getName() {

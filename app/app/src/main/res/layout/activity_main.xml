@@ -6,106 +6,113 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Views.MainActivity">
+    tools:context=".Views.MainActivity" >
 
     <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
         <LinearLayout
+            android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-        <RelativeLayout
-            android:id="@+id/layout_info_main"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="@drawable/layout_home_menu" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:gravity="center"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="@string/greetings"
-                    android:textColor="@color/white"
-                    android:textSize="30sp"
-                    app:drawableStartCompat="@drawable/baseline_account_circle_24"
-                    app:drawableTint="@color/white" />
+            android:orientation="vertical"
+            android:paddingBottom="160dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="250dp"
                     android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp">
+                    android:background="@drawable/layout_home_menu" >
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/invest"
-                        android:textAlignment="center"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:text="@string/greetings"
                         android:textColor="@color/white"
-                        android:textSize="28sp" />
+                        android:textSize="30sp"
+                        app:drawableStartCompat="@drawable/baseline_account_circle_24"
+                        app:drawableTint="@color/white" />
 
-                    <TextView
-                        android:id="@+id/textView_balance"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:layout_weight="1"
-                        android:text="RUB 10,000"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="25sp" />
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="@string/invest"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="28sp" />
+
+                        <TextView
+                            android:id="@+id/textView_balance"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="RUB 10,000"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="25sp" />
+                    </LinearLayout>
                 </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/port_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/briefcase"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:id="@+id/history_button_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:text="@string/history"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:drawableEnd="@drawable/baseline_history_24"/>
             </LinearLayout>
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Портфель 1"
-                android:textColor="@color/black"
-                android:textSize="22sp"
-                android:layout_weight="1"
-                android:layout_marginStart="20dp"/>
-
-            <Button
-                android:id="@+id/history_button_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="@string/history"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:drawableEnd="@drawable/baseline_history_24"/>
-        </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewHome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="visible"
                 android:layout_marginBottom="10dp"
                 tools:listitem="@layout/paper_view_item"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"  />
+
+            <ImageView
+                android:id="@+id/bt_add"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/baseline_add_circle_24"
+                android:layout_gravity="center"
+                android:contentDescription="@string/sample" />
         </LinearLayout>
     </ScrollView>
 

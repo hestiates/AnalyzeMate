@@ -70,9 +70,9 @@ public class SearchActivity extends AppCompatActivity {
      * Загглушка. Создает список бумаг и иконок
      */
     private void setInitialData() {
-        states.add(new State("Gasprompt", R.drawable.baseline_gas_meter_24, "112.1", "8"));
-        states.add(new State("HeheLAND", R.drawable.baseline_home_24, "112.1", "18"));
-        states.add(new State("Gasproympt", R.drawable.baseline_gas_meter_24, "100412.0", "0.3"));
+        states.add(new State("test1","Gasprompt", R.drawable.baseline_gas_meter_24, "112.1", "8"));
+        states.add(new State("test2","HeheLAND", R.drawable.baseline_home_24, "112.1", "18"));
+        states.add(new State("test3","Gasproympt", R.drawable.baseline_gas_meter_24, "100412.0", "0.3"));
     }
 }
 

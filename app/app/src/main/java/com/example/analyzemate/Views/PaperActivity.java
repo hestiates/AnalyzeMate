@@ -3,6 +3,7 @@ package com.example.analyzemate.Views;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -37,6 +38,11 @@ public class PaperActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Получение номера ценной бумаги
+        Bundle extras = getIntent().getExtras();
+        assert extras != null;
+        Toast.makeText(PaperActivity.this, extras.getString("uid"), Toast.LENGTH_SHORT).show();
+
         // Определение кнопок
         btExit = findViewById(R.id.exit_button);
         btBuy = findViewById(R.id.bt_buy);
@@ -49,6 +55,7 @@ public class PaperActivity extends AppCompatActivity {
         ViewPager2 viewPager2 = findViewById(R.id.viewPager);
         FragmentStateAdapter pagerAdapter = new ScreenSlidePagerAdapter(this);
         viewPager2.setAdapter(pagerAdapter);
+        viewPager2.setUserInputEnabled(false);
 
         // Связывание TabLayout и ViewPager2 для синхронизации переходов
         TabLayout tabLayout = findViewById(R.id.tabLayout);
@@ -67,14 +74,20 @@ public class PaperActivity extends AppCompatActivity {
      * Адаптер горизонтальной прокрутки
      */
     private static class ScreenSlidePagerAdapter extends FragmentStateAdapter {
+        Bundle bundle = new Bundle();
+        Fragment frag;
         public ScreenSlidePagerAdapter(FragmentActivity fragAct) {
             super(fragAct);
         }
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            if (position == 0)
-                return new OverviewFragment();
+            if (position == 0) {
+                bundle.putString("description", "хихихихи хахахаха");
+                frag = new OverviewFragment();
+                frag.setArguments(bundle);
+                return frag;
+            }
             else if (position == 1)
                 return new GraphFragment();
             else

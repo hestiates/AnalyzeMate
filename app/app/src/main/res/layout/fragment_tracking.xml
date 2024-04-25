@@ -89,7 +89,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:weightSum="2">
+                        android:weightSum="2"
+                        android:layout_marginBottom="10dp">
 
                         <TextView
                             android:id="@+id/strat_detail2"
@@ -102,6 +103,31 @@
 
                         <TextView
                             android:id="@+id/strat_info2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/sample"
+                            android:textSize="19sp"
+                            android:gravity="end|center"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:id="@+id/strat_detail3"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/sample"
+                            android:textSize="19sp"
+                            android:gravity="start|center"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/strat_info3"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:text="@string/sample"
