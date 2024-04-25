@@ -34,7 +34,8 @@ public class StockPaperHandler {
 
     static String json;
 
-    public static String GetJSONStockPaperFromServer(Context context, String ticker, EnumTimeframe timeframe) throws IOException {
+    public static String GetJSONStockPaperFromServer(Context context, String ticker,
+                                                     EnumTimeframe timeframe) throws IOException {
         String ticketJson = "[\"" + ticker + "\"]";
         RequestBody body = RequestBody.create(ticketJson, MediaType.parse("application/json"));
 
@@ -42,8 +43,25 @@ public class StockPaperHandler {
         String token = sharedPreferences.getString("token", "");
         String serverUrl = Constants.SERVER_URL;
 
+        // Преобразуем таймфрейм к числу, согласно серверу
+        int intTimeframe = 0;
+        if (timeframe == EnumTimeframe.CANDLE_INTERVAL_30_MIN) {
+            intTimeframe = 9;
+        }
+        else if (timeframe == EnumTimeframe.CANDLE_INTERVAL_HOUR) {
+            intTimeframe = 4;
+        }
+        else if (timeframe == EnumTimeframe.CANDLE_INTERVAL_4_HOUR) {
+            intTimeframe = 11;
+        }
+        else if (timeframe == EnumTimeframe.CANDLE_INTERVAL_DAY) {
+            intTimeframe = 5;
+        }
+
+
         Request request = new Request.Builder()
-                .url(serverUrl + "securities/?include_historic_candles=true")
+                .url(serverUrl + "securities/?include_historic_candles=true&timeframe=" +
+                        Integer.toString(intTimeframe))
                 .addHeader("Authorization", "Bearer " + token)  // Добавляем заголовок с токеном
                 .post(body)
                 .build();
@@ -73,6 +91,8 @@ public class StockPaperHandler {
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
+
+
 
                     json = jsonResponse.toString();
                 }
