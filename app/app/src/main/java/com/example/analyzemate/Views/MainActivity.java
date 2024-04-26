@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.analyzemate.Controllers.Adapters.RecyclerViewAdapter;
 import com.example.analyzemate.Controllers.Interfaces.OnBalanceUpdateListener;
+import com.example.analyzemate.Controllers.Interfaces.UserInfoHandler;
 import com.example.analyzemate.Models.State;
 import com.example.analyzemate.R;
 import com.example.analyzemate.Views.Autorization.LoginActivity;
@@ -48,14 +49,13 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         });
 
         // Устанавливаем себя в качестве слушателя обновления баланса
-        // UserInfoHandler.setBalanceUpdateListener(this);
+         UserInfoHandler.setBalanceUpdateListener(this);
         // Получаем баланс с сервера
-        // UserInfoHandler.getBalanceFromServer(MainActivity.this);
+         UserInfoHandler.getBalanceFromServer(MainActivity.this);
 
         Bundle extras = getIntent().getExtras();
         SharedPreferences preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
-        /*
         // Проверка токена авторизации
         CheckAuthorizationToken(preferences);
 
@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
 
         // Проверка авторизации пользователя
         CheckAuthorizationToken(preferences);
-        */
 
         /*
         * Настройка навигационной панели

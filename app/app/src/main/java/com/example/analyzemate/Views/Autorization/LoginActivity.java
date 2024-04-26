@@ -18,6 +18,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.analyzemate.Controllers.Interfaces.AutorizationHandler;
 import com.example.analyzemate.Models.User;
 import com.example.analyzemate.R;
 import com.example.analyzemate.Views.MainActivity;
@@ -71,12 +72,12 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void goToMainActivity(View view) {
         User user = GetUserFromEditData();
-        // Todo убрать после работы серва
-        Intent intent = new Intent(view.getContext(), MainActivity.class);
-        view.getContext().startActivity(intent);
-        /*if (ValidateFields()) {
+//        // Todo убрать после работы серва
+//        Intent intent = new Intent(view.getContext(), MainActivity.class);
+//        view.getContext().startActivity(intent);
+        if (ValidateFields()) {
             AutorizationHandler.AuthenticationUser(user, this);
-        }*/
+        }
     }
 
     /**

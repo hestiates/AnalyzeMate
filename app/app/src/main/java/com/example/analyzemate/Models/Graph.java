@@ -4,6 +4,8 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.example.analyzemate.Controllers.Interfaces.JsonCallbackInterface;
+import com.example.analyzemate.Controllers.Interfaces.StockPaperCallback;
 import com.example.analyzemate.Controllers.StockPaper.ParseJsonToStockPaper;
 import com.github.mikephil.charting.charts.CombinedChart;
 
@@ -30,23 +32,24 @@ public class Graph {
         }
 
         // Парсинг json и получение данных о бумаге
-        stockPaper = getStockPaper(context);
+        getStockPaper(context);
     }
 
     /**
      * Получение данных о бумаге
      * @return stockPaper данные о бумаге
      */
-    @NonNull
-    private StockPaper getStockPaper(Context context) {
-        StockPaper stockPaper;
+    private void getStockPaper(Context context) {
+        ParseJsonToStockPaper.GetStockPaperFromServer(context, ticker, timeframe, new StockPaperCallback() {
+            @Override
+            public void onStockPaperReceived(StockPaper stockPaper) {
+                Graph.this.stockPaper = stockPaper;
+            }
 
-        try {
-            // Получаем информацию о бумаге
-            stockPaper = ParseJsonToStockPaper.GetStockPaperFromServer(context, ticker, timeframe);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return stockPaper;
+            @Override
+            public void onFailure(Throwable e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

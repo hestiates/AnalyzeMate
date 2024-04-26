@@ -32,11 +32,9 @@ public class StockPaperHandler {
      * @return json в строке
      */
 
-    static String json;
-
-    public static String GetJSONStockPaperFromServer(Context context, String ticker,
-                                                     EnumTimeframe timeframe) throws IOException {
-        String ticketJson = "[\"" + ticker + "\"]";
+    public static void GetJSONStockPaperFromServer(Context context, String ticker,
+                                                     EnumTimeframe timeframe, JsonCallbackInterface callback) {
+        String ticketJson = "[\"" + "SBER" + "\"]";
         RequestBody body = RequestBody.create(ticketJson, MediaType.parse("application/json"));
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
@@ -61,7 +59,7 @@ public class StockPaperHandler {
 
         Request request = new Request.Builder()
                 .url(serverUrl + "securities/?include_historic_candles=true&timeframe=" +
-                        Integer.toString(intTimeframe))
+                        intTimeframe)
                 .addHeader("Authorization", "Bearer " + token)  // Добавляем заголовок с токеном
                 .post(body)
                 .build();
@@ -71,7 +69,7 @@ public class StockPaperHandler {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                e.printStackTrace();
+                callback.onFailure(e);
             }
 
             @Override
@@ -86,18 +84,17 @@ public class StockPaperHandler {
                     String responseBodyString = responseBody.string();
 
                     JSONArray jsonResponse = null;
+                    String json_1;
                     try {
                         jsonResponse = new JSONArray(responseBodyString);
+                        json_1 = jsonResponse.toString();
+
+                        callback.onSuccess(json_1);
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
-
-
-
-                    json = jsonResponse.toString();
                 }
             }
         });
-        return json;
     }
 }
