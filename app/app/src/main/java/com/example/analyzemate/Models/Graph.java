@@ -4,7 +4,6 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import com.example.analyzemate.Controllers.Interfaces.JsonCallbackInterface;
 import com.example.analyzemate.Controllers.Interfaces.StockPaperCallback;
 import com.example.analyzemate.Controllers.StockPaper.ParseJsonToStockPaper;
 import com.github.mikephil.charting.charts.CombinedChart;

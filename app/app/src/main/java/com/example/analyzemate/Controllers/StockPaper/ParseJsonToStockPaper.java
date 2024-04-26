@@ -4,7 +4,7 @@ import static com.example.analyzemate.Controllers.Interfaces.StockPaperHandler.G
 
 import android.content.Context;
 
-import com.example.analyzemate.Controllers.Interfaces.JsonCallbackInterface;
+import com.example.analyzemate.Controllers.Interfaces.JsonCallback;
 import com.example.analyzemate.Controllers.Interfaces.StockPaperCallback;
 import com.example.analyzemate.Models.EnumTimeframe;
 import com.example.analyzemate.Models.StockPaper;
@@ -40,7 +40,7 @@ public class ParseJsonToStockPaper {
      */
     public static StockPaper GetStockPaperFromServer(Context context, String ticker, EnumTimeframe timeframe, StockPaperCallback callback) {
         // Запрос к серверу по таймфрейму и тикеру
-        GetJSONStockPaperFromServer(context, ticker, timeframe, new JsonCallbackInterface() {
+        GetJSONStockPaperFromServer(context, ticker, timeframe, new JsonCallback() {
             @Override
             public void onSuccess(String json) throws IOException {
                 // Создаем объект класса StockPaper - данные о бумаге
@@ -51,9 +51,8 @@ public class ParseJsonToStockPaper {
             }
 
             @Override
-            public void onFailure(Throwable throwable) {
-                // Обработка ошибки
-                callback.onFailure(throwable);
+            public void onFailure(IOException e) {
+                callback.onFailure(e);
             }
         });
         return stockPaper;

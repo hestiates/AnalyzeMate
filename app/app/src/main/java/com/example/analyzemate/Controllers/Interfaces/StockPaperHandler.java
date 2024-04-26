@@ -33,8 +33,8 @@ public class StockPaperHandler {
      */
 
     public static void GetJSONStockPaperFromServer(Context context, String ticker,
-                                                     EnumTimeframe timeframe, JsonCallbackInterface callback) {
-        String ticketJson = "[\"" + "SBER" + "\"]";
+                                                     EnumTimeframe timeframe, JsonCallback callback) {
+        String ticketJson = "[\"" + ticker + "\"]";
         RequestBody body = RequestBody.create(ticketJson, MediaType.parse("application/json"));
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
