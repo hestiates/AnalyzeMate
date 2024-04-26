@@ -4,19 +4,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class HistoricCandle {
     @JsonProperty("open")
-    public double open;
+    public float open;
 
     @JsonProperty("close")
-    public double close;
+    public float close;
 
     @JsonProperty("highest")
-    public double highest;
+    public float highest;
 
     @JsonProperty("lowest")
-    public double lowest;
+    public float lowest;
 
     @JsonProperty("volume")
-    public long volume;
+    public int volume;
 
     @JsonProperty("ticker")
     public String ticker;
@@ -28,7 +28,7 @@ public class HistoricCandle {
     public long timestamp;
 
 
-    public HistoricCandle(double open, double close, double highest, double lowest, long volume,
+    public HistoricCandle(float open, float close, float highest, float lowest, int volume,
                           String ticker, int intTimeframe, long timestamp) {
         this.open = open;
         this.close = close;

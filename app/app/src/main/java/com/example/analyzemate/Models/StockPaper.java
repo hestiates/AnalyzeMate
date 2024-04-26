@@ -53,23 +53,40 @@ public class StockPaper {
     }
 
     /**
-     * Получение данных из history в формате Candle
+     * Получение данных из historic_cnadles в формате Candle
+     * Установка таймфрейма в переменную
      * @return List<Candle>
      */
     public List<Candle> getCandlesFromHistory() {
+        // Таймфрейм задаем
+        int intTimeframe = historicCandles.get(0).intTimeframe;
+        if (intTimeframe == 9) {
+            this.timeframe = "CANDLE_INTERVAL_30_MIN";
+        }
+        else if (intTimeframe == 4) {
+            timeframe = "CANDLE_INTERVAL_HOUR";
+        }
+        else if (intTimeframe == 11) {
+            timeframe = "CANDLE_INTERVAL_4_HOUR";
+        }
+        else if (intTimeframe == 5) {
+            timeframe = "CANDLE_INTERVAL_DAY";
+        }
+
         List<Candle> candles = new ArrayList<>();
-//        for (int i = 1; i < history.size(); i++) {
-//            List<Object> row = history.get(i);
-//            if (row.size() == 6) {
-//                Long time = (Long) row.get(0);
-//                float open = ((Number) row.get(1)).floatValue();
-//                float close = ((Number) row.get(2)).floatValue();
-//                float high = ((Number) row.get(3)).floatValue();
-//                float low = ((Number) row.get(4)).floatValue();
-//                int volume = ((Number) row.get(5)).intValue();
-//                candles.add(new Candle(time, open, close, high, low, volume));
-//            }
-//        }
+
+        for (int i = 0; i < historicCandles.size(); i++) {
+            HistoricCandle historicCandle = historicCandles.get(i);
+            if (historicCandle != null) {
+                Long time = historicCandle.timestamp;
+                float open = historicCandle.open;
+                float close = historicCandle.close;
+                float high = historicCandle.highest;
+                float low = historicCandle.lowest;
+                int volume = historicCandle.volume;
+                candles.add(new Candle(time, open, close, high, low, volume));
+            }
+        }
 
         return candles;
     }
