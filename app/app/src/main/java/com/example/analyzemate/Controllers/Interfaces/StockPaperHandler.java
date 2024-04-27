@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -55,7 +56,6 @@ public class StockPaperHandler {
         else if (timeframe == EnumTimeframe.CANDLE_INTERVAL_DAY) {
             intTimeframe = 5;
         }
-
 
         Request request = new Request.Builder()
                 .url(serverUrl + "securities/?include_historic_candles=true&timeframe=" +

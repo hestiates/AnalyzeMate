@@ -17,10 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.analyzemate.Controllers.Adapters.RecyclerViewAdapter;
 import com.example.analyzemate.Controllers.Interfaces.OnBalanceUpdateListener;
 import com.example.analyzemate.Controllers.Interfaces.UserInfoHandler;
+import com.example.analyzemate.Models.ExistingUser;
 import com.example.analyzemate.Models.State;
 import com.example.analyzemate.R;
 import com.example.analyzemate.Views.Autorization.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -32,9 +35,14 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
     public static final String APP_PREFERENCES = "user";
     TextView textView_balance;
     @Override
-    public void onBalanceUpdated(double balance) {
+    public void onBalanceUpdated(float balance) {
         // Обновляем UI с полученным балансом
         textView_balance.setText(String.valueOf(balance));
+    }
+
+    @Override
+    public void existingUserReceived(ExistingUser existingUser) {
+
     }
 
     @Override
@@ -44,9 +52,7 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         setContentView(R.layout.activity_main);
 
         textView_balance = findViewById(R.id.textView_balance);
-        textView_balance.setOnClickListener(view -> {
-            CreateDialogView();
-        });
+        textView_balance.setOnClickListener(view -> CreateDialogView());
 
         // Устанавливаем себя в качестве слушателя обновления баланса
          UserInfoHandler.setBalanceUpdateListener(this);
@@ -158,12 +164,19 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Введите баланс");
         final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         builder.setView(input);
 
         builder.setPositiveButton("Принять", (dialogInterface, i) -> {
-            Double d = Double.parseDouble(input.getText().toString());
+            float d = (float) Double.parseDouble(input.getText().toString());
+
             textView_balance.setText(String.valueOf(d));
+
+            try {
+                UserInfoHandler.UpdateUserBalance(MainActivity.this, d);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
         });
         builder.setNegativeButton("Отмена", (dialogInterface, i) -> dialogInterface.cancel());
         builder.show();
