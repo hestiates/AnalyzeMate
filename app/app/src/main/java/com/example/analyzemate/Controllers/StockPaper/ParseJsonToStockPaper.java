@@ -49,11 +49,6 @@ public class ParseJsonToStockPaper {
 
                 callback.onStockPaperReceived(stockPaper);
             }
-
-            @Override
-            public void onFailure(IOException e) {
-                callback.onFailure(e);
-            }
         });
         return stockPaper;
     }

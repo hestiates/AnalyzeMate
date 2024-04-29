@@ -44,11 +44,6 @@ public class Graph {
             public void onStockPaperReceived(StockPaper stockPaper) {
                 Graph.this.stockPaper = stockPaper;
             }
-
-            @Override
-            public void onFailure(Throwable e) {
-                throw new RuntimeException(e);
-            }
         });
     }
 }

@@ -33,6 +33,8 @@ public class StockPaperHandler {
      * @return json в строке
      */
 
+    static OkHttpClient client = new OkHttpClient();
+
     public static void GetJSONStockPaperFromServer(Context context, String ticker,
                                                      EnumTimeframe timeframe, JsonCallback callback) {
         String ticketJson = "[\"" + ticker + "\"]";
@@ -64,12 +66,10 @@ public class StockPaperHandler {
                 .post(body)
                 .build();
 
-        OkHttpClient client = new OkHttpClient();
-
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                callback.onFailure(e);
+                throw new RuntimeException(e);
             }
 
             @Override
@@ -80,16 +80,14 @@ public class StockPaperHandler {
                                 response.code() + " " + response.message());
                     }
 
-                    assert responseBody != null;
-                    String responseBodyString = responseBody.string();
-
-                    JSONArray jsonResponse = null;
-                    String json_1;
                     try {
-                        jsonResponse = new JSONArray(responseBodyString);
-                        json_1 = jsonResponse.toString();
+                        assert responseBody != null;
+                        String responseBodyString = responseBody.string();
 
-                        callback.onSuccess(json_1);
+                        JSONArray jsonResponse = new JSONArray(responseBodyString);
+                        String json = jsonResponse.toString();
+
+                         callback.onSuccess(json);
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }

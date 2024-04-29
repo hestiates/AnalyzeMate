@@ -83,8 +83,6 @@ public class UserInfoHandler {
                     try {
                         JSONObject jsonResponse = new JSONObject(responseBodyString);
                         balance = (float) jsonResponse.getDouble("balance");
-
-
                         // уведомляем слушателя обновления баланса
                         // if нужен для проверки, что активити ждет обновление баланса
                         if (balanceUpdateListener != null) {
@@ -190,10 +188,6 @@ public class UserInfoHandler {
                         .addHeader("Authorization", "Bearer " + token)  // Добавляем заголовок с токеном
                         .patch(requestBody)
                         .build();
-
-                Log.d("Request", "Sending request to: " + serverUrl + "users/me");
-                Log.d("Request", "Request headers: " + request.header("Authorization"));
-                Log.d("Request", "Request body: " + jsonBody.toString());
 
                 client.newCall(request).enqueue(new Callback() {
                     @Override
