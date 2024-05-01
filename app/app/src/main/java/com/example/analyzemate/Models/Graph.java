@@ -21,7 +21,8 @@ public class Graph {
     public EnumIndicator indicator = null;
 
 
-    public Graph(Context context, CombinedChart combinedChart, EnumTimeframe timeframe, EnumIndicator indicator, String ticker) {
+    public Graph(CombinedChart combinedChart, EnumTimeframe timeframe, EnumIndicator indicator,
+                 String ticker) {
         this.combinedChart = combinedChart;
         this.timeframe = timeframe;
         this.ticker = ticker;
@@ -30,20 +31,12 @@ public class Graph {
             this.indicator = indicator;
         }
 
-        // Парсинг json и получение данных о бумаге
-        getStockPaper(context);
     }
 
     /**
-     * Получение данных о бумаге
-     * @return stockPaper данные о бумаге
+     * Парсинг данных о бумаге
      */
-    private void getStockPaper(Context context) {
-        ParseJsonToStockPaper.GetStockPaperFromServer(context, ticker, timeframe, new StockPaperCallback() {
-            @Override
-            public void onStockPaperReceived(StockPaper stockPaper) {
-                Graph.this.stockPaper = stockPaper;
-            }
-        });
+    public void setStockPaper(String json) throws IOException {
+        this.stockPaper = ParseJsonToStockPaper.JsonToStockPaper(json);
     }
 }

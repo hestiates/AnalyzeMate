@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.analyzemate.Controllers.Adapters.RecyclerViewAdapter;
 import com.example.analyzemate.Controllers.Interfaces.OnBalanceUpdateListener;
+import com.example.analyzemate.Controllers.Interfaces.StockPaperHandler;
 import com.example.analyzemate.Controllers.Interfaces.UserInfoHandler;
+import com.example.analyzemate.Models.EnumTimeframe;
 import com.example.analyzemate.Models.ExistingUser;
 import com.example.analyzemate.Models.State;
 import com.example.analyzemate.R;
@@ -55,9 +57,9 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         textView_balance.setOnClickListener(view -> CreateDialogView());
 
         // Устанавливаем себя в качестве слушателя обновления баланса
-         UserInfoHandler.setBalanceUpdateListener(this);
+        UserInfoHandler.setBalanceUpdateListener(this);
         // Получаем баланс с сервера
-         UserInfoHandler.getBalanceFromServer(MainActivity.this);
+        UserInfoHandler.getBalanceFromServer(MainActivity.this);
 
         Bundle extras = getIntent().getExtras();
         SharedPreferences preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);

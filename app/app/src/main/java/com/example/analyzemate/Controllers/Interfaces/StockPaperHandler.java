@@ -17,9 +17,11 @@ import okhttp3.ResponseBody;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.SharedPreferences;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -35,8 +37,21 @@ public class StockPaperHandler {
 
     static OkHttpClient client = new OkHttpClient();
 
+    /**
+     * Метод для установки слушателя обновления данных о бумаге
+     */
+    private static StockPaperCallback stockPaperCallback;
+    /**
+     * Позволяет активити установить себя в качестве слушателя баланса
+     */
+    public static void setStockPaperCallback(StockPaperCallback callback) {
+        stockPaperCallback = callback;
+    }
+
+    static String json;
+
     public static void GetJSONStockPaperFromServer(Context context, String ticker,
-                                                     EnumTimeframe timeframe, JsonCallback callback) {
+                                                     EnumTimeframe timeframe) {
         String ticketJson = "[\"" + ticker + "\"]";
         RequestBody body = RequestBody.create(ticketJson, MediaType.parse("application/json"));
 
@@ -79,15 +94,23 @@ public class StockPaperHandler {
                         throw new IOException("Запрос к серверу не был успешен: " +
                                 response.code() + " " + response.message());
                     }
+                    assert responseBody != null;
+                    String responseBodyString = responseBody.string();
 
                     try {
-                        assert responseBody != null;
-                        String responseBodyString = responseBody.string();
-
+                        Log.d("Response", responseBodyString);
                         JSONArray jsonResponse = new JSONArray(responseBodyString);
-                        String json = jsonResponse.toString();
 
-                         callback.onSuccess(json);
+                        JSONObject j = (JSONObject) jsonResponse.get(0);
+
+                        json = j.toString();
+
+                        // уведомляем слушателя
+                        // if нужен для проверки, что активити ждет данных о бумаге
+                        if (stockPaperCallback != null) {
+                            stockPaperCallback.onStockPaperReceived(json);
+                        }
+
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }

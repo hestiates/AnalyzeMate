@@ -10,11 +10,15 @@ import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.analyzemate.Controllers.Interfaces.StockPaperCallback;
+import com.example.analyzemate.Controllers.Interfaces.StockPaperHandler;
+import com.example.analyzemate.Controllers.Interfaces.UserInfoHandler;
 import com.example.analyzemate.Controllers.StockPaper.GraphController;
 import com.example.analyzemate.Controllers.StockPaper.IntervalDayXAxisValueFormatter;
 import com.example.analyzemate.Models.EnumIndicator;
 import com.example.analyzemate.Models.EnumTimeframe;
 import com.example.analyzemate.Models.Graph;
+import com.example.analyzemate.Models.StockPaper;
 import com.example.analyzemate.R;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -23,21 +27,40 @@ import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-public class GraphFragment extends Fragment {
+public class GraphFragment extends Fragment implements StockPaperCallback {
 
     private final String[] timeframes = { "М30", "Ч1", "Ч4", "1Д" };
     private final String[] indicators = { "f(x)", "EMA" };
+    private static Graph graph;
     private static EnumTimeframe timeframe;
+    private static EnumIndicator indicator = null;
+
+    /**
+     * При получении данных о бумаге запускается алгоритм обработки листенеров, создания Graph и
+     * отрисовки графика
+     * @param json - строка json с данными о бумаге
+     */
+    @Override
+    public void onStockPaperReceived(String json) throws IOException {
+        graph.setStockPaper(json);
+
+        SetGraph(graph);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_graph, container, false);
 
-        // Инициализация граф свечной
+        // Устанавливаем себя в качестве слушателя обновления баланса
+        StockPaperHandler.setStockPaperCallback(this);
+
+
+        // Инициализация графа для рисования
         CombinedChart combinedChart = v.findViewById(R.id.candleStick);
 
         // Обработка spinner таймфрейма
@@ -48,7 +71,6 @@ public class GraphFragment extends Fragment {
         // Получение таймфрейма и от спиннера
         SetAndListenSpinnerTimeframe(timeframeAdapter, timeframeSpinner,
                 combinedChart);
-
 
         // Обработка spinner индикатора
         Spinner indicatorSpinner = (Spinner) v.findViewById(R.id.indicatorSpinner);
@@ -98,9 +120,9 @@ public class GraphFragment extends Fragment {
      * @param spinner - спиннер с таймфремами
      * @param combinedChart - график для рисования графика
      */
-    private static void SetAndListenSpinnerTimeframe(ArrayAdapter<String> adapter,
-                                                     Spinner spinner,
-                                                     CombinedChart combinedChart) {
+    private void SetAndListenSpinnerTimeframe(ArrayAdapter<String> adapter,
+                                              Spinner spinner,
+                                              CombinedChart combinedChart) {
         // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемента spinner
         // Определяем разметку для использования при выборе элемента
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -137,11 +159,13 @@ public class GraphFragment extends Fragment {
 
                 // TODO Сделать передачу между активити тикера бумаги
                 String ticker = "SBER";
-                Graph graph = new Graph(view.getContext(), combinedChart, timeframe, null, ticker);
+
+                // Запрос к серверу на получение данных о бумаге
+                StockPaperHandler.GetJSONStockPaperFromServer(view.getContext(), ticker, timeframe);
 
 
                 // Создание графа
-                SetGraph(graph);
+                graph = new Graph(combinedChart, timeframe, indicator, ticker);
             }
 
             @Override
@@ -176,18 +200,12 @@ public class GraphFragment extends Fragment {
                 // Получаем выбранный объект
                 String item = (String)parent.getItemAtPosition(position);
 
-                EnumIndicator indicator = null;
-
                 if (Objects.equals(item, "EMA")) {
                     indicator = EnumIndicator.EMA;
                 }
-
-                // TODO Сделать передачу между активити тикера бумаги
-                String ticker = "SBER";
-                Graph graph = new Graph(view.getContext(), combinedChart, timeframe, indicator, ticker);
-
-                // Создание графа
-                SetGraph(graph);
+                else {
+                    indicator = null;
+                }
             }
 
             @Override

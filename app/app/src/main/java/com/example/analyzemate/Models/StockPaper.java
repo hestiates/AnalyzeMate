@@ -59,7 +59,7 @@ public class StockPaper {
      */
     public List<Candle> getCandlesFromHistory() {
         // Таймфрейм задаем
-        int intTimeframe = historicCandles.get(0).intTimeframe;
+        int intTimeframe = historicCandles.get(0).getIntTimeframe();
         if (intTimeframe == 9) {
             this.timeframe = "CANDLE_INTERVAL_30_MIN";
         }
@@ -78,12 +78,12 @@ public class StockPaper {
         for (int i = 0; i < historicCandles.size(); i++) {
             HistoricCandle historicCandle = historicCandles.get(i);
             if (historicCandle != null) {
-                Long time = historicCandle.timestamp;
-                float open = historicCandle.open;
-                float close = historicCandle.close;
-                float high = historicCandle.highest;
-                float low = historicCandle.lowest;
-                int volume = historicCandle.volume;
+                Long time = historicCandle.getTimestamp();
+                float open = historicCandle.getOpen();
+                float close = historicCandle.getClose();
+                float high = historicCandle.getHighest();
+                float low = historicCandle.getLowest();
+                int volume = historicCandle.getVolume();
                 candles.add(new Candle(time, open, close, high, low, volume));
             }
         }
