@@ -102,6 +102,12 @@ public class StockPaperHandler {
         });
     }
 
+    /**
+     * Метод получения данных о ценной бумаге с свечами по тикеру и таймфрейму.
+     * @param context - контекст (активити), для получения токена из sharedPreferences
+     * @param ticker - тикер бумаги
+     * @param timeframe - таймфрейм
+     */
     public static void GetJSONStockPaperFromServer(Context context, String ticker,
                                                      EnumTimeframe timeframe) {
         String ticketJson = "[\"" + ticker + "\"]";
@@ -150,17 +156,67 @@ public class StockPaperHandler {
                     String responseBodyString = responseBody.string();
 
                     try {
-                        Log.d("Response", responseBodyString);
                         JSONArray jsonResponse = new JSONArray(responseBodyString);
 
                         JSONObject j = (JSONObject) jsonResponse.get(0);
 
-                        json = j.toString();
+                        String json = j.toString();
 
                         // уведомляем слушателя
                         // if нужен для проверки, что активити ждет данных о бумаге
                         if (stockPaperCallback != null) {
                             stockPaperCallback.onStockPaperReceived(json);
+                        }
+
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+    }
+
+
+    /**
+     * Метод получения списка ценных бумаг
+     * @param context - контекст (активити), для получения токена из sharedPreferences
+     */
+    public static void GetListStockPaperFromServer(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", "");
+        String serverUrl = Constants.SERVER_URL;
+
+
+
+        Request request = new Request.Builder()
+                .url(serverUrl + "securities")
+                .addHeader("Authorization", "Bearer " + token)  // Добавляем заголовок с токеном
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (!response.isSuccessful()) {
+                        throw new IOException("Запрос к серверу не был успешен: " +
+                                response.code() + " " + response.message());
+                    }
+                    assert responseBody != null;
+                    String responseBodyString = responseBody.string();
+
+                    try {
+                        Log.d("Response", responseBodyString);
+                        JSONArray jsonResponse = new JSONArray(responseBodyString);
+
+                        // уведомляем слушателя
+                        // if нужен для проверки, что активити ждет данных о бумаге
+                        if (stockPaperCallback != null) {
+                            stockPaperCallback.onStockPaperListReceived(jsonResponse);
                         }
 
                     } catch (JSONException e) {

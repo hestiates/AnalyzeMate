@@ -2,21 +2,51 @@ package com.example.analyzemate.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.analyzemate.Controllers.Adapters.RecyclerViewAdapter;
+import com.example.analyzemate.Controllers.Interfaces.StockPaperCallback;
+import com.example.analyzemate.Controllers.Interfaces.StockPaperHandler;
+import com.example.analyzemate.Controllers.StockPaper.ParseJsonToStockPaper;
 import com.example.analyzemate.Models.State;
+import com.example.analyzemate.Models.StockPaper;
 import com.example.analyzemate.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements StockPaperCallback {
     ArrayList<State> states = new ArrayList<State>();
+
+    @Override
+    public void onStockPaperReceived(String json) throws IOException {
+
+    }
+
+    /**
+     * При получении от сервера списка ценных бумаг запускает метод отрисовки
+     * @param jsonArray - массив с jsonObject ценных бумаг
+     */
+    @Override
+    public void onStockPaperListReceived(JSONArray jsonArray) throws JSONException, IOException {
+        setStockPaperList(jsonArray);
+        runOnUiThread(() -> {
+            RecyclerView recyclerView = findViewById(R.id.recyclerViewSearch);
+            RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, states);
+            recyclerView.setAdapter(adapter);
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +88,39 @@ public class SearchActivity extends AppCompatActivity {
         });
         // -----------------------
         /*
-            Настройка списка RecyclerView
-         */
-        setInitialData();
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewSearch);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, states);
-        recyclerView.setAdapter(adapter);
+            Настройка списка RecyclerView, получение списка ценных бумаг и их отрисовка
+        */
+        // Устанавливаем себя в качестве слушателя получения данных о бумаге
+        StockPaperHandler.setStockPaperCallback(this);
+
+        // Запрос к серверу на получение данных о бумаге
+        StockPaperHandler.GetListStockPaperFromServer(this);
+
+
+//        setInitialData();
+//        RecyclerView recyclerView = findViewById(R.id.recyclerViewSearch);
+//        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, states);
+//        recyclerView.setAdapter(adapter);
+    }
+
+    /**
+     * Заполнение списка states бумагами
+     * @param jsonArray - массив с jsonObject ценных бумаг
+     * @throws JSONException
+     * @throws IOException
+     */
+    private void setStockPaperList(JSONArray jsonArray) throws JSONException, IOException {
+        // Переводим json в StockPaper и добавляем в список states
+        for (int i=0; i < jsonArray.length(); i++) {
+            StockPaper stockPaper = ParseJsonToStockPaper.JsonToStockPaper(jsonArray.get(i).toString());
+            // Todo добавить тренд
+            states.add(new State(
+                    stockPaper.getTicker(),
+                    stockPaper.getName(),
+                    R.drawable.baseline_home_24,
+                    Double.toString(stockPaper.getPrice()),
+                    "8"));
+        }
     }
 
     /**
