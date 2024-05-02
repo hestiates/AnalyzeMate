@@ -27,6 +27,8 @@ import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 
+import org.json.JSONArray;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -52,11 +54,16 @@ public class GraphFragment extends Fragment implements StockPaperCallback {
     }
 
     @Override
+    public void onStockPaperListReceived(JSONArray jsonArray) {
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_graph, container, false);
 
-        // Устанавливаем себя в качестве слушателя обновления баланса
+        // Устанавливаем себя в качестве слушателя получения данных о бумаге
         StockPaperHandler.setStockPaperCallback(this);
 
 

@@ -20,7 +20,9 @@ public class ParseJsonToStockPaper {
         ObjectMapper objectMapper = new ObjectMapper();
 
         StockPaper stockPaper = objectMapper.readValue(json, StockPaper.class);
-        stockPaper.setCandles();
+        if (stockPaper.getHistoricCandles() != null) {
+            stockPaper.setCandles();
+        }
         return stockPaper;
     }
 }

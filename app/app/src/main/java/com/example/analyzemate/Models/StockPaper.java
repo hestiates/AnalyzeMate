@@ -1,4 +1,5 @@
 package com.example.analyzemate.Models;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 /**
  * Данные о бумаге
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class StockPaper {
 
     @JsonProperty("ticker")
@@ -48,12 +50,21 @@ public class StockPaper {
         return historicCandles;
     }
 
+
+    public String getName() {
+        return name;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
     public List<Candle> getCandles() {
         return candles;
     }
 
     /**
-     * Получение данных из historic_cnadles в формате Candle
+     * Получение данных из historic_candles в формате Candle
      * Установка таймфрейма в переменную
      * @return List<Candle>
      */
