@@ -66,4 +66,8 @@
     <string name="some_info_str">Описание</string>
     <string name="strategy_str">Стратегия</string>
     <string name="briefcase">Портфель</string>
+    <string name="buy_lay">Покупка</string>
+    <string name="buy_count">Укажите количество</string>
+    <string name="buy_cost">Укажите цену</string>
+    <string name="sell_page">Продажа</string>
 </resources>

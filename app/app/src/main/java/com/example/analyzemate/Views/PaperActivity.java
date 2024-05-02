@@ -1,5 +1,6 @@
 package com.example.analyzemate.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -50,6 +51,20 @@ public class PaperActivity extends AppCompatActivity {
 
         // Установка listener на кнопку выхода
         btExit.setOnClickListener(view -> finish());
+
+        // Переход на экран покупки
+        btBuy.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), BuyPaperActivity.class));
+            overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
+            finish();
+        });
+
+        // Переход на экран продажи
+        btSell.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), SellPaperActivity.class));
+            overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
+            finish();
+        });
 
         // Установление адаптера pagerAdapter для ViewPager2
         ViewPager2 viewPager2 = findViewById(R.id.viewPager);

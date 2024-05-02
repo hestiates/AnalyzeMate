@@ -11,16 +11,17 @@
     android:background="@color/blue"
     android:weightSum="100">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        android:layout_marginTop="25dp">
+        android:layout_weight="4"
+        android:layout_marginTop="20dp">
 
         <ImageButton
             android:id="@+id/exit_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:src="@drawable/baseline_arrow_back_24"
             android:backgroundTint="@android:color/transparent"
             android:contentDescription="@string/back" />
@@ -31,7 +32,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="97"
+        android:layout_weight="96"
         app:cardCornerRadius="25dp"
         android:background="@color/white"
         android:layout_marginTop="10dp"

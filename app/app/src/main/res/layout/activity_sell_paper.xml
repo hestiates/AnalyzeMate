@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/blue"
+    tools:context=".Views.SellPaperActivity">
+
+    <TextView
+        android:id="@+id/exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sell_page"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/baseline_arrow_back_24"
+        app:drawableTint="@color/white"
+        android:drawablePadding="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/layout_buy_sell">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="10dp"
+            app:contentPadding="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <ImageView
+                    android:id="@+id/paperImageView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/baseline_account_balance_24"
+                    android:background="@android:color/transparent"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="15"/>
+
+                <TextView
+                    android:id="@+id/paperNameView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/paper"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:layout_weight="58"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="25"
+                    android:layout_marginStart="5dp">
+
+                    <TextView
+                        android:id="@+id/paperCost"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:text="@string/sample"
+                        android:textSize="16sp"
+                        android:textAlignment="textStart" />
+
+                    <TextView
+                        android:id="@+id/paperChange"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:text="5%"
+                        android:textColor="@android:color/holo_green_dark"
+                        android:textSize="20sp"
+                        android:gravity="start"
+                        android:layout_marginEnd="10dp"
+                        android:drawablePadding="15dp"
+                        app:drawableStartCompat="@drawable/trending_up" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <EditText
+            android:id="@+id/buy_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="15dp"
+            android:backgroundTint="@color/grey"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:hint="@string/buy_count"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="15dp"
+            tools:listitem="@layout/briefcase_item"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="15dp"
+            android:backgroundTint="@color/blue"
+            android:text="@string/selling_text"
+            android:textSize="20sp" />
+    </LinearLayout>
+</LinearLayout>
