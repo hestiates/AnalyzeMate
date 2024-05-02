@@ -12,7 +12,6 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.analyzemate.R;
 
 public class BuyPaperActivity extends AppCompatActivity {
-
     TextView exitBt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
