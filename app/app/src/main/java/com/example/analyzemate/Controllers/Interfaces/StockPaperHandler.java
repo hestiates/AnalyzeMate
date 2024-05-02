@@ -87,12 +87,13 @@ public class StockPaperHandler {
                         JSONArray jsonResponse = new JSONArray(responseBodyString);
                         JSONObject j = (JSONObject) jsonResponse.get(0);
 
+                        String ticker = j.getString("ticker");
                         String name = j.getString("name");
                         Double price = j.getDouble("price");
 
-                        StockPaperToUI stock_paper_to_ui = new StockPaperToUI(name, price);
+                        StockPaperToUI stockPaperToUI = new StockPaperToUI(ticker, name, price);
 
-                        callback.StockPaperToUIReceived(stock_paper_to_ui);
+                        callback.StockPaperToUIReceived(stockPaperToUI);
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
@@ -185,8 +186,6 @@ public class StockPaperHandler {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("token", "");
         String serverUrl = Constants.SERVER_URL;
-
-
 
         Request request = new Request.Builder()
                 .url(serverUrl + "securities")
