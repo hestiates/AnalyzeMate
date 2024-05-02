@@ -8,16 +8,11 @@ import androidx.annotation.NonNull;
 
 import com.example.analyzemate.Models.Constants;
 import com.example.analyzemate.Models.ExistingUser;
-import com.example.analyzemate.Models.User;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.AbstractMap;
-import java.util.Date;
-import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
