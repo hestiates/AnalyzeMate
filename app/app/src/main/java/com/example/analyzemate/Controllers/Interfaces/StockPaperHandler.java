@@ -2,6 +2,8 @@ package com.example.analyzemate.Controllers.Interfaces;
 
 import com.example.analyzemate.Models.Constants;
 import com.example.analyzemate.Models.EnumTimeframe;
+import com.example.analyzemate.Models.StockPaperToUI;
+import com.example.analyzemate.Controllers.Interfaces.StockPaperToUICallback;
 
 import java.io.IOException;
 
@@ -49,6 +51,56 @@ public class StockPaperHandler {
     }
 
     static String json;
+
+    public static void GetStockPaperFromServer(Context context, String ticker, StockPaperToUICallback callback) {
+        String ticketJson = "[\"" + ticker + "\"]";
+        RequestBody body = RequestBody.create(ticketJson, MediaType.parse("application/json"));
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", "");
+        String serverUrl = Constants.SERVER_URL;
+
+        Request request = new Request.Builder()
+                .url(serverUrl + "securities/?include_historic_candles=false&")
+                .addHeader("Authorization", "Bearer " + token)  // Добавляем заголовок с токеном
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (!response.isSuccessful()) {
+                        throw new IOException("Запрос к серверу не был успешен: " +
+                                response.code() + " " + response.message());
+                    }
+
+                    assert responseBody != null;
+                    String responseBodyString = responseBody.string();
+
+                    try {
+                        JSONArray jsonResponse = new JSONArray(responseBodyString);
+                        JSONObject j = (JSONObject) jsonResponse.get(0);
+
+                        String name = j.getString("name");
+                        Double price = j.getDouble("price");
+
+                        StockPaperToUI stock_paper_to_ui = new StockPaperToUI(name, price);
+
+                        callback.StockPaperToUIReceived(stock_paper_to_ui);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
+            }
+        });
+    }
 
     public static void GetJSONStockPaperFromServer(Context context, String ticker,
                                                      EnumTimeframe timeframe) {

@@ -98,7 +98,7 @@ public class PaperActivity extends AppCompatActivity {
         @Override
         public Fragment createFragment(int position) {
             if (position == 0) {
-                bundle.putString("description", "хихихихи хахахаха");
+                bundle.putString("ticker", "SBER");
                 frag = new OverviewFragment();
                 frag.setArguments(bundle);
                 return frag;

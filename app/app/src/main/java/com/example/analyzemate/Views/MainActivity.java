@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
      * Загглушка. Создает список бумаг и иконок
      */
     private void setInitialData() {
-        states.add(new State("test1","Gasprompt", R.drawable.baseline_gas_meter_24, "112.1", "8"));
-        states.add(new State("test2","RosCosmostars", R.drawable.baseline_home_24, "5.2", "131"));
+        states.add(new State("SBER","Gasprompt", R.drawable.baseline_gas_meter_24, "112.1", "8"));
+        states.add(new State("SBER","RosCosmostars", R.drawable.baseline_home_24, "5.2", "131"));
     }
 }
