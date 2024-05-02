@@ -59,7 +59,7 @@
                 android:textColor="@color/black"
                 android:layout_marginBottom="5dp"/>
             <TextView
-                android:id="@+id/surname_ed"
+                android:id="@+id/textView_surname_ed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/sample"
@@ -88,7 +88,7 @@
                 android:textColor="@color/black"
                 android:layout_marginBottom="5dp"/>
             <TextView
-                android:id="@+id/name_ed"
+                android:id="@+id/textView_name_ed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/sample"
@@ -117,7 +117,7 @@
                 android:textColor="@color/black"
                 android:layout_marginBottom="5dp"/>
             <TextView
-                android:id="@+id/patronymic_ed"
+                android:id="@+id/textView_patronymic_ed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/sample"
@@ -145,7 +145,7 @@
                 android:textColor="@color/black"
                 android:layout_marginBottom="5dp"/>
             <TextView
-                android:id="@+id/birthdate_ed"
+                android:id="@+id/textView_birthdate_ed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/sample"

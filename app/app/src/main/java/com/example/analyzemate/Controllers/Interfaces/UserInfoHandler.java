@@ -92,7 +92,7 @@ public class UserInfoHandler {
         });
     }
 
-    private static void GetCurrentUser(Context context, UserInfoCallback callback) {
+    public static void GetCurrentUser(Context context, UserInfoCallback callback) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("token", "");
         String serverUrl = Constants.SERVER_URL;
