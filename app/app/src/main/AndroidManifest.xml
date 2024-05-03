@@ -52,11 +52,16 @@
             android:name=".Views.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".Views.GraphActivity"
-            android:exported="false" />
-        <activity
             android:name=".Views.MainActivity"
             android:exported="true" />
+
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

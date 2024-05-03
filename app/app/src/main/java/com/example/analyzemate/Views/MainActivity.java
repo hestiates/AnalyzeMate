@@ -10,11 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.analyzemate.Controllers.Adapters.RecyclerViewAdapter;
+import com.example.analyzemate.Controllers.Interfaces.FireBaseHandler;
 import com.example.analyzemate.Controllers.Interfaces.OnBalanceUpdateListener;
 import com.example.analyzemate.Controllers.Interfaces.StockPaperHandler;
 import com.example.analyzemate.Controllers.Interfaces.UserInfoHandler;
@@ -23,7 +25,10 @@ import com.example.analyzemate.Models.ExistingUser;
 import com.example.analyzemate.Models.State;
 import com.example.analyzemate.R;
 import com.example.analyzemate.Views.Autorization.LoginActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 
@@ -55,6 +60,24 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
 
         textView_balance = findViewById(R.id.textView_balance);
         textView_balance.setOnClickListener(view -> CreateDialogView());
+
+        //// Отправка регистрационного токена на сервер для FCM push
+        Task<String> stringTask = FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            // Обработка ошибки
+                            return;
+                        }
+
+                        // Полученный токен
+                        String token = task.getResult();
+
+                        // Отправьте этот токен на ваш сервер FastAPI
+                        FireBaseHandler.sendRegistrationToken(getApplicationContext(), token);
+                    }
+                });
 
         // Устанавливаем себя в качестве слушателя обновления баланса
         UserInfoHandler.setBalanceUpdateListener(this);

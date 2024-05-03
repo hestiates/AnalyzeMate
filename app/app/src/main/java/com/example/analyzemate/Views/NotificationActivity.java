@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.analyzemate.Controllers.Interfaces.FireBaseHandler;
 import com.example.analyzemate.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -52,5 +53,8 @@ public class NotificationActivity extends AppCompatActivity {
             return false;
         });
         // -----------------------
+
+        //TODO запуск пуш
+        FireBaseHandler.getPushTest(this);
     }
 }

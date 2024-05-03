@@ -85,6 +85,14 @@ public class StockPaperHandler {
 
                     try {
                         JSONArray jsonResponse = new JSONArray(responseBodyString);
+
+                        // Если не было найдено бумаги по тикеру (тикер неверный)
+                        // То возвращаем null
+
+                        if (jsonResponse.length() == 0) {
+                            callback.StockPaperToUIReceived(null);
+                            return;
+                        }
                         JSONObject j = (JSONObject) jsonResponse.get(0);
 
                         String ticker = j.getString("ticker");
