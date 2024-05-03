@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "585532942409",
+    "project_id": "analyzemate",
+    "storage_bucket": "analyzemate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585532942409:android:80fc8041af9d3215b1b798",
+        "android_client_info": {
+          "package_name": "com.example.analyzemate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDPIinbbsR_0DoTQ8a3mOs7OdaF9i2S-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

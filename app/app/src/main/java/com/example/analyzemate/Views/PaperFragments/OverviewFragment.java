@@ -24,8 +24,8 @@ public class OverviewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_overview, container, false);
 
-//        textView_description = view.findViewById(R.id.textView_description);
-//        textView_price = view.findViewById(R.id.textView_cost);
+        textView_description = view.findViewById(R.id.textView_description);
+        textView_price = view.findViewById(R.id.textView_cost);
 
         assert getArguments() != null;
         String description_text = getArguments().getString("ticker");
