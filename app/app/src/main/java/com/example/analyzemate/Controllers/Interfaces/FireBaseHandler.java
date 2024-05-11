@@ -37,7 +37,7 @@ public class FireBaseHandler {
         RequestBody body = RequestBody.create(mediaType, "");
 
         Request request = new Request.Builder()
-                .url(serverUrl + "securities/?registration_token=" + registrationToken)
+                .url(serverUrl + "/notification/subscribe/?registration_token=" + registrationToken)
                 .addHeader("Authorization", "Bearer " + token)  // Добавляем заголовок с токеном
                 .post(body)
                 .build();
