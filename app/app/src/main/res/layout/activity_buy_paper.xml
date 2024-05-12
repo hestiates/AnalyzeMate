@@ -122,15 +122,16 @@
             android:hint="@string/buy_count"/>
 
         <Spinner
+            android:id="@+id/spinner_briefcase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="15dp"
             tools:listitem="@layout/briefcase_item"/>
 
         <Button
+            android:id="@+id/buy_bt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"

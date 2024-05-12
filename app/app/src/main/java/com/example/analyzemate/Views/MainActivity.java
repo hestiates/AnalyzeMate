@@ -3,9 +3,16 @@ package com.example.analyzemate.Views;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,14 +20,14 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.analyzemate.Controllers.Adapters.RecyclerViewAdapter;
+import com.example.analyzemate.Controllers.Adapters.UiAdapter;
 import com.example.analyzemate.Controllers.Interfaces.FireBaseHandler;
 import com.example.analyzemate.Controllers.Interfaces.OnBalanceUpdateListener;
-import com.example.analyzemate.Controllers.Interfaces.StockPaperHandler;
 import com.example.analyzemate.Controllers.Interfaces.UserInfoHandler;
-import com.example.analyzemate.Models.EnumTimeframe;
 import com.example.analyzemate.Models.ExistingUser;
 import com.example.analyzemate.Models.State;
 import com.example.analyzemate.R;
@@ -132,15 +139,14 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         });
 
         /*
-         * Настройка списка, задание адаптера
+         * Настройка списка ценных бумаг портфеля, задание адаптера
          */
         setInitialData();
         RecyclerView recyclerView = findViewById(R.id.recyclerViewHome);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, states);
         recyclerView.setAdapter(adapter);
 
-        // TODO Доделать добавление портфеля
-        /*
+        // Добавление портфелей
         ImageView bt_add = findViewById(R.id.bt_add);
         LinearLayout layout = findViewById(R.id.layout);
         bt_add.setOnClickListener(view -> {
@@ -148,41 +154,57 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
             if (MAX_BRIEFCASE <= curr_briefcase) {
                 bt_add.setVisibility(View.GONE);
             }
-            LinearLayout briefcaseLayout = new LinearLayout(view.getContext());
-            briefcaseLayout.setOrientation(LinearLayout.HORIZONTAL);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(
-                    UiAdapter.dpToPx(view.getContext(), 20),
-                    UiAdapter.dpToPx(view.getContext(), 10),
-                    UiAdapter.dpToPx(view.getContext(), 20),
-                    UiAdapter.dpToPx(view.getContext(), 10));
-            briefcaseLayout.setLayoutParams(layoutParams);
-            TransitionManager.beginDelayedTransition(briefcaseLayout, new AutoTransition());
+            CreateBriefcase(view, bt_add, layout);
+        });
+    }
 
-            TextView briefcaseTextView = new TextView(view.getContext());
-            briefcaseTextView.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-            briefcaseTextView.setText(R.string.briefcase);
-            briefcaseTextView.setTextSize(22);
-            briefcaseTextView.setTextColor(Color.BLACK);
-            briefcaseLayout.addView(briefcaseTextView);
+    /*
+        Метод для создания новых портфелей.
+        Создает новый портфель с пустым списком ценных бумаг.
+     */
+    private void CreateBriefcase(View view, ImageView bt_add, LinearLayout layout) {
+        LinearLayout briefcaseLayout = new LinearLayout(view.getContext());
+        briefcaseLayout.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(
+                UiAdapter.dpToPx(view.getContext(), 20),
+                UiAdapter.dpToPx(view.getContext(), 10),
+                UiAdapter.dpToPx(view.getContext(), 20),
+                UiAdapter.dpToPx(view.getContext(), 10));
+        briefcaseLayout.setLayoutParams(layoutParams);
+        TransitionManager.beginDelayedTransition(briefcaseLayout, new AutoTransition());
 
-            Button historyButton = new Button(view.getContext());
-            layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT, 1);
-            historyButton.setLayoutParams(layoutParams);
-            historyButton.setText(R.string.history);
-            historyButton.setTextSize(15);
-            historyButton.setBackgroundColor(Color.TRANSPARENT);
-            historyButton.setTextColor(Color.BLACK);
-            historyButton.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0, R.drawable.baseline_history_24,0);
-            briefcaseLayout.addView(historyButton);
-            layout.addView(briefcaseLayout);
-        });*/
+        TextView briefcaseTextView = new TextView(view.getContext());
+        briefcaseTextView.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        briefcaseTextView.setText(R.string.briefcase);
+        briefcaseTextView.setTextSize(22);
+        briefcaseTextView.setTextColor(Color.BLACK);
+        briefcaseLayout.addView(briefcaseTextView);
+
+        Button historyButton = new Button(view.getContext());
+        layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+        historyButton.setLayoutParams(layoutParams);
+        historyButton.setText(R.string.history);
+        historyButton.setTextSize(15);
+        historyButton.setBackgroundColor(Color.TRANSPARENT);
+        historyButton.setTextColor(Color.BLACK);
+        historyButton.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0, R.drawable.baseline_history_24,0);
+        briefcaseLayout.addView(historyButton);
+        layout.addView(briefcaseLayout);
+
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, states);
+        RecyclerView recyclerView = new RecyclerView(layout.getContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setId(View.generateViewId());
+        Toast.makeText(view.getContext(),String.valueOf(recyclerView.getId()), Toast.LENGTH_SHORT).show();
+        recyclerView.setLayoutManager(new LinearLayoutManager(briefcaseLayout.getContext()));
+        layout.addView(recyclerView);
     }
 
     private void CreateDialogView() {

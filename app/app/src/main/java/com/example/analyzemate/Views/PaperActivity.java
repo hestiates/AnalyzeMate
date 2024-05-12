@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -38,11 +37,6 @@ public class PaperActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        // Получение номера ценной бумаги
-        Bundle extras = getIntent().getExtras();
-        assert extras != null;
-        Toast.makeText(PaperActivity.this, extras.getString("uid"), Toast.LENGTH_SHORT).show();
 
         // Определение кнопок
         btExit = findViewById(R.id.exit_button);
@@ -88,8 +82,9 @@ public class PaperActivity extends AppCompatActivity {
     /**
      * Адаптер горизонтальной прокрутки
      */
-    private static class ScreenSlidePagerAdapter extends FragmentStateAdapter {
+    private class ScreenSlidePagerAdapter extends FragmentStateAdapter {
         Bundle bundle = new Bundle();
+        Bundle extra = getIntent().getExtras();
         Fragment frag;
         public ScreenSlidePagerAdapter(FragmentActivity fragAct) {
             super(fragAct);
@@ -98,7 +93,7 @@ public class PaperActivity extends AppCompatActivity {
         @Override
         public Fragment createFragment(int position) {
             if (position == 0) {
-                bundle.putString("ticker", "SBER");
+                bundle.putString("ticker", extra.getString("uid"));
                 frag = new OverviewFragment();
                 frag.setArguments(bundle);
                 return frag;

@@ -48,6 +48,7 @@ dependencies {
 }
 
 dependencies {
+    implementation(libs.play.services.tasks)
     implementation(libs.firebase.messaging)
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.0")
