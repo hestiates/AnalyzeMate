@@ -8,11 +8,15 @@ import androidx.annotation.NonNull;
 
 import com.example.analyzemate.Models.Constants;
 import com.example.analyzemate.Models.ExistingUser;
+import com.example.analyzemate.Models.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -139,12 +143,27 @@ public class UserInfoHandler {
                         String birthdate = jsonResponse.getString("birthdate");
                         String config = jsonResponse.getString("config");
 
+
+
+                        // Формат входной даты
+                        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+                        // Формат выходной даты
+                        SimpleDateFormat outputFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+                        // Преобразование строки в Date
+                        Date date = inputFormat.parse(birthdate);
+
+                        // Преобразование Date в строку с нужным форматом
+                        String outputDateString = outputFormat.format(date);
                         ExistingUser user_from_server = new ExistingUser(id, email, is_active, is_superuser, is_verified,
-                                balance, patronymic, name, surname, birthdate, config);
+                                balance, patronymic, name, surname, outputDateString, config);
 
                         callback.onSuccess(user_from_server);
 
                     } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    } catch (ParseException e) {
                         throw new RuntimeException(e);
                     }
                 }

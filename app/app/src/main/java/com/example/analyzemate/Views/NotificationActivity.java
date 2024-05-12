@@ -53,8 +53,5 @@ public class NotificationActivity extends AppCompatActivity {
             return false;
         });
         // -----------------------
-
-        //TODO запуск пуш
-        FireBaseHandler.getPushTest(this);
     }
 }
