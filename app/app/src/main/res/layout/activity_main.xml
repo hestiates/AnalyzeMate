@@ -68,35 +68,6 @@
                     </LinearLayout>
                 </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/port_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="20dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:gravity="start|center_vertical"
-                    android:text="@string/briefcase"
-                    android:textColor="@color/black"
-                    android:textSize="22sp"
-                    android:layout_weight="1"/>
-
-                <Button
-                    android:id="@+id/history_button_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:text="@string/history"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:drawableEnd="@drawable/baseline_history_24"/>
-            </LinearLayout>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewHome"
                 android:layout_width="match_parent"

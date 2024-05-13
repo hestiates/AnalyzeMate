@@ -1,5 +1,6 @@
 package com.example.analyzemate.Views;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,6 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.analyzemate.Controllers.Adapters.RecyclerViewAdapter;
 import com.example.analyzemate.Controllers.Adapters.UiAdapter;
+import com.example.analyzemate.Controllers.Interfaces.AlertDialogListener;
+import com.example.analyzemate.Controllers.Interfaces.EditPortfolioCallback;
 import com.example.analyzemate.Controllers.Interfaces.FireBaseHandler;
 import com.example.analyzemate.Controllers.Interfaces.OnBalanceUpdateListener;
 import com.example.analyzemate.Controllers.Interfaces.PortfolioCallback;
@@ -66,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         setContentView(R.layout.activity_main);
 
         textView_balance = findViewById(R.id.textView_balance);
-        textView_balance.setOnClickListener(view -> CreateDialogView());
         ImageView bt_add = findViewById(R.id.bt_add);
         LinearLayout layout = findViewById(R.id.layout);
 
@@ -146,6 +148,10 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         PortfolioHandler.getUsersPortfolios(this, new PortfolioCallback() {
             @Override
             public void PortfolioReceived(ArrayList<Portfolio> portfolioList) {
+                if (portfolioList.toArray().length >= 3) {
+                    curr_briefcase = 3;
+                    bt_add.setVisibility(View.GONE);
+                }
                 for (int i = 0; i < portfolioList.toArray().length; i++) {
                     Portfolio portfolio = portfolioList.get(i);
                     int portfolioID = i + 1;
@@ -164,11 +170,38 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
 
         // Добавление портфелей
         bt_add.setOnClickListener(view -> {
+            /*final double[] portfolio_balance = {0.0f};
+            runOnUiThread(new Runnable() {
+              @Override
+              public void run() {
+                CreateDialogView(MainActivity.this, new AlertDialogListener() {
+                    @Override
+                    public void OnPositiveReceived(float balance) {
+                        portfolio_balance[0] = balance;
+                    }
+                });
+              }
+            });*/
             curr_briefcase++;
             if (MAX_BRIEFCASE <= curr_briefcase) {
                 bt_add.setVisibility(View.GONE);
             }
-            CreateBriefcase(view.getContext(), layout, curr_briefcase);
+            try {
+                PortfolioHandler.AddNewPortfolio(MainActivity.this, portfolio_balance[0], new EditPortfolioCallback() {
+                    @Override
+                    public void EditPortfolioSuccess() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "Портфель создан", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            recreate();
         });
     }
 
@@ -219,23 +252,16 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         layout.addView(recyclerView);
     }
 
-    private void CreateDialogView() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Введите баланс");
-        final EditText input = new EditText(this);
+    private void CreateDialogView(Activity activity, AlertDialogListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("Введите баланс портфеля");
+        final EditText input = new EditText(activity);
         input.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
         builder.setView(input);
 
         builder.setPositiveButton("Принять", (dialogInterface, i) -> {
-            float d = (float) Double.parseDouble(input.getText().toString());
-
-            textView_balance.setText(String.valueOf(d));
-
-            try {
-                UserInfoHandler.UpdateUserBalance(MainActivity.this, d);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
+            float balance = (float) Double.parseDouble(input.getText().toString());
+            listener.OnPositiveReceived(balance);
         });
         builder.setNegativeButton("Отмена", (dialogInterface, i) -> dialogInterface.cancel());
         builder.show();

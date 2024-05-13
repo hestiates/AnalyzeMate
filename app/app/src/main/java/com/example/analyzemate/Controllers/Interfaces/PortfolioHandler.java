@@ -1,29 +1,21 @@
 package com.example.analyzemate.Controllers.Interfaces;
-import com.example.analyzemate.Models.Constants;
-import com.example.analyzemate.Models.ExistingUser;
-import com.example.analyzemate.Models.State;
-import com.example.analyzemate.Models.StockPaperToUI;
-import com.example.analyzemate.Models.User;
-import com.example.analyzemate.Models.Portfolio;
-import com.example.analyzemate.Controllers.Interfaces.PortfolioCallback;
-import com.example.analyzemate.Controllers.Interfaces.EditPortfolioCallback;
-import com.example.analyzemate.R;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
-import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+
+import com.example.analyzemate.Models.Constants;
+import com.example.analyzemate.Models.Portfolio;
+import com.example.analyzemate.Models.State;
+import com.example.analyzemate.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -53,7 +45,7 @@ public class PortfolioHandler {
         Request request = new Request.Builder()
                 .url(serverUrl + "portfolio/")
                 .addHeader("Authorization", "Bearer " + token)  // Добавляем заголовок с токеном
-                .patch(requestBody)
+                .post(requestBody)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -70,7 +62,6 @@ public class PortfolioHandler {
                                 response.code() + " " + response.message());
                     }
                     callback.EditPortfolioSuccess();
-                    Toast.makeText(context, "Новый портфель успешно создан", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -112,7 +103,6 @@ public class PortfolioHandler {
                                 response.code() + " " + response.message());
                     }
                     callback.EditPortfolioSuccess();
-                    Toast.makeText(context, "Ценная бумага успешно куплена", Toast.LENGTH_SHORT).show();
                 }
             }
         });
