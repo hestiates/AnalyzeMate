@@ -47,7 +47,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.bankView.setImageResource(state.getBankResource());
         holder.nameView.setText(state.getName());
         holder.costView.setText(state.getCost());
-        holder.trendView.setText(state.getTrend());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

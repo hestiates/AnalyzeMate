@@ -143,24 +143,21 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         /*
          * Настройка списка ценных бумаг портфеля, задание адаптера
          */
-        setInitialData();
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewHome);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, states);
-        recyclerView.setAdapter(adapter);
         PortfolioHandler.getUsersPortfolios(this, new PortfolioCallback() {
             @Override
             public void PortfolioReceived(ArrayList<Portfolio> portfolioList) {
                 for (int i = 0; i < portfolioList.toArray().length; i++) {
                     Portfolio portfolio = portfolioList.get(i);
+                    int portfolioID = i + 1;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            CreateBriefcase(getApplicationContext(), layout);
+                            CreateBriefcase(MainActivity.this, layout, portfolioID);
+                            RecyclerView recyclerView = findViewById(portfolioID);
+                            RecyclerViewAdapter adapter = new RecyclerViewAdapter(MainActivity.this, portfolio.securities);
+                            recyclerView.setAdapter(adapter);
                         }
                     });
-                    RecyclerView recyclerView = findViewById(curr_briefcase);
-                    RecyclerViewAdapter adapter = new RecyclerViewAdapter(getApplicationContext(), portfolio.securities);
-                    recyclerView.setAdapter(adapter);
                 }
             }
         });
@@ -171,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
             if (MAX_BRIEFCASE <= curr_briefcase) {
                 bt_add.setVisibility(View.GONE);
             }
-            CreateBriefcase(view.getContext(), layout);
+            CreateBriefcase(view.getContext(), layout, curr_briefcase);
         });
     }
 
@@ -179,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         Метод для создания новых портфелей.
         Создает новый портфель с пустым списком ценных бумаг.
      */
-    private void CreateBriefcase(Context context, LinearLayout layout) {
+    private void CreateBriefcase(Context context, LinearLayout layout, int portfolioID) {
         LinearLayout briefcaseLayout = new LinearLayout(context);
         briefcaseLayout.setOrientation(LinearLayout.HORIZONTAL);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -217,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
 //        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, states);
 //        recyclerView.setAdapter(adapter);
         RecyclerView recyclerView = new RecyclerView(layout.getContext());
-        recyclerView.setId(curr_briefcase);
+        recyclerView.setId(portfolioID);
         recyclerView.setLayoutManager(new LinearLayoutManager(briefcaseLayout.getContext()));
         layout.addView(recyclerView);
     }
@@ -277,13 +274,5 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         } else {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
-    }
-
-    /**
-     * Загглушка. Создает список бумаг и иконок
-     */
-    private void setInitialData() {
-        states.add(new State("SBER","Gasprompt", R.drawable.baseline_gas_meter_24, "112.1", "8"));
-        states.add(new State("SBER","RosCosmostars", R.drawable.baseline_home_24, "5.2", "131"));
     }
 }

@@ -6,7 +6,6 @@ public class State {
     private String name;
     private String cost;
     private String trend;
-
     public State(String uid, String name, Integer bank, String cost, String trend) {
         this.uid = uid;
         this.name = name;
