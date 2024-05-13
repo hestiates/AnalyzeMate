@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
-import android.transition.AutoTransition;
-import android.transition.TransitionManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
-
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -29,9 +25,9 @@ import com.example.analyzemate.Controllers.Adapters.RecyclerViewAdapter;
 import com.example.analyzemate.Controllers.Adapters.UiAdapter;
 import com.example.analyzemate.Controllers.Interfaces.FireBaseHandler;
 import com.example.analyzemate.Controllers.Interfaces.OnBalanceUpdateListener;
-import com.example.analyzemate.Controllers.Interfaces.UserInfoHandler;
 import com.example.analyzemate.Controllers.Interfaces.PortfolioCallback;
 import com.example.analyzemate.Controllers.Interfaces.PortfolioHandler;
+import com.example.analyzemate.Controllers.Interfaces.UserInfoHandler;
 import com.example.analyzemate.Models.ExistingUser;
 import com.example.analyzemate.Models.Portfolio;
 import com.example.analyzemate.Models.State;
@@ -49,7 +45,7 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements OnBalanceUpdateListener {
     ArrayList<State> states = new ArrayList<State>();
-    Integer curr_briefcase = 1;
+    private Integer curr_briefcase = 1;
     private static final int MAX_BRIEFCASE = 3;
     public static final String APP_PREFERENCES = "user";
     TextView textView_balance;
@@ -61,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
 
     @Override
     public void existingUserReceived(ExistingUser existingUser) {
-
     }
 
     @Override
@@ -72,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
 
         textView_balance = findViewById(R.id.textView_balance);
         textView_balance.setOnClickListener(view -> CreateDialogView());
+        ImageView bt_add = findViewById(R.id.bt_add);
+        LinearLayout layout = findViewById(R.id.layout);
 
         //// Отправка регистрационного токена на сервер для FCM push
         Task<String> stringTask = FirebaseMessaging.getInstance().getToken()
@@ -150,22 +147,31 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         RecyclerView recyclerView = findViewById(R.id.recyclerViewHome);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, states);
         recyclerView.setAdapter(adapter);
-
         PortfolioHandler.getUsersPortfolios(this, new PortfolioCallback() {
             @Override
             public void PortfolioReceived(ArrayList<Portfolio> portfolioList) {
+                for (int i = 0; i < portfolioList.toArray().length; i++) {
+                    Portfolio portfolio = portfolioList.get(i);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            CreateBriefcase(getApplicationContext(), layout);
+                        }
+                    });
+                    RecyclerView recyclerView = findViewById(curr_briefcase);
+                    RecyclerViewAdapter adapter = new RecyclerViewAdapter(getApplicationContext(), portfolio.securities);
+                    recyclerView.setAdapter(adapter);
+                }
             }
         });
 
         // Добавление портфелей
-        ImageView bt_add = findViewById(R.id.bt_add);
-        LinearLayout layout = findViewById(R.id.layout);
         bt_add.setOnClickListener(view -> {
             curr_briefcase++;
             if (MAX_BRIEFCASE <= curr_briefcase) {
                 bt_add.setVisibility(View.GONE);
             }
-            CreateBriefcase(view, bt_add, layout);
+            CreateBriefcase(view.getContext(), layout);
         });
     }
 
@@ -173,21 +179,20 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         Метод для создания новых портфелей.
         Создает новый портфель с пустым списком ценных бумаг.
      */
-    private void CreateBriefcase(View view, ImageView bt_add, LinearLayout layout) {
-        LinearLayout briefcaseLayout = new LinearLayout(view.getContext());
+    private void CreateBriefcase(Context context, LinearLayout layout) {
+        LinearLayout briefcaseLayout = new LinearLayout(context);
         briefcaseLayout.setOrientation(LinearLayout.HORIZONTAL);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(
-                UiAdapter.dpToPx(view.getContext(), 20),
-                UiAdapter.dpToPx(view.getContext(), 10),
-                UiAdapter.dpToPx(view.getContext(), 20),
-                UiAdapter.dpToPx(view.getContext(), 10));
+                UiAdapter.dpToPx(context, 20),
+                UiAdapter.dpToPx(context, 10),
+                UiAdapter.dpToPx(context, 20),
+                UiAdapter.dpToPx(context, 10));
         briefcaseLayout.setLayoutParams(layoutParams);
-        TransitionManager.beginDelayedTransition(briefcaseLayout, new AutoTransition());
 
-        TextView briefcaseTextView = new TextView(view.getContext());
+        TextView briefcaseTextView = new TextView(context);
         briefcaseTextView.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1));
@@ -196,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         briefcaseTextView.setTextColor(Color.BLACK);
         briefcaseLayout.addView(briefcaseTextView);
 
-        Button historyButton = new Button(view.getContext());
+        Button historyButton = new Button(context);
         layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1);
@@ -209,11 +214,10 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         briefcaseLayout.addView(historyButton);
         layout.addView(briefcaseLayout);
 
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, states);
+//        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, states);
+//        recyclerView.setAdapter(adapter);
         RecyclerView recyclerView = new RecyclerView(layout.getContext());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setId(View.generateViewId());
-        Toast.makeText(view.getContext(),String.valueOf(recyclerView.getId()), Toast.LENGTH_SHORT).show();
+        recyclerView.setId(curr_briefcase);
         recyclerView.setLayoutManager(new LinearLayoutManager(briefcaseLayout.getContext()));
         layout.addView(recyclerView);
     }
