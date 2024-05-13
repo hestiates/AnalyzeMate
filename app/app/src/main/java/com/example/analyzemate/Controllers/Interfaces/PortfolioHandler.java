@@ -6,6 +6,7 @@ import com.example.analyzemate.Models.StockPaperToUI;
 import com.example.analyzemate.Models.User;
 import com.example.analyzemate.Models.Portfolio;
 import com.example.analyzemate.Controllers.Interfaces.PortfolioCallback;
+import com.example.analyzemate.Controllers.Interfaces.EditPortfolioCallback;
 import com.example.analyzemate.R;
 
 import android.content.Context;
@@ -36,7 +37,46 @@ import okhttp3.ResponseBody;
 public class PortfolioHandler {
     static OkHttpClient client = new OkHttpClient();
 
-    public static void MakeTransaction(Context context, String transactionType, Integer volume, String security, Integer idPortfolio) throws JSONException {
+    public static void AddNewPortfolio(Context context, Double balance, EditPortfolioCallback callback) throws JSONException {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", "");
+        String serverUrl = Constants.SERVER_URL;
+
+        // постройка тела запроса
+        JSONObject jsonBody = new JSONObject();
+        jsonBody.put("balance", balance);
+
+        RequestBody requestBody = RequestBody.create(String.valueOf(jsonBody),
+                MediaType.parse("application/json"));
+
+        // формирование запроса
+        Request request = new Request.Builder()
+                .url(serverUrl + "portfolio/")
+                .addHeader("Authorization", "Bearer " + token)  // Добавляем заголовок с токеном
+                .patch(requestBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (!response.isSuccessful()) {
+                        throw new IOException("Запрос к серверу не был успешен: " +
+                                response.code() + " " + response.message());
+                    }
+                    callback.EditPortfolioSuccess();
+                    Toast.makeText(context, "Новый портфель успешно создан", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public static void MakeTransaction(Context context, String transactionType, Integer volume, String security, Integer idPortfolio, EditPortfolioCallback callback) throws JSONException {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("token", "");
         String serverUrl = Constants.SERVER_URL;
@@ -71,6 +111,7 @@ public class PortfolioHandler {
                         throw new IOException("Запрос к серверу не был успешен: " +
                                 response.code() + " " + response.message());
                     }
+                    callback.EditPortfolioSuccess();
                     Toast.makeText(context, "Ценная бумага успешно куплена", Toast.LENGTH_SHORT).show();
                 }
             }
