@@ -11,7 +11,7 @@ import com.example.analyzemate.R;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import org.json.JSONArray;
@@ -48,10 +48,14 @@ public class PortfolioHandler {
         jsonBody.put("security", security);
         jsonBody.put("portfolio", idPortfolio);
 
+        RequestBody requestBody = RequestBody.create(String.valueOf(jsonBody),
+                MediaType.parse("application/json"));
+
         // формирование запроса
         Request request = new Request.Builder()
                 .url(serverUrl + "portfolio/transaction/?transaction_type=" + transactionType)
                 .addHeader("Authorization", "Bearer " + token)  // Добавляем заголовок с токеном
+                .patch(requestBody)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -63,51 +67,11 @@ public class PortfolioHandler {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
-                    // обработка ошибки
                     if (!response.isSuccessful()) {
                         throw new IOException("Запрос к серверу не был успешен: " +
                                 response.code() + " " + response.message());
                     }
-
-                    assert responseBody != null;
-                    String responseBodyString = responseBody.string();
-                    ArrayList<Portfolio> portfolioList = new ArrayList<>();
-                    // получение баланса из блока ответа сервера
-                    try {
-                        JSONArray jsonArray = new JSONArray(responseBodyString);
-
-                        // проходимся по каждому портфелю
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonResponse = (JSONObject) jsonArray.get(i);
-
-                            Integer id = jsonResponse.getInt("id");
-                            Float balance = (float) jsonResponse.getDouble("balance");
-                            Integer ownerId = jsonResponse.getInt("owner");
-
-                            Portfolio portfolio = new Portfolio(id, balance, ownerId);
-
-                            JSONArray securitiesArray = jsonResponse.getJSONArray("securities");
-
-                            // и по каждой бумаге в портфеле
-                            for (int j = 0; j < securitiesArray.length(); j++) {
-                                JSONObject tmp = (JSONObject) securitiesArray.get(j);
-
-                                String ticker = tmp.getString("ticker");
-                                String name = tmp.getString("name");
-                                String cost = String.valueOf(tmp.getDouble("price"));
-                                String volume = String.valueOf(tmp.getInt("volume"));
-                                String delta_price = String.valueOf(tmp.getDouble("delta_price"));
-
-                                State paper = new State(ticker, name, R.drawable.baseline_home_24, cost, delta_price);
-
-                                portfolio.AddToPortfolio(paper);
-                            }
-                            portfolioList.add(portfolio);
-                        }
-                        callback.PortfolioReceived(portfolioList);
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
+                    Toast.makeText(context, "Ценная бумага успешно куплена", Toast.LENGTH_SHORT).show();
                 }
             }
         });
