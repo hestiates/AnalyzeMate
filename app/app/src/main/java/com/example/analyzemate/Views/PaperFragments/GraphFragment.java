@@ -164,8 +164,9 @@ public class GraphFragment extends Fragment implements StockPaperCallback {
                     timeframe = EnumTimeframe.CANDLE_INTERVAL_DAY;
                 }
 
-                // TODO Сделать передачу между активити тикера бумаги
-                String ticker = "SBER";
+                // Передача между активити тикера бумаги
+                assert getArguments() != null;
+                String ticker = getArguments().getString("ticker");
 
                 // Запрос к серверу на получение данных о бумаге
                 StockPaperHandler.GetJSONStockPaperFromServer(view.getContext(), ticker, timeframe);

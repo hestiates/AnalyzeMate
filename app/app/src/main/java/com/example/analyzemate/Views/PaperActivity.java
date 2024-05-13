@@ -98,10 +98,18 @@ public class PaperActivity extends AppCompatActivity {
                 frag.setArguments(bundle);
                 return frag;
             }
-            else if (position == 1)
-                return new GraphFragment();
-            else
-                return new TrackingFragment();
+            else if (position == 1) {
+                bundle.putString("ticker", extra.getString("uid"));
+                frag = new GraphFragment();
+                frag.setArguments(bundle);
+                return frag;
+            }
+            else    {
+                bundle.putString("ticker", extra.getString("uid"));
+                frag = new TrackingFragment();
+                frag.setArguments(bundle);
+                return frag;
+            }
         }
         @Override
         public int getItemCount() {

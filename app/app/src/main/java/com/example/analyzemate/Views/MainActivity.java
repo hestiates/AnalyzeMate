@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.util.Log;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -28,7 +30,10 @@ import com.example.analyzemate.Controllers.Adapters.UiAdapter;
 import com.example.analyzemate.Controllers.Interfaces.FireBaseHandler;
 import com.example.analyzemate.Controllers.Interfaces.OnBalanceUpdateListener;
 import com.example.analyzemate.Controllers.Interfaces.UserInfoHandler;
+import com.example.analyzemate.Controllers.Interfaces.PortfolioCallback;
+import com.example.analyzemate.Controllers.Interfaces.PortfolioHandler;
 import com.example.analyzemate.Models.ExistingUser;
+import com.example.analyzemate.Models.Portfolio;
 import com.example.analyzemate.Models.State;
 import com.example.analyzemate.R;
 import com.example.analyzemate.Views.Autorization.LoginActivity;
@@ -145,6 +150,12 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         RecyclerView recyclerView = findViewById(R.id.recyclerViewHome);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, states);
         recyclerView.setAdapter(adapter);
+
+        PortfolioHandler.getUsersPortfolios(this, new PortfolioCallback() {
+            @Override
+            public void PortfolioReceived(ArrayList<Portfolio> portfolioList) {
+            }
+        });
 
         // Добавление портфелей
         ImageView bt_add = findViewById(R.id.bt_add);

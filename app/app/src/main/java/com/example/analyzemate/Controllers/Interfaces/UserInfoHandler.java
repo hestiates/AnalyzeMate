@@ -143,8 +143,6 @@ public class UserInfoHandler {
                         String birthdate = jsonResponse.getString("birthdate");
                         String config = jsonResponse.getString("config");
 
-
-
                         // Формат входной даты
                         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
@@ -161,9 +159,7 @@ public class UserInfoHandler {
 
                         callback.onSuccess(user_from_server);
 
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    } catch (ParseException e) {
+                    } catch (JSONException | ParseException e) {
                         throw new RuntimeException(e);
                     }
                 }
