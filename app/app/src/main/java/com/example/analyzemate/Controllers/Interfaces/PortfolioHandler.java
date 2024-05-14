@@ -2,6 +2,7 @@ package com.example.analyzemate.Controllers.Interfaces;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -86,8 +87,12 @@ public class PortfolioHandler {
         Request request = new Request.Builder()
                 .url(serverUrl + "portfolio/transaction/?transaction_type=" + transactionType)
                 .addHeader("Authorization", "Bearer " + token)  // Добавляем заголовок с токеном
-                .patch(requestBody)
+                .post(requestBody)
                 .build();
+
+        Log.d("MakeTransaction", idPortfolio.toString());
+        Log.d("MakeTransaction", "Request URL: " + request.url());
+        Log.d("MakeTransaction", "Request Headers: " + request.headers().toString());
 
         client.newCall(request).enqueue(new Callback() {
             @Override
