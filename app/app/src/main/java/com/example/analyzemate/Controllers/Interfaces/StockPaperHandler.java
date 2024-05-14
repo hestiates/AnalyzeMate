@@ -187,6 +187,56 @@ public class StockPaperHandler {
 
 
     /**
+     * Запрос для поиска ценной бумаги по 1 букве
+     * @param context - контекст (активити), для получения токена из sharedPreferences
+     * @param ticker - тикер бумаги
+     */
+    public static void GetSearchStockPaperFromServer(Context context, String ticker) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", "");
+        String serverUrl = Constants.SERVER_URL;
+
+        Request request = new Request.Builder()
+                .url(serverUrl + "securities/search/" + ticker)
+                .addHeader("Authorization", "Bearer " + token)  // Добавляем заголовок с токеном
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (!response.isSuccessful()) {
+                        throw new IOException("Запрос к серверу не был успешен: " +
+                                response.code() + " " + response.message());
+                    }
+                    assert responseBody != null;
+                    String responseBodyString = responseBody.string();
+
+                    try {
+                        Log.d("Response", responseBodyString);
+                        JSONArray jsonResponse = new JSONArray(responseBodyString);
+
+                        // уведомляем слушателя
+                        // if нужен для проверки, что активити ждет данных о бумаге
+                        if (stockPaperCallback != null) {
+                            stockPaperCallback.onStockPaperListReceived(jsonResponse);
+                        }
+
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+    }
+
+
+    /**
      * Метод получения списка ценных бумаг
      * @param context - контекст (активити), для получения токена из sharedPreferences
      */
