@@ -71,6 +71,42 @@ public class PortfolioHandler {
         });
     }
 
+    public static void DeletePortfolio(Context context, int portfolioID, EditPortfolioCallback callback) throws JSONException {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", "");
+        String serverUrl = Constants.SERVER_URL;
+
+        // формирование запроса
+        Request request = new Request.Builder()
+                .url(serverUrl + "portfolio/" + portfolioID)
+                .addHeader("Authorization", "Bearer " + token)  // Добавляем заголовок с токеном
+                .delete()
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                try (ResponseBody responseBody = response.body()) {
+                    if (!response.isSuccessful()) {
+                        if (response.code() == 400) {
+                            new Handler(Looper.getMainLooper()).post(() ->
+                                    Toast.makeText(context, "Портфель не пуст", Toast.LENGTH_SHORT).show()
+                            );
+                        }
+                        throw new IOException("Запрос к серверу не был успешен: " +
+                                response.code() + " " + response.message());
+                    }
+                    callback.EditPortfolioSuccess();
+                }
+            }
+        });
+    }
+
     public static void MakeTransaction(Context context, String transactionType, Integer volume, String security, Integer idPortfolio, EditPortfolioCallback callback) throws JSONException {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("token", "");
@@ -184,7 +220,7 @@ public class PortfolioHandler {
                                 String volume = String.valueOf(tmp.getInt("volume"));
                                 String delta_price = String.valueOf(tmp.getDouble("delta_price"));
 
-                                State paper = new State(ticker, name, R.drawable.baseline_home_24, cost, delta_price);
+                                State paper = new State(ticker, name, R.drawable.baseline_home_24, cost, volume);
 
                                 portfolio.AddToPortfolio(paper);
                             }

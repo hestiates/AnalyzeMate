@@ -51,20 +51,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:text="@string/sample"
-                    android:textSize="16sp"
-                    android:textAlignment="textStart" />
+                    android:textSize="20sp"
+                    android:textAlignment="center" />
 
                 <TextView
                     android:id="@+id/paperChange"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="5%"
-                    android:textColor="@android:color/holo_green_dark"
+                    android:text="5"
+                    android:textColor="@android:color/black"
                     android:textSize="20sp"
-                    android:gravity="start"
+                    android:gravity="center"
                     android:layout_marginEnd="10dp"
-                    android:drawablePadding="15dp"
-                    app:drawableStartCompat="@drawable/trending_up" />
+                    android:drawablePadding="15dp"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
                 Portfolio portfolio = portfolioList.get(i);
                 int portfolioID = i + 1;
                 runOnUiThread(() -> {
-                    CreateBriefcase(MainActivity.this, layout, portfolioID);
+                    CreateBriefcase(MainActivity.this, layout, portfolioID, portfolio.id);
                     RecyclerView recyclerView = findViewById(portfolioID);
                     RecyclerViewAdapter adapter = new RecyclerViewAdapter(MainActivity.this, portfolio.securities);
                     recyclerView.setAdapter(adapter);
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         Метод для создания новых портфелей.
         Создает новый портфель с пустым списком ценных бумаг.
      */
-    private void CreateBriefcase(Context context, LinearLayout layout, int portfolioID) {
+    private void CreateBriefcase(Context context, LinearLayout layout, int portfolioID, int portfolio) {
         LinearLayout briefcaseLayout = new LinearLayout(context);
         briefcaseLayout.setOrientation(LinearLayout.HORIZONTAL);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -199,6 +199,9 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         briefcaseTextView.setText(R.string.briefcase);
         briefcaseTextView.setTextSize(22);
         briefcaseTextView.setTextColor(Color.BLACK);
+        briefcaseTextView.setOnClickListener(view -> {
+            DeleteBriefcaseDialogView(view, portfolio, portfolioID);
+        });
         briefcaseLayout.addView(briefcaseTextView);
 
         Button historyButton = new Button(context);
@@ -220,6 +223,29 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         layout.addView(recyclerView);
     }
 
+    /*
+        Метод удаления портфеля
+     */
+    private void DeleteBriefcaseDialogView(View view, int portfolio, int portfolioID) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setTitle("Вы уверены что хотите удалить Портфель " + portfolioID + "?");;
+
+        builder.setPositiveButton("Принять", (dialogInterface, i) -> {
+            try {
+                PortfolioHandler.DeletePortfolio(view.getContext(), portfolio, () -> {
+                    runOnUiThread(this::recreate);
+                });
+            } catch (JSONException e) {
+                runOnUiThread(() -> Toast.makeText(view.getContext(), e.toString(), Toast.LENGTH_SHORT).show());
+            }
+        });
+        builder.setNegativeButton("Отмена", (dialogInterface, i) -> dialogInterface.cancel());
+        builder.show();
+    }
+
+    /*
+        Метод создания дилогового окна ввода баланска портфеля
+     */
     private void CreateDialogView(Activity activity, AlertDialogListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle("Введите баланс портфеля");

@@ -1,5 +1,6 @@
 package com.example.analyzemate.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ArrayAdapter;
@@ -89,6 +90,8 @@ public class SellPaperActivity extends AppCompatActivity {
                                     Toast.makeText(this, "Бумага продана", Toast.LENGTH_SHORT).show()
                             );
                         });
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_to_right);
                 finish();
             } catch (JSONException e) {
                 throw new RuntimeException(e);

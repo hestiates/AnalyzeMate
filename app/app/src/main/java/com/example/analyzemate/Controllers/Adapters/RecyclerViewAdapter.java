@@ -47,6 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.bankView.setImageResource(state.getBankResource());
         holder.nameView.setText(state.getName());
         holder.costView.setText(state.getCost());
+        holder.trendView.setText(state.getTrend());
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), PaperActivity.class);
             intent.putExtra("uid", state.getUID());
@@ -62,7 +63,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public int getItemCount() {
         return states.size();
     }
-
 
     /**
      *  Модифицированный ViewHolder для представления предмета в списке
