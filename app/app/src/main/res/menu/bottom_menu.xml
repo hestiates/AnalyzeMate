@@ -17,11 +17,6 @@
         android:title="@string/stock_menu_text" />
 
     <item
-        android:id="@+id/bottom_notification"
-        android:icon="@drawable/baseline_notifications_none_24"
-        android:title="@string/notify_menu_text" />
-
-    <item
         android:id="@+id/bottom_account"
         android:icon="@drawable/outline_account_circle_24"
         android:title="@string/account_menu_text" />

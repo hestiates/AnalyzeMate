@@ -25,15 +25,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.analyzemate.Controllers.Adapters.RecyclerViewAdapter;
 import com.example.analyzemate.Controllers.Adapters.UiAdapter;
 import com.example.analyzemate.Controllers.Interfaces.AlertDialogListener;
-import com.example.analyzemate.Controllers.Interfaces.EditPortfolioCallback;
 import com.example.analyzemate.Controllers.Interfaces.FireBaseHandler;
 import com.example.analyzemate.Controllers.Interfaces.OnBalanceUpdateListener;
-import com.example.analyzemate.Controllers.Interfaces.PortfolioCallback;
 import com.example.analyzemate.Controllers.Interfaces.PortfolioHandler;
 import com.example.analyzemate.Controllers.Interfaces.UserInfoHandler;
 import com.example.analyzemate.Models.ExistingUser;
 import com.example.analyzemate.Models.Portfolio;
-import com.example.analyzemate.Models.State;
 import com.example.analyzemate.R;
 import com.example.analyzemate.Views.Autorization.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,11 +40,9 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements OnBalanceUpdateListener {
-    ArrayList<State> states = new ArrayList<State>();
     private Integer curr_briefcase = 1;
     private static final int MAX_BRIEFCASE = 3;
     public static final String APP_PREFERENCES = "user";
@@ -55,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
     @Override
     public void onBalanceUpdated(float balance) {
         // Обновляем UI с полученным балансом
-        textView_balance.setText(String.valueOf(balance));
+        runOnUiThread(() -> textView_balance.setText(String.valueOf(balance)));
     }
 
     @Override
@@ -104,9 +99,9 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         if (extras != null) { // Если Активити передало параметры
             RememberUser(extras, preferences);
         }
-
-        // Проверка авторизации пользователя
-        CheckAuthorizationToken(preferences);
+//
+//        // Проверка авторизации пользователя
+//        CheckAuthorizationToken(preferences);
 
         /*
         * Настройка навигационной панели
@@ -128,11 +123,6 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
                 overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
                 finish();
                 return true;
-            } else if (item_id == R.id.bottom_notification){
-                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
-                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
-                finish();
-                return true;
             } else if (item_id == R.id.bottom_account){
                 startActivity(new Intent(getApplicationContext(), AccountActivity.class));
                 overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
@@ -145,62 +135,44 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         /*
          * Настройка списка ценных бумаг портфеля, задание адаптера
          */
-        PortfolioHandler.getUsersPortfolios(this, new PortfolioCallback() {
-            @Override
-            public void PortfolioReceived(ArrayList<Portfolio> portfolioList) {
+        PortfolioHandler.getUsersPortfolios(this, portfolioList -> {
+            runOnUiThread(() -> {
                 if (portfolioList.toArray().length >= 3) {
                     curr_briefcase = 3;
                     bt_add.setVisibility(View.GONE);
                 }
-                for (int i = 0; i < portfolioList.toArray().length; i++) {
-                    Portfolio portfolio = portfolioList.get(i);
-                    int portfolioID = i + 1;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            CreateBriefcase(MainActivity.this, layout, portfolioID);
-                            RecyclerView recyclerView = findViewById(portfolioID);
-                            RecyclerViewAdapter adapter = new RecyclerViewAdapter(MainActivity.this, portfolio.securities);
-                            recyclerView.setAdapter(adapter);
-                        }
-                    });
-                }
+            });
+            for (int i = 0; i < portfolioList.toArray().length; i++) {
+                Portfolio portfolio = portfolioList.get(i);
+                int portfolioID = i + 1;
+                runOnUiThread(() -> {
+                    CreateBriefcase(MainActivity.this, layout, portfolioID);
+                    RecyclerView recyclerView = findViewById(portfolioID);
+                    RecyclerViewAdapter adapter = new RecyclerViewAdapter(MainActivity.this, portfolio.securities);
+                    recyclerView.setAdapter(adapter);
+                });
             }
         });
 
         // Добавление портфелей
-        bt_add.setOnClickListener(view -> {
-            CreateDialogView(this, new AlertDialogListener() {
-                @Override
-                public void OnPositiveReceived(float balance) {
-                    // Обработка введенного баланса
-                    final double portfolio_balance = balance;
+        bt_add.setOnClickListener(view -> CreateDialogView(this, balance -> {
+            // Обработка введенного баланса
+            final double portfolio_balance = balance;
 
-                    runOnUiThread(() -> {
-                        curr_briefcase++;
-                        if (MAX_BRIEFCASE <= curr_briefcase) {
-                            bt_add.setVisibility(View.GONE);
-                        }
-                    });
-                    try {
-                        PortfolioHandler.AddNewPortfolio(MainActivity.this, portfolio_balance, new EditPortfolioCallback() {
-                            @Override
-                            public void EditPortfolioSuccess() {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(MainActivity.this, "Портфель создан", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
-                        });
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                    runOnUiThread(() -> recreate());
+            runOnUiThread(() -> {
+                curr_briefcase++;
+                if (MAX_BRIEFCASE <= curr_briefcase) {
+                    bt_add.setVisibility(View.GONE);
                 }
             });
-        });
+            try {
+                PortfolioHandler.AddNewPortfolio(MainActivity.this, portfolio_balance, () ->
+                        runOnUiThread(() -> Toast.makeText(MainActivity.this, "Портфель создан", Toast.LENGTH_SHORT).show()));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            runOnUiThread(this::recreate);
+        }));
     }
 
     /*
