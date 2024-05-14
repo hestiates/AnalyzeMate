@@ -170,38 +170,36 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
 
         // Добавление портфелей
         bt_add.setOnClickListener(view -> {
-            /*final double[] portfolio_balance = {0.0f};
-            runOnUiThread(new Runnable() {
-              @Override
-              public void run() {
-                CreateDialogView(MainActivity.this, new AlertDialogListener() {
-                    @Override
-                    public void OnPositiveReceived(float balance) {
-                        portfolio_balance[0] = balance;
-                    }
-                });
-              }
-            });*/
-            curr_briefcase++;
-            if (MAX_BRIEFCASE <= curr_briefcase) {
-                bt_add.setVisibility(View.GONE);
-            }
-            try {
-                PortfolioHandler.AddNewPortfolio(MainActivity.this, portfolio_balance[0], new EditPortfolioCallback() {
-                    @Override
-                    public void EditPortfolioSuccess() {
-                        runOnUiThread(new Runnable() {
+            CreateDialogView(this, new AlertDialogListener() {
+                @Override
+                public void OnPositiveReceived(float balance) {
+                    // Обработка введенного баланса
+                    final double portfolio_balance = balance;
+
+                    runOnUiThread(() -> {
+                        curr_briefcase++;
+                        if (MAX_BRIEFCASE <= curr_briefcase) {
+                            bt_add.setVisibility(View.GONE);
+                        }
+                    });
+                    try {
+                        PortfolioHandler.AddNewPortfolio(MainActivity.this, portfolio_balance, new EditPortfolioCallback() {
                             @Override
-                            public void run() {
-                                Toast.makeText(MainActivity.this, "Портфель создан", Toast.LENGTH_SHORT).show();
+                            public void EditPortfolioSuccess() {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(MainActivity.this, "Портфель создан", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
                         });
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
                     }
-                });
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-            recreate();
+                    runOnUiThread(() -> recreate());
+                }
+            });
         });
     }
 
@@ -244,8 +242,6 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         briefcaseLayout.addView(historyButton);
         layout.addView(briefcaseLayout);
 
-//        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, states);
-//        recyclerView.setAdapter(adapter);
         RecyclerView recyclerView = new RecyclerView(layout.getContext());
         recyclerView.setId(portfolioID);
         recyclerView.setLayoutManager(new LinearLayoutManager(briefcaseLayout.getContext()));
@@ -260,8 +256,17 @@ public class MainActivity extends AppCompatActivity implements OnBalanceUpdateLi
         builder.setView(input);
 
         builder.setPositiveButton("Принять", (dialogInterface, i) -> {
-            float balance = (float) Double.parseDouble(input.getText().toString());
-            listener.OnPositiveReceived(balance);
+            String inputText = input.getText().toString();
+            if (!inputText.isEmpty()) {
+                try {
+                    float balance = Float.parseFloat(inputText);
+                    listener.OnPositiveReceived(balance);
+                } catch (NumberFormatException e) {
+                    input.setError("Некорректное значение");
+                }
+            } else {
+                input.setError("Поле не может быть пустым");
+            }
         });
         builder.setNegativeButton("Отмена", (dialogInterface, i) -> dialogInterface.cancel());
         builder.show();
