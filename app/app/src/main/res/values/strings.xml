@@ -5,7 +5,7 @@
     <string name="sample">sample</string>
     <string name="paper">Ценная бумага</string>
     <string name="notification_text">Новая рекомендация по ценным бумагам</string>
-    <string name="stock_name">Отслеживаемые бумаги</string>
+    <string name="stock_name">История транзакций</string>
     <string name="account_button">account button</string>
     <string name="find">find button</string>
     <string name="history">Смотреть все</string>
