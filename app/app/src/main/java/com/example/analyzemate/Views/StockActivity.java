@@ -2,11 +2,9 @@ package com.example.analyzemate.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
 
 import com.example.analyzemate.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -38,11 +36,6 @@ public class StockActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (item_id == R.id.bottom_stock){
-                return true;
-            } else if (item_id == R.id.bottom_notification){
-                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
-                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
-                finish();
                 return true;
             } else if (item_id == R.id.bottom_account){
                 startActivity(new Intent(getApplicationContext(), AccountActivity.class));

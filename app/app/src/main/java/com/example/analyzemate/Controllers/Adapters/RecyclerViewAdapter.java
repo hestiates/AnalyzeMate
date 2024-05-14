@@ -47,13 +47,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.bankView.setImageResource(state.getBankResource());
         holder.nameView.setText(state.getName());
         holder.costView.setText(state.getCost());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), PaperActivity.class);
-                intent.putExtra("uid", state.getUID());
-                view.getContext().startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), PaperActivity.class);
+            intent.putExtra("uid", state.getUID());
+            view.getContext().startActivity(intent);
         });
     }
 

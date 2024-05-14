@@ -23,6 +23,8 @@ import com.example.analyzemate.Views.PaperFragments.TrackingFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.Objects;
+
 public class PaperActivity extends AppCompatActivity {
     private static final int NUM_PAGES = 3;
     ImageButton btExit;
@@ -48,14 +50,18 @@ public class PaperActivity extends AppCompatActivity {
 
         // Переход на экран покупки
         btBuy.setOnClickListener(view -> {
-            startActivity(new Intent(getApplicationContext(), BuyPaperActivity.class));
+            Intent intent = new Intent(getApplicationContext(), BuyPaperActivity.class);
+            intent.putExtra("uid", Objects.requireNonNull(getIntent().getExtras()).getString("uid"));
+            startActivity(intent);
             overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
             finish();
         });
 
         // Переход на экран продажи
         btSell.setOnClickListener(view -> {
-            startActivity(new Intent(getApplicationContext(), SellPaperActivity.class));
+            Intent intent = new Intent(getApplicationContext(), SellPaperActivity.class);
+            intent.putExtra("uid", Objects.requireNonNull(getIntent().getExtras()).getString("uid"));
+            startActivity(intent);
             overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
             finish();
         });

@@ -3,7 +3,6 @@ package com.example.analyzemate.Views;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
@@ -23,11 +22,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 public class SearchActivity extends AppCompatActivity implements StockPaperCallback {
@@ -80,11 +77,6 @@ public class SearchActivity extends AppCompatActivity implements StockPaperCallb
                 return true;
             } else if (item_id == R.id.bottom_stock){
                 startActivity(new Intent(getApplicationContext(), StockActivity.class));
-                overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
-                finish();
-                return true;
-            } else if (item_id == R.id.bottom_notification){
-                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
                 overridePendingTransition(R.anim.slide_right, R.anim.slide_left);
                 finish();
                 return true;

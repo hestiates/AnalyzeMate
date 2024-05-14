@@ -67,15 +67,7 @@ public class AccountActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_to_left, R.anim.slide_to_right);
                 finish();
                 return true;
-            } else if (item_id == R.id.bottom_notification){
-                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
-                overridePendingTransition(R.anim.slide_to_left, R.anim.slide_to_right);
-                finish();
-                return true;
-            } else if (item_id == R.id.bottom_account){
-                return true;
-            }
-            return false;
+            } else return item_id == R.id.bottom_account;
         });
         // -----------------------
     }
