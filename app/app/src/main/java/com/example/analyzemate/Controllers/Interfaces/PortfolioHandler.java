@@ -2,7 +2,10 @@ package com.example.analyzemate.Controllers.Interfaces;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -104,10 +107,23 @@ public class PortfolioHandler {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
                     if (!response.isSuccessful()) {
+                        if (response.code() == 409) {
+                            new Handler(Looper.getMainLooper()).post(() ->
+                                            Toast.makeText(context, "В портфеле нет доступных бумаг для продаж", Toast.LENGTH_SHORT).show()
+                                    );
+                        } else if (response.code() == 400) {
+                            new Handler(Looper.getMainLooper()).post(() ->
+                                    Toast.makeText(context, "Недостаточно денег не балансе", Toast.LENGTH_SHORT).show()
+                            );
+                        }
                         throw new IOException("Запрос к серверу не был успешен: " +
                                 response.code() + " " + response.message());
                     }
                     callback.EditPortfolioSuccess();
+                }  catch (IOException e) {
+                    Log.e("MakeTransaction", "Ошибка при обработке ответа от сервера", e);
+                    throw new IOException("Запрос к серверу не был успешен: " +
+                            response.code() + " " + response.message());
                 }
             }
         });

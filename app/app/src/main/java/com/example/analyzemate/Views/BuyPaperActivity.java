@@ -2,7 +2,6 @@ package com.example.analyzemate.Views;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.ContextThemeWrapper;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -92,16 +90,5 @@ public class BuyPaperActivity extends AppCompatActivity {
             }
             finish();
         });
-    }
-
-    private void CreateDialogView() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.CenterTheme));
-        builder.setTitle("Купить ценную бумагу?");
-
-        builder.setPositiveButton("Принять", (dialogInterface, i) -> {
-            dialogInterface.cancel();
-        });
-        builder.setNegativeButton("Отмена", (dialogInterface, i) -> dialogInterface.cancel());
-        builder.show();
     }
 }
