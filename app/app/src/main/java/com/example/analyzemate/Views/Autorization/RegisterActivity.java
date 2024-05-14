@@ -186,7 +186,7 @@ public class RegisterActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         // Создание пользователя
-        User user = new User(email, surname, name, patronymic, date, password);
+        User user = new User(email, name, surname, patronymic, date, password);
 
         return  user;
     }
