@@ -107,18 +107,7 @@ public class SearchActivity extends AppCompatActivity implements StockPaperCallb
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // Запрос на получение ценной бумаги по тикеру (query)
-                StockPaperHandler.GetStockPaperFromServer(mContext, query, new StockPaperToUICallback() {
-                    @Override
-                    public void StockPaperToUIReceived(final StockPaperToUI stockPaperToUI) {
-                        runOnUiThread(() -> {
-                            handleSearchQuery(stockPaperToUI); // Обработка ответа и заполнения states
-
-                            RecyclerView recyclerView = findViewById(R.id.recyclerViewSearch);
-                            RecyclerViewAdapter adapter = new RecyclerViewAdapter(mContext, states);
-                            recyclerView.setAdapter(adapter);
-                        });
-                    }
-                });
+                StockPaperHandler.GetSearchStockPaperFromServer(mContext, query);
                 return true;
             }
 
