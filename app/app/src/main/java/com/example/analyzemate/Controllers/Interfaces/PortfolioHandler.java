@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -37,6 +38,7 @@ public class PortfolioHandler {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("token", "");
         String serverUrl = Constants.SERVER_URL;
+
 
         // постройка тела запроса
         JSONObject jsonBody = new JSONObject();
@@ -65,6 +67,18 @@ public class PortfolioHandler {
                         throw new IOException("Запрос к серверу не был успешен: " +
                                 response.code() + " " + response.message());
                     }
+
+                    int lastPortfolioId;
+                    if (!sharedPreferences.contains("lastPortfolio")) {
+                        lastPortfolioId = 1;
+                    }
+                    else {
+                        lastPortfolioId = Integer.parseInt(sharedPreferences.getString("lastPortfolio", ""));
+                    }
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("lastPortfolio", Integer.toString(lastPortfolioId));
+                    editor.apply();
+
                     callback.EditPortfolioSuccess();
                 }
             }
@@ -101,6 +115,7 @@ public class PortfolioHandler {
                         throw new IOException("Запрос к серверу не был успешен: " +
                                 response.code() + " " + response.message());
                     }
+
                     callback.EditPortfolioSuccess();
                 }
             }

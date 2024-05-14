@@ -46,7 +46,7 @@ public class TransactionHistoryHandler {
         String serverUrl = Constants.SERVER_URL;
 
         Request request = new Request.Builder()
-                .url(serverUrl + "portfolio/transaction/" + portfolio_id.toString())
+                .url(serverUrl + "portfolio/transaction/" + portfolio_id.toString() + "/")
                 .addHeader("Authorization", "Bearer " + token)  // Добавляем заголовок с токеном
                 .build();
 

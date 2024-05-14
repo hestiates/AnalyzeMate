@@ -66,7 +66,7 @@ public class SellPaperActivity extends AppCompatActivity {
         });
 
         countEt = findViewById(R.id.sell_count);
-        sellBt = findViewById(R.id.sell_bt);
+        sellBt = findViewById(R.id.trac_bt);
         sellBt.setOnClickListener(view -> {
             SpinnerObject spinnerObject = (SpinnerObject) portfolioSp.getSelectedItem();
             String security = Objects.requireNonNull(getIntent().getExtras()).getString("uid");

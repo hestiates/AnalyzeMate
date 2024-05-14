@@ -37,19 +37,33 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
+                        android:gravity="center_vertical"
                         android:text="@string/strategy_str"
                         android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"/>
+                        android:textStyle="bold" />
 
                     <ImageView
                         android:id="@+id/image_bt"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@drawable/baseline_expand_more_24"
-                        android:contentDescription="@string/sample" />
+                        android:contentDescription="@string/sample"
+                        android:src="@drawable/baseline_expand_more_24" />
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/trac_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/blue"
+                    android:onClick="SetTrack"
+                    android:text="Отслеживать"
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:id="@+id/hidden_layout"
@@ -138,5 +152,24 @@
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/prodgoze"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Консенсус прогноз"
+            android:textSize="34sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Покупать"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 </FrameLayout>
